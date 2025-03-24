@@ -4,10 +4,5 @@ using UnityEngine;
 
 public class ExperimentBlackboard : Blackboard<ExperimentBlackboard>
 {
-    Dictionary<(int, int), string> map;
-
-    void Awake()
-    {
-        map = new();
-    }
+    public Dictionary<(int, int), string> map = new();
 }

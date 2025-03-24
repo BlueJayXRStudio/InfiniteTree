@@ -1,1 +1,5 @@
 hello world!
+
+Submodule test 2
+
+Confirming external commits don't break other project references.

@@ -40,16 +40,25 @@ public class ExperimentBlackboard : Blackboard<ExperimentBlackboard>
         var path = new List<(int, int)>();
         var queue = new PriorityQueue<(int, int), float>();
 
-        // queue = [(0, start)]
-        //     heapify(queue)
+        queue.Enqueue(start, 0);
 
-        //     distances = defaultdict(lambda:float('inf'))
-        //     distances[start] = 0
+        var distances = new DefaultDictionary<(int, int), float>(() => float.PositiveInfinity);
+        distances[start] = 0;
 
-        //     visited = set()
-        //     parent = {}
+        var visited = new HashSet<(int, int)>();
 
-        //     print("planning on the 17th of february, 2025.")
+        var parent = new Dictionary<(int, int), (int, int)>();
+
+        
+        while (queue.Count > 0) {
+            (var u, var priority) = queue.Dequeue();
+
+            if (visited.Contains(u)) {
+
+            }
+
+        }
+        
         //     while queue:
         //         (priority, u) = heappop(queue)
 
@@ -138,4 +147,28 @@ class PriorityQueue<T, TPriority> where TPriority : IComparable<TPriority>
     }
 
     public int Count => heap.Count;
+}
+
+public class DefaultDictionary<TKey, TValue> : Dictionary<TKey, TValue>
+{
+    private readonly Func<TValue> _defaultValueFactory;
+
+    public DefaultDictionary(Func<TValue> defaultValueFactory)
+    {
+        _defaultValueFactory = defaultValueFactory;
+    }
+
+    public new TValue this[TKey key]
+    {
+        get
+        {
+            if (!TryGetValue(key, out var value))
+            {
+                value = _defaultValueFactory();
+                this[key] = value;
+            }
+            return value;
+        }
+        set => base[key] = value;
+    }
 }

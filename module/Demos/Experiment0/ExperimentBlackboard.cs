@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 public class ExperimentBlackboard : Blackboard<ExperimentBlackboard>
 {
@@ -54,46 +55,34 @@ public class ExperimentBlackboard : Blackboard<ExperimentBlackboard>
             (var u, var priority) = queue.Dequeue();
 
             if (visited.Contains(u)) {
-
+                continue;
             }
+            visited.Add(u);
 
+            if (u == end) break;
+
+            foreach ((var costuv, var v) in GetNeighbors(ExperimentBlackboard.Instance.map, u, end))
+            {
+                if (!visited.Contains(v)) {
+                    var newcost = distances[u] + costuv;
+                    if (newcost < distances[v]) {
+                        distances[v] = newcost;
+
+                        queue.Enqueue(v, newcost + Mathf.Sqrt(Mathf.Pow(end.Item1 - v.Item1, 2) + Mathf.Pow(end.Item2 - v.Item2, 2)));
+                        parent[v] = u;
+                    }
+                }
+
+                    
+            }
         }
-        
-        //     while queue:
-        //         (priority, u) = heappop(queue)
 
-        //         if u in visited:
-        //             print("GASP it was already expanded!")
-        //             continue
-
-        //         visited.add(u)
-
-        //         # run quadtree query during node expansion to prevent redundant queries
-        //         found_points = []
-        //         x, y = map2world(u[0], u[1])
-        //         qtree.query_radius((x+5, y+5), self.robot_radius, found_points)
-        //         if len(found_points) > 0:
-        //             continue
-
-        //         if u == self.goal:
-        //             break
-
-        //         for (costuv, v) in getNeighborsTiered(blackboard.read('cspace'), self.robot_radius, u, self.goal, self.tier):
-        //             if v not in visited:
-        //                 newcost = distances[u] + costuv
-        //                 if newcost < distances[v]:
-        //                     distances[v] = newcost
-        //                     heappush(queue, (newcost + np.sqrt((self.goal[0]-v[0])**2+(self.goal[1]-v[1])**2),v))
-        //                     parent[v] = u
-
-        //     path = []
-
-        //     key = self.goal
-        //     while key in parent.keys():
-        //         key = parent[key]
-        //         path.insert(0, key)
-
-        //     path.append(self.goal)
+        var key = end;
+        while (new List<(int, int)>(parent.Keys).Contains(key)) {
+            key = parent[key];
+            path.Insert(0, key);
+        }
+        path.Add(end);
 
         return path;
     }
@@ -137,9 +126,9 @@ class PriorityQueue<T, TPriority> where TPriority : IComparable<TPriority>
         BubbleUp(heap.Count - 1);
     }
 
-    public T Dequeue() {
+    public (T, TPriority) Dequeue() {
         if (heap.Count == 0) throw new InvalidOperationException("Queue is empty");
-        T item = heap[0].Item;
+        var item = heap[0];
         heap[0] = heap[^1];
         heap.RemoveAt(heap.Count - 1);
         BubbleDown(0);

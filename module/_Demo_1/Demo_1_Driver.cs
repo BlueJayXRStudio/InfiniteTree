@@ -10,11 +10,11 @@ public class Demo_1_Driver : MonoBehaviour
     void Start()
     {
         tree = new(gameObject);
-        List<(Behavior, Status)> Test_Sequence = new();
+        List<Behavior> Test_Sequence = new();
         foreach (GameObject go in Waypoints) {
-            Test_Sequence.Add((new Inverter(new Inverter(new ToWaypoint(go))), Status.RUNNING));
+            Test_Sequence.Add(new Inverter(new Inverter(new ToWaypoint(go, gameObject))));
         }
-        tree.Memory.Push((new Sequence(Test_Sequence), Status.RUNNING));
+        tree.Memory.Push(new Sequence(Test_Sequence));
     }
 
     void Update()

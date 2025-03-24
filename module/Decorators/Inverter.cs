@@ -9,17 +9,20 @@ public class Inverter : Behavior
         ToInvert = toInvert;
     }
 
-    public void Step(GameObject go, Stack<(Behavior, Status)> memory, Status message)
+    public Status Step(Stack<Behavior> memory, Status message)
     {
         if (message == Status.RUNNING) {
-            memory.Push((this, Status.RUNNING));
-            memory.Push((ToInvert, Status.RUNNING));
+            memory.Push(this);
+            memory.Push(ToInvert);
+            return Status.RUNNING;
         }
         else if (message == Status.SUCCESS) {
-            memory.Push((this, Status.FAIL));
+            memory.Push(this);
+            return Status.FAIL;
         }
-        else if (message == Status.FAIL) {
-            memory.Push((this, Status.SUCCESS));
+        else {
+            memory.Push(this);
+            return Status.SUCCESS;
         }
     }
 }

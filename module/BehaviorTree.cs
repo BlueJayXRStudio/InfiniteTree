@@ -12,7 +12,8 @@ public enum Status
 public class BehaviorTree
 {
     public GameObject DriverObject;
-    public Stack<(Behavior, Status)> Memory;
+    public Stack<Behavior> Memory;
+    private Status Message = Status.RUNNING;
     private Status Result;
 
     public BehaviorTree(GameObject go) {
@@ -23,25 +24,24 @@ public class BehaviorTree
     public Status Drive() {
         if (Memory.Count == 0) return Result;
 
-        (Behavior, Status) CurrentAction = Memory.Pop();
+        Behavior CurrentAction = Memory.Pop();
 
-        if (CurrentAction.Item2 == Status.RUNNING) {
-            CurrentAction.Item1.Step(DriverObject, Memory, Status.RUNNING);
+        if (Message == Status.RUNNING) {
+            Message = CurrentAction.Step(Memory, Status.RUNNING);
         }
-        else if (CurrentAction.Item2 == Status.SUCCESS) {
+        else if (Message == Status.SUCCESS) {
             if (Memory.Count == 0) {
                 Result = Status.SUCCESS;
                 return Status.SUCCESS;
             }
-            Memory.Pop().Item1.Step(DriverObject, Memory, Status.SUCCESS);
+            Message = Memory.Pop().Step(Memory, Status.SUCCESS);
         } 
-        else if (CurrentAction.Item2 == Status.FAIL) {
+        else {
             if (Memory.Count == 0) {
                 Result = Status.FAIL;
                 return Status.FAIL;
             }
-            Memory.Pop().Item1.Step(DriverObject, Memory, Status.FAIL);
-            
+            Message = Memory.Pop().Step(Memory, Status.FAIL);
         }
         return Status.RUNNING;
     }

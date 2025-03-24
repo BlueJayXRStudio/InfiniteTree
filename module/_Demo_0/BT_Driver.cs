@@ -13,14 +13,14 @@ public class BT_Driver : MonoBehaviour
         gameObject.GetComponent<ParentComponent>().SetParents(Waypoints);
 
         tree = new(gameObject);
-        initialAction = new FollowParent();
-        tree.Memory.Push((initialAction, Status.RUNNING));
+        initialAction = new FollowParent(gameObject);
+        tree.Memory.Push(initialAction);
     }
 
     void Update()
     {
         tree.Drive();
         // We can opt to continue pushing FollowParent action if completed. The ouroboros.
-        if (tree.Memory.Count == 0) tree.Memory.Push((initialAction, Status.RUNNING));
+        if (tree.Memory.Count == 0) tree.Memory.Push(initialAction);
     }
 }

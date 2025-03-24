@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface Behavior
 {
-    public void Step(GameObject go, Stack<(Behavior, Status)> memory, Status message);
+    public Status Step(Stack<Behavior> memory, Status message);
 }

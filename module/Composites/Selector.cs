@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Selector : Behavior
 {
-    public void Step(GameObject go, Stack<(Behavior, Status)> memory, Status message)
+    public Status Step(Stack<Behavior> memory, Status message)
     {
         throw new System.NotImplementedException();
     }

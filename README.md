@@ -12,21 +12,25 @@ formalization (in progress):
 > Central focus of this framework is smart use of stack memory and Task status messages to generalize action planning.  
 
 > Type of action planning:
-> - Procedural: Behavior Tree, Hierarchical Task Network Planning (HTN), etc.
+> 1. Procedural: Behavior Tree, Hierarchical Task Network Planning (`HTN`), etc.
 >> - Pros: Highly expressive.
 >> - Cons: Hard to construct (Unreal Engine resolves this by using node editor) and requires deep domain knowledge for the specific system we're implementing.
-> - Reactive: Finite State Machine (FSM), Goal Oriented Action Planning (GOAP), etc.
+> 2. Reactive: Finite State Machine (`FSM`), Goal Oriented Action Planning (`GOAP`), etc.
 >> - Pros: Can create smart emergent behaviors. 
 >> - Cons: Difficult to decouple sequential behaviors. Some emergent behaviors may not be desired, which forces extensive robustness testing.
 
-> - Task = Behavior
-> - Task is either Running or Done.
+> The aim of Task Stack Machine is to generalize the two types of task planning frameworks by making use of stack memory
+and a global access to the stack for each Task  
+> Requirements for Task Stack Machine:  
+> 
+> **Note**: we will use "behaviors" and "tasks" interchangeably.
+> 1. A Task is either Running or Done.
 >> - If Running, return RUNNING status.
 >> - If Done, return SUCCESS or FAILURE status.
-> - A Task must yield status message and also have ways to receive status message, but it is up to them to use it or not.
-> - A Task can access shared memory.
-> - A Tree must have Task memory. This can take many different forms including Stacks, Lists, Queues, or Priority Queue. 
-Here, we will focus on the use Stacks to achieve wide variety of standard behaviors.
+> 2. A Task must receive status message and, more importantly, yield status message.
+> 3. A Task can access shared memory.
+> 4. A Tree must have a collection of Tasks. This can take many different forms including Stacks, Lists, Queues, or Priority Queue. 
+Here, we will demonstrate the power of Stack memory in achieving wide variety of standard behaviors including procedural and reactive behaviors.
 
 > Benefits
 > - Loose coupling of behaviors,
@@ -46,7 +50,8 @@ Here, we will focus on the use Stacks to achieve wide variety of standard behavi
 >>> - Parallel Composite: 45 lines,
 >>> - Inverter Decorator: 30 lines,
 >>> - Repeater Decorator: 0 line (Task can be made self-referential!)
-
+> Cons
+> - Hard to debug. Very recursive in nature.
 
 ## Formal Definition of the Task Stack Machine
 

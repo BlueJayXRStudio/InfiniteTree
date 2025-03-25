@@ -20,10 +20,14 @@ formalization (in progress):
 
 > Benefits
 > - Loose coupling of behaviors,
-> - Behaviors are highly reusable,
-> - Behaviors are fully interpretable,
-> - Behaviors can act as a Turing complete machine behavior tree node or a state in a finite state machine,
-> - Main tree can drive a full suite of standard behavior tree composites and decorators in an extremely compact form,
+>> - Behaviors are highly reusable,
+>> - Leads to easy recursive state serialization,
+>> - Each behavior can have a policy for decision making:
+>>> - Priority queue for task prioritization in sequence nodes,
+>>> - Machine/Deep Learning policies such as those used for PPO (training is "expensive", but reusability of behavior makes reinforcement learning highly viable),
+>> - Behaviors are fully interpretable,
+>> - Behaviors can act as a Turing complete behavior tree node or a state in a finite state machine,
+> - Main tree can drive a full suite of standard behavior tree composites and decorators in an extremely compact and reproducible form,
 >> - Approximate lines of code in .Net/C#:
 >>> - Behavior tree: 50 lines, 
 >>> - Behavior/Task Interface: 10 lines, 

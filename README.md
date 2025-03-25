@@ -23,8 +23,9 @@ formalization (in progress):
 >> - Behaviors are highly reusable,
 >> - Leads to easy recursive state serialization,
 >> - Each behavior can have a policy for decision making:
->>> - Priority queue for task prioritization in sequence nodes,
+>>> - Priority queue for easy task prioritization in sequence nodes,
 >>> - Machine/Deep Learning policies such as those used for PPO (training is "expensive", but reusability of behavior makes reinforcement learning highly viable),
+>>> - Behavior nodes can be used to build a decision tree/graph with which we can run Dijkstra's algorithm for arbitrary cost optimization (GOAP),
 >> - Behaviors are fully interpretable,
 >> - Behaviors can act as a Turing complete behavior tree node or a state in a finite state machine,
 > - Main tree can drive a full suite of standard behavior tree composites and decorators in an extremely compact and reproducible form,

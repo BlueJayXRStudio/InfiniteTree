@@ -22,14 +22,14 @@ formalization (in progress):
 
 ## Formal Definition of the Task Stack Machine
 
-**M = (T, S, M, Σ, δ_tree, δ_task, t₀)**
+**M = (T, S, μ, Σ, δ_tree, δ_task, t₀)**
 
-| Symbol     | Description                                                                 |
-|------------|-----------------------------------------------------------------------------|
-| `T`        | Set of all Tasks (analogous to states `Q`)                                  |
-| `S`        | Set of all stacks over `T` (`Stack<T>`)                                     |
-| `M`        | Shared memory space (e.g., map, tape, or arbitrary structured memory)       |
-| `Σ`        | Set of status messages (`RUNNING`, `SUCCESS`, `FAIL`, etc.)                |
+| Symbol     | Description                                                                  |
+|------------|------------------------------------------------------------------------------|
+| `T`        | Set of all Tasks (analogous to states `Q`)                                   |
+| `S`        | Set of all stacks over `T` (`Stack<T>`)                                      |
+| `μ`        | Shared memory space (e.g., map, tape, or arbitrary structured memory)        |
+| `Σ`        | Set of status messages (`RUNNING`, `SUCCESS`, `FAIL`, etc.)                  |
 | `δ_tree`   | Dispatcher function: `Σ × S → T × Σ × S`                                     |
-| `δ_task`   | Task step function: `T × S × M × Σ → T × S × M × Σ`                          |
-| `t₀ ∈ T`   | Initial task                                                                |
+| `δ_task`   | Task step function: `T × S × μ × Σ → T × S × μ × Σ`                          |
+| `t₀ ∈ T`   | Initial task                                                                 |

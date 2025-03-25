@@ -9,14 +9,24 @@ planned documentation along with video tutorials
 
 formalization (in progress):
 
-> Central focus of this framework is the smart use of stack memory and Task status messages.
+> Central focus of this framework is smart use of stack memory and Task status messages to generalize action planning.  
+
+> Type of action planning:
+> - Procedural: Behavior Tree, Hierarchical Task Network Planning (HTN), etc.
+>> - Pros: Highly expressive.
+>> - Cons: Hard to construct (Unreal Engine resolves this by using node editor) and requires deep domain knowledge for the specific system we're implementing.
+> - Reactive: Finite State Machine (FSM), Goal Oriented Action Planning (GOAP), etc.
+>> - Pros: Can create smart emergent behaviors. 
+>> - Cons: Difficult to decouple sequential behaviors. Some emergent behaviors may not be desired, which forces extensive robustness testing.
+
 > - Task = Behavior
 > - Task is either Running or Done.
 >> - If Running, return RUNNING status.
 >> - If Done, return SUCCESS or FAILURE status.
 > - A Task must yield status message and also have ways to receive status message, but it is up to them to use it or not.
 > - A Task can access shared memory.
-> - A Tree must have Task memory. This can take many different forms including Stacks, Lists, Queues, or Priority Queue. Here, we will focus on the use Stacks to achieve wide variety of standard behaviors.
+> - A Tree must have Task memory. This can take many different forms including Stacks, Lists, Queues, or Priority Queue. 
+Here, we will focus on the use Stacks to achieve wide variety of standard behaviors.
 
 > Benefits
 > - Loose coupling of behaviors,

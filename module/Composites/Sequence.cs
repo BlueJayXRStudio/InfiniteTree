@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using UnityEngine;
 
 public class Sequence : Behavior
@@ -16,7 +15,6 @@ public class Sequence : Behavior
 
     public Status Step(Stack<Behavior> memory, Status message)
     {
-        // Debug.Log("Iterating Sequence");
         if (message == Status.FAIL) {
             memory.Push(this);
             return Status.FAIL;

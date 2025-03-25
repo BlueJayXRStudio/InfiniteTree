@@ -22,13 +22,16 @@ formalization (in progress):
 > - Loose coupling of behaviors,
 > - Behaviors are highly reusable,
 > - Behaviors are fully interpretable,
-> - Behaviors can act as a turing complete machine behavior tree node or a state in a finite state machine,
+> - Behaviors can act as a Turing complete machine behavior tree node or a state in a finite state machine,
 > - Main tree can drive a full suite of standard behavior tree composites and decorators in an extremely compact form,
 >> - Approximate lines of code in .Net/C#:
->>> - Behavior tree: 50 lines 
->>> - Behavior/Task Interface: 10 lines 
->>> - Sequence/Selector Composite Nodes: 35 lines
->>> - 
+>>> - Behavior tree: 50 lines, 
+>>> - Behavior/Task Interface: 10 lines, 
+>>> - Sequence/Selector Composite: 35 lines,
+>>> - Parallel Composite: 45 lines,
+>>> - Inverter Decorator: 30 lines,
+>>> - Repeater Decorator: 0 line (Task can be made self-referential!)
+
 
 ## Formal Definition of the Task Stack Machine
 

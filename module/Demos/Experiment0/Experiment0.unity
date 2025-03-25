@@ -9339,6 +9339,7 @@ GameObject:
   - component: {fileID: 1853982910}
   - component: {fileID: 1853982909}
   - component: {fileID: 1853982913}
+  - component: {fileID: 1853982914}
   m_Layer: 0
   m_Name: Civilian
   m_TagString: Untagged
@@ -9447,6 +9448,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f9e2d18f3a2d54ca05d4384a136747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1853982914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853982908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de5de763eef47143802cb75fadd42b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
+  Cash: 5
+  MoveSpeed: 2.3
 --- !u!1 &1854840541
 GameObject:
   m_ObjectHideFlags: 0
@@ -10297,6 +10313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1988453855}
   - component: {fileID: 1988453856}
+  - component: {fileID: 1988453857}
   m_Layer: 0
   m_Name: Ambulance
   m_TagString: Untagged
@@ -10342,6 +10359,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c2517008dcc464b853a980c54e78d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1988453857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988453854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bec7a8252036164a92b0ad391ecfeb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
+  Cash: 5
+  MoveSpeed: 2.3
 --- !u!1 &2026832075
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,42 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace InfiniteTree
+{
+    public class ToWaypoints : Behavior
+    {
+        private float velocity = 1.0f;
+        private int index = 0;
+        private List<(int, int)> waypoints;
+        private GameObject DriverObject;
+
+        public ToWaypoints(List<(int, int)> waypoints, GameObject go) {
+            this.waypoints = waypoints;
+            DriverObject = go;
+            velocity = go.GetComponent<Attributes>().MoveSpeed;
+        }
+
+        public Status Step(Stack<Behavior> memory, Status message)
+        {        
+            if (index == waypoints.Count) {
+                memory.Push(this);
+                return Status.SUCCESS;
+            }
+
+            Vector3 ParentPos = contruct_position(waypoints[index]);
+            Vector3 CurrentPos = DriverObject.transform.position;
+            Vector3 diff = ParentPos - CurrentPos;
+
+            if (diff.magnitude >= 0.02f)
+                DriverObject.transform.position += diff.normalized * velocity * Time.deltaTime;
+            else
+                index++;
+
+            memory.Push(this);
+            return Status.RUNNING;
+        }
+
+        private Vector3 contruct_position ((int, int) wp) => new Vector3(wp.Item1, DriverObject.transform.position.y, wp.Item2);
+    }
+}

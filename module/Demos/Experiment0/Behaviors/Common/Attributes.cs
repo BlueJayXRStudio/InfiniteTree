@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public abstract class Attributes
+    public abstract class Attributes : MonoBehaviour
     {
         public float Health = 100;
         public float Cash = 5;

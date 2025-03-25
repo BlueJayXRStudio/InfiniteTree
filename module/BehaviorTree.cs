@@ -14,7 +14,7 @@ public class BehaviorTree
     public GameObject DriverObject;
     public Stack<Behavior> Memory;
     private Status Message = Status.RUNNING;
-    private Status Result;
+    private Status Result = Status.SUCCESS;
 
     public BehaviorTree(GameObject go) {
         DriverObject = go;

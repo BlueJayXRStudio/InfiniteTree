@@ -31,9 +31,11 @@ formalization (in progress):
 | `S`        | Set of all stacks over `T` (`Stack<T>`)                                      |
 | `μ`        | Shared memory space (e.g., map, tape, or arbitrary structured memory)        |
 | `Σ`        | Set of status messages (`RUNNING`, `SUCCESS`, `FAIL`)                        |
-| `δ_tree`   | Dispatcher function: `Σ × S → T × Σ × S`                                     |
+| `δ_tree`   | Scheduler/Dispatcher function: `Σ × S → T × Σ × S`                           |
 | `δ_task`   | Task step function: `T × S × μ × Σ → T × S × μ × Σ`                          |
 | `t₀ ∈ T`   | Initial task                                                                 |
 
 ![δ_system evolution](docs/system_evolution.svg)
+
+The Task Stack Machine does not halt. Terminal states only exist at the Task level (`SUCCESS` or `FAIL`), but the system itself (`δ_system`) is designed to run continuously, like a scheduler or CPU, awaiting new tasks.
 

@@ -10,9 +10,7 @@ planned documentation along with video tutorials
 formalization (in progress):
 
 > Central focus of this framework is the smart use of stack memory and Task status messages.
-
-> Task = Behavior
-
+> - Task = Behavior
 > - Task is either Running or Done.
 >> - If Running, return RUNNING status.
 >> - If Done, return SUCCESS or FAILURE status.
@@ -20,6 +18,17 @@ formalization (in progress):
 > - A Task can access shared memory.
 > - A Tree must have Task memory. This can take many different forms including Stacks, Lists, Queues, or Priority Queue. Here, we will focus on the use Stacks to achieve wide variety of standard behaviors.
 
+> Benefits
+> - Loose coupling of behaviors,
+> - Behaviors are highly reusable,
+> - Behaviors are fully interpretable,
+> - Behaviors can act as a turing complete machine behavior tree node or a state in a finite state machine,
+> - Main tree can drive a full suite of standard behavior tree composites and decorators in an extremely compact form,
+>> - Approximate lines of code in .Net/C#:
+>>> - Behavior tree: 50 lines 
+>>> - Behavior/Task Interface: 10 lines 
+>>> - Sequence/Selector Composite Nodes: 35 lines
+>>> - 
 
 ## Formal Definition of the Task Stack Machine
 

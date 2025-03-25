@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Decision : MonoBehaviour
+public class Decision : Behavior
 {
-    // Start is called before the first frame update
-    void Start()
+    public Status Step(Stack<Behavior> memory, Status message)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        throw new System.NotImplementedException();
     }
 }

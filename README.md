@@ -1,3 +1,7 @@
+**Author:** Jaeyoung Oh  
+**Affiliation:** BlueJayXRStudio (formerly BlueJayVRStudio)  
+**Contact:** BlueJayVRStudio@gmail.com  
+
 # Task Stack Machine, an "Infinite" Tree
 Novel Behavior Tree and State Machine Generalization.
 
@@ -31,14 +35,5 @@ formalization (in progress):
 | `δ_task`   | Task step function: `T × S × μ × Σ → T × S × μ × Σ`                          |
 | `t₀ ∈ T`   | Initial task                                                                 |
 
-```
-System Evolution:
-
-δ_system(t, s, μ, σ) = 
-    let (t', σ', s') = δ_tree(σ, s) 
-    in δ_task(t', s', μ, σ')
-
-δ_system: T × S × μ × Σ → T × S × μ × Σ
-```
-
 ![δ_system evolution](docs/system_evolution.svg)
+

@@ -17,18 +17,18 @@ namespace InfiniteTree
             var waypoints = ExperimentBlackboard.Instance.ShortestPath(ExperimentBlackboard.Instance.map, go.GetComponent<Attributes>().GetPos, destination);
 
             if (BehaviorCache.ContainsKey("ToWaypoints")) {
-                ((ToWaypoints) BehaviorCache["ToWaypoints"]).SetWaypoints(waypoints);
+                ((ToWaypoints) BehaviorCache["ToWaypoints"]).Reset(waypoints);
                 return (ToWaypoints) BehaviorCache["ToWaypoints"];
             }
-            
+
             var newToWaypoints = new ToWaypoints(waypoints, go);
             BehaviorCache.Add("ToWaypoints", newToWaypoints);
             return newToWaypoints;
         }
 
-        public object GetState(Type type) {
+        public object GetState(Type type, GameObject go) {
             if (!StateCache.ContainsKey(type)) {
-                object instance = Activator.CreateInstance(type);
+                object instance = Activator.CreateInstance(type, new object[] { go });
                 StateCache.Add(type, instance);
             }
 

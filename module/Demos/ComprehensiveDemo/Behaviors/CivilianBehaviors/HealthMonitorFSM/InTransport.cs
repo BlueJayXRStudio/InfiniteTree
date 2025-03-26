@@ -13,9 +13,10 @@ namespace InfiniteTree
         public override Status Step(Stack<Behavior> memory, Status message)
         {
             if (true) {
-                Debug.Log("Getting Transported");
-                var nextState = DriverObject.GetComponent<CivilianBehaviorFactory>().GetState(typeof(InTransport));
-                memory.Push((InTransport) nextState);
+                Debug.Log("Starting Recovery");
+                var nextState = DriverObject.GetComponent<CivilianBehaviorFactory>().GetState(typeof(Recover), DriverObject);
+                memory.Push((Recover) nextState);
+                return Status.RUNNING;
             }
             memory.Push(this);
             return Status.RUNNING;

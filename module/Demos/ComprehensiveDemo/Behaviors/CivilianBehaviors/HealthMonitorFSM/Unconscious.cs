@@ -6,13 +6,18 @@ namespace InfiniteTree
 {
     public class Unconscious : ActionBehavior
     {
-        public Unconscious(GameObject go) : base(go)
-        {
-        }
+        // bool isPickedUp = false;
+        public Unconscious(GameObject go) : base(go) { }
 
         public override Status Step(Stack<Behavior> memory, Status message)
         {
-            throw new System.NotImplementedException();
+            if (true) {
+                Debug.Log("Getting Transported");
+                var nextState = DriverObject.GetComponent<CivilianBehaviorFactory>().GetState(typeof(InTransport));
+                memory.Push((InTransport) nextState);
+            }
+            memory.Push(this);
+            return Status.RUNNING;
         }
     }
 }

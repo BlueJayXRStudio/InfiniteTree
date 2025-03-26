@@ -6,13 +6,18 @@ using UnityEngine;
 public class CivilianDriver : MonoBehaviour
 {
     BehaviorTree tree;
+    BehaviorTree HealthStates;
+
+    bool treePaused = false;
+    bool HealthStatesPaused = false;
 
     void Awake()
     {
         tree = new(gameObject);
+        HealthStates = new(gameObject);
     }
 
-    void Start() 
+    void Start()
     {
         // tree.Memory.Push(
         //     new Sequence(new List<Behavior>() {
@@ -27,6 +32,16 @@ public class CivilianDriver : MonoBehaviour
 
     void Update()
     {
-        tree.Drive();
+        if (!treePaused) tree.Drive();
+        if (!HealthStatesPaused) HealthStates.Drive();
+    }
+
+    public void ResetTree()
+    {
+
+    }
+    
+    public void ResetHealthStates() {
+
     }
 }

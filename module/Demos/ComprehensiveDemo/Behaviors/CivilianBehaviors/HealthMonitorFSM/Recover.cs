@@ -12,7 +12,14 @@ namespace InfiniteTree
 
         public override Status Step(Stack<Behavior> memory, Status message)
         {
-            throw new System.NotImplementedException();
+            if (DriverObject.GetComponent<Attributes>().Health > 75) {
+                Debug.Log("Recovered and resuming activity");
+                var nextState = DriverObject.GetComponent<CivilianBehaviorFactory>().GetState(typeof(CivilianIdle));
+                memory.Push((CivilianIdle) nextState);
+            }
+            DriverObject.GetComponent<Attributes>().Health += 10f * Time.deltaTime;
+            memory.Push(this);
+            return Status.RUNNING;
         }
     }
 }

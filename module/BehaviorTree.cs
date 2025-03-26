@@ -45,4 +45,9 @@ public class BehaviorTree
         }
         return Status.RUNNING;
     }
+
+    public void AddBehavior(Behavior behavior) {
+        Memory.Push(behavior);
+        Message = Status.RUNNING;
+    }
 }

@@ -9,5 +9,7 @@ namespace InfiniteTree
         public float Health = 100;
         public float Cash = 5;
         public float MoveSpeed = 2.3f;
+
+        public (int, int) GetPos => (Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z));
     }
 }

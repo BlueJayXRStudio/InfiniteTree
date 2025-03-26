@@ -6,7 +6,12 @@ using UnityEngine;
 public class ExperimentBlackboard : Blackboard<ExperimentBlackboard>
 {
     public Dictionary<(int, int), string> map = new();
+
+    public (int, int) HospitalPos = (0, 2);
+    public (int, int) GroceryStorePos = (3, 7);
+    public (int, int) ATMPos = (6, 3);
     
+
     /// <summary>
     /// Get adjacent horizontal and vertical tiles. Ignore diagonals.
     /// </summary>

@@ -4,16 +4,12 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class CivilianIdle : Behavior
+    public class CivilianIdle : ActionBehavior
     {
-        GameObject DriverObject;
-        // We can abstract away Composite vs Action nodes. For action nodes, 
-        // we should have DriverObject initialization by default.
-        public CivilianIdle(GameObject go) => DriverObject = go;
+        public CivilianIdle(GameObject go) : base(go) { }
 
-        public Status Step(Stack<Behavior> memory, Status message)
+        public override Status Step(Stack<Behavior> memory, Status message)
         {
-            // if ()
             return Status.RUNNING;
         }
     }

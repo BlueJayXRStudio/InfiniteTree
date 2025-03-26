@@ -37,6 +37,8 @@ namespace InfiniteTree
             return Status.RUNNING;
         }
 
+        public void SetWaypoints(List<(int, int)> waypoints) => this.waypoints = waypoints;
+
         private Vector3 contruct_position ((int, int) wp) => new Vector3(wp.Item1, DriverObject.transform.position.y, wp.Item2);
     }
 }

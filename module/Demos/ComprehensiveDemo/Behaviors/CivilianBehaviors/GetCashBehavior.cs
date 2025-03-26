@@ -20,13 +20,8 @@ namespace InfiniteTree
                 Debug.Log("Going to the nearest ATM");
 
                 memory.Push(
-                    new ToWaypoints(ExperimentBlackboard.Instance.ShortestPath(
-                            ExperimentBlackboard.Instance.map, 
-                            DriverObject.GetComponent<Attributes>().GetPos, 
-                            ExperimentBlackboard.Instance.ATMPos
-                        ), 
-                        DriverObject
-                    )
+                    DriverObject.GetComponent<CivilianBehaviorFactory>().GetMoveBehavior(DriverObject, 
+                        ExperimentBlackboard.Instance.ATMPos)
                 );
                 return Status.RUNNING;
             }

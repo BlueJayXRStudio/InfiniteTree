@@ -3,9 +3,10 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class GetCashBehavior : Behavior
+    public class GetCashBehavior : Behavior //, Optimizer
     {
         private GameObject DriverObject;
+        private float BaseCost = 1.0f;
 
         public GetCashBehavior(GameObject go) {
             DriverObject = go;
@@ -31,5 +32,13 @@ namespace InfiniteTree
                 return Status.SUCCESS;
             }
         }
+
+        // We just need a way to form a graph. Then, we can run pathfinding to optimize cost.
+        // public List<Behavior> GetNodes() {
+        //     return new List<Behavior> { DriverObject.GetComponent<CivilianBehaviorFactory>().GetMoveBehavior(DriverObject,
+        //                 ExperimentBlackboard.Instance.ATMPos) };
+        // }
+
+        // public float GetCost => BaseCost;
     }
 }

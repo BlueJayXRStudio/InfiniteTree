@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class GetCashBehavior : Behavior //, Optimizer
+    public class GetCashBehavior : Behavior
     {
         private GameObject DriverObject;
         private float BaseCost = 1.0f;
@@ -16,6 +16,13 @@ namespace InfiniteTree
         {
             memory.Push(this);
 
+            // Normally this would require a selector, but we can flexibly exit out
+            // of a behavior with basic conditional checks.
+            if (DriverObject.GetComponent<Attributes>().Cash >= 25) {
+                Debug.Log("We already have enough money");
+                return Status.SUCCESS;
+            }
+
             // if not at the ATM already
             if (DriverObject.GetComponent<Attributes>().GetPos != ExperimentBlackboard.Instance.ATMPos) {
                 Debug.Log("Going to the nearest ATM");
@@ -27,18 +34,11 @@ namespace InfiniteTree
                 return Status.RUNNING;
             }
             else {
-                Debug.Log("Retrieved cash. Falling back to previous behavior");
+                Debug.Log("Retrieved cash");
                 DriverObject.GetComponent<Attributes>().Cash += 50;
                 return Status.SUCCESS;
             }
         }
 
-        // We just need a way to form a graph. Then, we can run pathfinding to optimize cost.
-        // public List<Behavior> GetNodes() {
-        //     return new List<Behavior> { DriverObject.GetComponent<CivilianBehaviorFactory>().GetMoveBehavior(DriverObject,
-        //                 ExperimentBlackboard.Instance.ATMPos) };
-        // }
-
-        // public float GetCost => BaseCost;
     }
 }

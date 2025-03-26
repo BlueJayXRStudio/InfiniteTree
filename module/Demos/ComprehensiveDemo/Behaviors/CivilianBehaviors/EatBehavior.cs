@@ -17,16 +17,17 @@ namespace InfiniteTree
         {
             memory.Push(this);
 
-            if (DriverObject.GetComponent<Attributes>().Cash < 25) {
-                Debug.Log("Not enough cash. Going to the ATM");
-                memory.Push(new GetCashBehavior(DriverObject));
+            if (DriverObject.GetComponent<Attributes>().FoodItem == 0) {
+                Debug.Log("Checking for food");
+                memory.Push(new GetFood(DriverObject));
                 return Status.RUNNING;
             }
             else {
-                Debug.Log("Got enough cash, but behavior is not yet implemented :O");
+                DriverObject.GetComponent<Attributes>().FoodItem -= 1;
+                DriverObject.GetComponent<Attributes>().Health += 20;
+                return Status.SUCCESS;
             }
-
-            return Status.RUNNING;
+            // return Status.FAIL;
         }
     }
 }

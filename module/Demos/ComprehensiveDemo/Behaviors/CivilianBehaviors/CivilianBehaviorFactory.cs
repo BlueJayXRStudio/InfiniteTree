@@ -10,7 +10,7 @@ namespace InfiniteTree
     public class CivilianBehaviorFactory : MonoBehaviour
     {
         Dictionary<string, Behavior> BehaviorCache = new();
-        Dictionary<string, object> StateCache = new();
+        Dictionary<Type, object> StateCache = new();
         
         // For most of these factory methods, we can rely on lazy instantiation.
         public ToWaypoints GetMoveBehavior(GameObject go, (int, int) destination) {
@@ -26,17 +26,13 @@ namespace InfiniteTree
             return newToWaypoints;
         }
 
-        public object GetState(string name) {
-            if (!StateCache.ContainsKey(name)) {
-                Type type = (Type.GetType(name) 
-                    ?? Assembly.GetExecutingAssembly().GetType(name)) 
-                    ?? throw new System.Exception($"Type {name} does not exist");
-
+        public object GetState(Type type) {
+            if (!StateCache.ContainsKey(type)) {
                 object instance = Activator.CreateInstance(type);
-                StateCache.Add(name, instance);
+                StateCache.Add(type, instance);
             }
-            
-            return StateCache[name];
+
+            return StateCache[type];
         }
     }
 }

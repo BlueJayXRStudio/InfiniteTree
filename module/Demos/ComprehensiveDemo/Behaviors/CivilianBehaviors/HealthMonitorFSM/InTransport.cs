@@ -4,9 +4,13 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class InTransport : Behavior
+    public class InTransport : ActionBehavior
     {
-        public Status Step(Stack<Behavior> memory, Status message)
+        public InTransport(GameObject go) : base(go)
+        {
+        }
+
+        public override Status Step(Stack<Behavior> memory, Status message)
         {
             throw new System.NotImplementedException();
         }

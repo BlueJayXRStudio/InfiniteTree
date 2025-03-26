@@ -4,9 +4,13 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class Unconscious : Behavior
+    public class Unconscious : ActionBehavior
     {
-        public Status Step(Stack<Behavior> memory, Status message)
+        public Unconscious(GameObject go) : base(go)
+        {
+        }
+
+        public override Status Step(Stack<Behavior> memory, Status message)
         {
             throw new System.NotImplementedException();
         }

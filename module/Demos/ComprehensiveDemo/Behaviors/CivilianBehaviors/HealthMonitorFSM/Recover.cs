@@ -4,9 +4,13 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class Recover : Behavior
+    public class Recover : ActionBehavior
     {
-        public Status Step(Stack<Behavior> memory, Status message)
+        public Recover(GameObject go) : base(go)
+        {
+        }
+
+        public override Status Step(Stack<Behavior> memory, Status message)
         {
             throw new System.NotImplementedException();
         }

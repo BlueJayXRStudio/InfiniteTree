@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    // Some kind of a hybrid between factory and flyweight
+    // Factory / Flyweight Factory
     public class CivilianBehaviorFactory : MonoBehaviour
     {
         Dictionary<string, Behavior> BehaviorCache = new();

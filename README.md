@@ -7,6 +7,10 @@ Novel Behavior Tree and State Machine Generalization.
 
 planned documentation along with video tutorials
 
+## Glossary
+
+- **[Behavior Tree](./module/BehaviorTree.cs)**: Main Behavior Tree Runner/Driver.
+
 formalization (in progress):
 
 > Central focus of this framework is smart use of stack memory and Task status messages to generalize action planning.  

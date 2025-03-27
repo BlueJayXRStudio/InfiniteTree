@@ -15,16 +15,15 @@ public class Sequence : Behavior
 
     public Status Step(Stack<Behavior> memory, Status message)
     {
-        if (message == Status.FAIL) {
-            memory.Push(this);
+        memory.Push(this);
+
+        if (message == Status.FAIL) 
             return Status.FAIL;
-        }
-        else if (Actions.Count == 0) {
-            memory.Push(this);
+
+        else if (Actions.Count == 0) 
             return Status.SUCCESS;
-        }
+            
         else {
-            memory.Push(this);
             memory.Push(Actions.Dequeue());
             return Status.RUNNING;
         }

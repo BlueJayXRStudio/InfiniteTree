@@ -67,7 +67,7 @@ Here, we will demonstrate the power of Stack memory in achieving wide variety of
 | `S`        | Set of all stacks over `T` (`Stack<T>`)                                      |
 | `μ`        | Shared memory space (e.g., map, tape, or arbitrary structured memory)        |
 | `Σ`        | Set of status messages (`RUNNING`, `SUCCESS`, `FAIL`)                        |
-| `δ_tree`   | Scheduler/Dispatcher function: `Σ × S → T × Σ × S`                           |
+| `δ_tree`   | Scheduler/Dispatcher function: `Σ × S → T × S`                               |
 | `δ_task`   | Task step function: `T × S × μ × Σ → T × S × μ × Σ`                          |
 | `t₀ ∈ T`   | Initial task                                                                 |
 

@@ -4,23 +4,30 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class CivilianControlFlow : Behavior
+    // Currently this is a single state "FSM"
+    public class CivilianControlFlow : ActionBehavior
     {
-        GameObject DriverObject;
-        public CivilianControlFlow(GameObject go) {
-            DriverObject = go;
-        }
-        public Status Step(Stack<Behavior> memory, Status message)
+        public CivilianControlFlow(GameObject go) : base(go) {}
+
+        public override Status Step(Stack<Behavior> memory, Status message)
         {
-            // Debug.Log("Stepping");
+            // push this state immediately back in, because we know
+            // we will always come back to this state.
+            memory.Push(this); 
+
             if (DriverObject.GetComponent<Attributes>().Health < 50) {
-                memory.Push(this);
+                // EatBehavior is a Behavior Tree. Conventionally, it wouldn't
+                // be possible to run a Behavior Tree from a state in a state
+                // machine, but by treating each behavior as a stackable task
+                // we can achieve a general engine capable of switching between
+                // an FSM and a Behavior Tree.
                 memory.Push(new EatBehavior(DriverObject));
                 Debug.Log("Getting Food");
                 return Status.RUNNING;
             }
-            memory.Push(this);
+            
             return Status.RUNNING;
         }
+
     }
 }

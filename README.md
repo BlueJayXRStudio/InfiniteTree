@@ -63,8 +63,8 @@ Here, we will demonstrate the power of Stack memory in achieving wide variety of
 
 | Symbol     | Description                                                                  |
 |------------|------------------------------------------------------------------------------|
-| `T`        | Set of all Tasks (analogous to states `Q`)                                   |
-| `S`        | Set of all stacks over `T` (`Stack<T>`)                                      |
+| `T`        | Set of all Tasks `t` (analogous to states `Q`)                               |
+| `S`        | Set of all possible stacks over `T` (`Stack<T>`)                             |
 | `μ`        | Shared memory space (e.g., map, tape, or arbitrary structured memory)        |
 | `Σ`        | Set of status messages (`RUNNING`, `SUCCESS`, `FAIL`)                        |
 | `δ_tree`   | Scheduler/Dispatcher function: `Σ × S → T × S`                               |
@@ -73,7 +73,7 @@ Here, we will demonstrate the power of Stack memory in achieving wide variety of
 
 ![δ_system evolution](docs/system_evolution.svg)
 
-The Task Stack Machine does not halt. Terminal states only exist at the Task level (`SUCCESS` or `FAIL`), but the system itself (`δ_system`) is designed to run continuously, like a scheduler or CPU, awaiting new tasks.
+The Task Stack Machine does not halt, but it can be trivially made to halt. Terminal states only exist at the Task level (`SUCCESS` or `FAIL`), but the system itself (`δ_system`) is designed to run continuously, like a scheduler or CPU, awaiting new tasks.
 
 ## References
 

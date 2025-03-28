@@ -6,17 +6,17 @@ public enum Status
 {
     SUCCESS,
     RUNNING,
-    FAIL
+    FAILURE
 }
 
-public class BehaviorTree
+public class TaskStackMachine
 {
     public GameObject DriverObject;
     public Stack<Behavior> Memory;
     private Status Message = Status.RUNNING;
     private Status Result = Status.SUCCESS;
 
-    public BehaviorTree(GameObject go) {
+    public TaskStackMachine(GameObject go) {
         DriverObject = go;
         Memory = new();
     }
@@ -38,10 +38,10 @@ public class BehaviorTree
         } 
         else {
             if (Memory.Count == 0) {
-                Result = Status.FAIL;
-                return Status.FAIL;
+                Result = Status.FAILURE;
+                return Status.FAILURE;
             }
-            Message = Memory.Pop().Step(Memory, Status.FAIL);
+            Message = Memory.Pop().Step(Memory, Status.FAILURE);
         }
         return Status.RUNNING;
     }

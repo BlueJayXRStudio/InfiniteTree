@@ -17,8 +17,8 @@ public class Sequence : Behavior
     {
         memory.Push(this);
 
-        if (message == Status.FAIL) 
-            return Status.FAIL;
+        if (message == Status.FAILURE) 
+            return Status.FAILURE;
 
         else if (Actions.Count == 0) 
             return Status.SUCCESS;

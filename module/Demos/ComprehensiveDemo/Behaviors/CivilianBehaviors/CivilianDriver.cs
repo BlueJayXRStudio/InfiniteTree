@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class CivilianDriver : MonoBehaviour
 {
-    BehaviorTree tree;
-    BehaviorTree HealthStates;
+    TaskStackMachine tree;
+    TaskStackMachine HealthStates;
 
     bool treePaused = false;
     bool HealthStatesPaused = false;

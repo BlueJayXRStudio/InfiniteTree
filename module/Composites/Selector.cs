@@ -21,7 +21,7 @@ public class Selector : Behavior
         }
         else if (Actions.Count == 0) {
             memory.Push(this);
-            return Status.FAIL;
+            return Status.FAILURE;
         }
         else {
             memory.Push(this);

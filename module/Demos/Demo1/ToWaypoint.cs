@@ -23,7 +23,7 @@ public class ToWaypoint : Behavior
 
         if (!waypoint.activeSelf) {
             memory.Push(this);
-            return Status.FAIL;
+            return Status.FAILURE;
         }
 
         if (diff.magnitude >= 0.02f) {

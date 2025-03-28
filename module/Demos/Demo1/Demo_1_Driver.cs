@@ -5,7 +5,7 @@ using UnityEngine;
 public class Demo_1_Driver : MonoBehaviour
 {
     public List<GameObject> Waypoints;
-    BehaviorTree tree;
+    TaskStackMachine tree;
 
     void Start()
     {
@@ -21,7 +21,7 @@ public class Demo_1_Driver : MonoBehaviour
     {
         Status result = tree.Drive();
 
-        if (result == Status.FAIL || result == Status.SUCCESS) {
+        if (result == Status.FAILURE || result == Status.SUCCESS) {
             Debug.Log(result);
         }
 

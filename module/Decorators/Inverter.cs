@@ -18,7 +18,7 @@ public class Inverter : Behavior
         }
         else if (message == Status.SUCCESS) {
             memory.Push(this);
-            return Status.FAIL;
+            return Status.FAILURE;
         }
         else {
             memory.Push(this);

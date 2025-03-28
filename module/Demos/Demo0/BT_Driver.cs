@@ -5,7 +5,7 @@ using UnityEngine;
 public class BT_Driver : MonoBehaviour
 {
     public List<GameObject> Waypoints;
-    BehaviorTree tree;
+    TaskStackMachine tree;
     Behavior initialAction;
 
     void Start()

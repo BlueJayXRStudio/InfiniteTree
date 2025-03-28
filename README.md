@@ -78,11 +78,13 @@ Terminal states only exist at the Task level (`SUCCESS` or `FAIL`), but the syst
 
 [BlueJay TODO: Behavior Tree Pseudo Code Here]
 
+Since we are working with unbounded memory and stack with arbitrary access with programmable state transitions, our Task Stack Machine is a Turing complete machine. However, the usefulness of this framework does not come from Turing completeness, but rather from the structural differences between Task Stack Machine and other traditional AI backends such as FSM and Behavior Trees. 
+
 [BlueJay TODO: Characteristics of BT]
 
 [BlueJay TODO: Characteristics of FSM]
 
-[BlueJay TODO: Compare with our version of Behavior Tree. AKA Infinite Tree]
+[BlueJay TODO: Compare with our version of Behavior Tree. AKA Task Stack Machine]
 
 
 

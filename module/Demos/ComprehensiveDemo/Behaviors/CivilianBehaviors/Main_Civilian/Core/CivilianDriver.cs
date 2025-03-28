@@ -19,16 +19,8 @@ public class CivilianDriver : MonoBehaviour
 
     void Start()
     {
-        // tree.Memory.Push(
-        //     new Sequence(new List<Behavior>() {
-        //         new ToWaypoints(ExperimentBlackboard.Instance.ShortestPath(ExperimentBlackboard.Instance.map, (3,2), (1,4)), gameObject),
-        //         new ToWaypoints(ExperimentBlackboard.Instance.ShortestPath(ExperimentBlackboard.Instance.map, (1,4), (7,7)), gameObject),
-        //         new ToWaypoints(ExperimentBlackboard.Instance.ShortestPath(ExperimentBlackboard.Instance.map, (7,7), (3,4)), gameObject),
-        //         new ToWaypoints(ExperimentBlackboard.Instance.ShortestPath(ExperimentBlackboard.Instance.map, (3,4), (7,1)), gameObject)
-        //     })
-        // );
         tree.AddBehavior(new CivilianControlFlow());
-        HealthStates.AddBehavior((CivilianIdle) GetComponent<CivilianBehaviorFactory>().GetState(typeof(CivilianIdle), gameObject));
+        HealthStates.AddBehavior((CivilianIdle) GetComponent<CivilianBehaviorFactory>().GetState(typeof(CivilianIdle)));
     }
 
     void Update()

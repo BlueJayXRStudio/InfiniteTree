@@ -11,7 +11,7 @@ namespace InfiniteTree
         {
             if (true) {
                 Debug.Log("Getting Transported");
-                var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(InTransport), go);
+                var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(InTransport));
                 memory.Push((InTransport) nextState);
                 return Status.RUNNING;
             }

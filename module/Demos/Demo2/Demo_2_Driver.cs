@@ -29,9 +29,8 @@ public class Demo_2_Driver : MonoBehaviour
     {
         Status result = tree.Drive();
 
-        if (result == Status.FAILURE || result == Status.SUCCESS) {
+        if (result != Status.RUNNING)
             Debug.Log(result);
-        }
 
         // We can opt to continue pushing FollowParent action if completed. The ouroboros.
         // if (tree.Memory.Count == 0) tree.Memory.Push((initialAction, Status.RUNNING));

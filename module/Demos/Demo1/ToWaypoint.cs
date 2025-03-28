@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ToWaypoint : Behavior
 {
-    private float velocity = 1.0f;
+    private float velocity = 2.3f;
     private GameObject waypoint;
 
     public ToWaypoint(GameObject waypoint) {

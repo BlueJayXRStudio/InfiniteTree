@@ -26,7 +26,7 @@ namespace InfiniteTree
             return newToWaypoints;
         }
 
-        public object GetState(Type type, GameObject go) {
+        public object GetState(Type type) {
             if (!StateCache.ContainsKey(type)) {
                 object instance = Activator.CreateInstance(type, new object[] { });
                 StateCache.Add(type, instance);

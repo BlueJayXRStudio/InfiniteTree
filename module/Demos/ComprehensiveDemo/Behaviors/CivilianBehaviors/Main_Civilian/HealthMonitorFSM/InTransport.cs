@@ -10,7 +10,7 @@ namespace InfiniteTree
         {
             if (true) {
                 Debug.Log("Starting Recovery");
-                var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(Recover), go);
+                var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(Recover));
                 memory.Push((Recover) nextState);
                 return Status.RUNNING;
             }

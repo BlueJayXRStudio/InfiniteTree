@@ -10,7 +10,7 @@ namespace InfiniteTree
         {
             if (go.GetComponent<Attributes>().Health < 20) {
                 Debug.Log("Civilian passed out");
-                var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(Unconscious), go);
+                var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(Unconscious));
                 
                 // by only pushing the next state, we ensure that the next state will be on top of the stack memory.
                 memory.Push((Unconscious) nextState);

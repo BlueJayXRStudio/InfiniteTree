@@ -9,7 +9,7 @@ planned documentation along with video tutorials
 
 ## Glossary
 
-- **[Behavior Tree](./module/BehaviorTree.cs)**: Main Behavior Tree Runner/Driver.
+- **["Behavior Tree"](./module/BehaviorTree.cs)**: Main Behavior Tree Runner/Driver.
 
 formalization (in progress):
 
@@ -74,6 +74,8 @@ Here, we will demonstrate the power of Stack memory in achieving wide variety of
 ![δ_system evolution](docs/system_evolution.svg)
 
 The Task Stack Machine does not halt, but it can be trivially made to halt. Terminal states only exist at the Task level (`SUCCESS` or `FAIL`), but the system itself (`δ_system`) is designed to run continuously, like a scheduler or CPU, awaiting new tasks.
+
+[BlueJay TODO: Behavior Tree Pseudo Code Here]
 
 ## References
 

@@ -9,7 +9,7 @@ planned documentation along with video tutorials
 
 ## Glossary
 
-- **[Task Stack Machine Implementation](./module/TaskStackMachine.cs)**: Task Stack Machine Runner/Driver implementation.
+- **[Task Stack Machine](./module/TaskStackMachine.cs)**: Task Stack Machine Runner/Driver implementation.
 - **[Comprehensive Demo](./module/Demos/ComprehensiveDemo/)**: A Unity Demo using Task Stack Machine.
 
 formalization (in progress):
@@ -46,7 +46,7 @@ Here, we will demonstrate the power of Stack memory in achieving wide variety of
 >>> - Machine/Deep Learning policies such as those used for PPO (training is "expensive", but reusability of behavior makes reinforcement learning highly viable),
 >>> - Behavior nodes can be used to build a decision tree/graph with which we can run Dijkstra's algorithm for arbitrary cost optimization (GOAP),
 >> - Behaviors are fully interpretable and traceable through OOP,
->> - Behaviors can act as a Turing complete behavior tree node or a state in a finite state machine,
+>> - Behaviors can act as a BT node or an FSM state,
 > - Main tree can drive a full suite of standard behavior tree composites and decorators in an extremely compact and reproducible form,
 >> - Approximate lines of code in .Net/C#:
 >>> - Behavior tree: 50 lines, 
@@ -54,7 +54,7 @@ Here, we will demonstrate the power of Stack memory in achieving wide variety of
 >>> - Sequence/Selector Composite: 35 lines,
 >>> - Parallel Composite: 45 lines,
 >>> - Inverter Decorator: 30 lines,
->>> - Repeater Decorator: 0 line (Task can be made self-referential!) [BlueJay TODO: This is the part that connects BT back to FSM. Repeater + Selector + Blackboard -> Can simulate FSM]
+>>> - Repeat Decorator: 0 line (Task can be made self-referential!) [BlueJay TODO: This is the part that connects BT back to FSM. A BT with Repeater + Selector + Blackboard -> Can simulate FSM]
 > Cons
 > - Can be difficult to debug. Very recursive in nature.
 > - Lots of small scripts, but that may be a good thing in terms of OO principles.
@@ -68,14 +68,14 @@ Here, we will demonstrate the power of Stack memory in achieving wide variety of
 | `T`        | Set of all Tasks `t` (analogous to states `Q`)                               |
 | `S`        | Set of all possible stacks over `T` (`Stack<T>`)                             |
 | `μ`        | Shared memory space (e.g., map, tape, or arbitrary structured memory)        |
-| `Σ`        | Set of status messages (`RUNNING`, `SUCCESS`, `FAIL`)                        |
+| `Σ`        | Set of status messages (`RUNNING`, `SUCCESS`, `FAILURE`)                     |
 | `δ_tree`   | Scheduler/Dispatcher function: `Σ × S → T × S`                               |
 | `δ_task`   | Task step function: `T × S × μ × Σ → S × μ × Σ`                              |
 | `t₀ ∈ T`   | Initial task                                                                 |
 
 ![δ_system evolution](docs/system_evolution.svg)
 
-Terminal states only exist at the Task level (`SUCCESS` or `FAIL`), but the system itself (`δ_system`) is designed to run continuously, like a scheduler or CPU, awaiting new tasks.
+Terminal states only exist at the Task level (`SUCCESS` or `FAILURE`), but the system itself (`δ_system`) is designed to run continuously, like a scheduler or dispatcher, awaiting new tasks.
 
 [BlueJay TODO: Behavior Tree Pseudo Code Here]
 

@@ -12,7 +12,7 @@ public class Parallel : Behavior
         trees = new();
         foreach (Behavior action in ParallelActions) {
             var tree = new TaskStackMachine(null);
-            tree.Memory.Push(action);
+            tree.AddBehavior(action);
             trees.Add(tree);
         }
         this.DriverObject = DriverObject;

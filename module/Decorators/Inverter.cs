@@ -11,18 +11,14 @@ public class Inverter : Behavior
 
     public Status Step(Stack<Behavior> memory, Status message)
     {
+        memory.Push(this);
+
         if (message == Status.RUNNING) {
-            memory.Push(this);
             memory.Push(ToInvert);
-            return Status.RUNNING;
-        }
-        else if (message == Status.SUCCESS) {
-            memory.Push(this);
+            return Status.RUNNING; }
+        else if (message == Status.SUCCESS)
             return Status.FAILURE;
-        }
-        else {
-            memory.Push(this);
+        else 
             return Status.SUCCESS;
-        }
     }
 }

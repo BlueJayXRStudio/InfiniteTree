@@ -20,7 +20,9 @@ public class Demo_2_Driver : MonoBehaviour
             Test_Sequence.Add(new ToWaypoint(Waypoints[i], gameObject));
         }
 
-        tree.Memory.Push(new Sequence(Test_Sequence));
+        tree.AddBehavior(new Sequence(Test_Sequence));
+        Debug.Log("pushing new behavior");
+        Debug.Log(tree.GetMessage());
     }
 
     void Update()

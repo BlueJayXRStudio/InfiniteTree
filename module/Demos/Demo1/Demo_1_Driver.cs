@@ -15,7 +15,7 @@ public class Demo_1_Driver : MonoBehaviour
             // Console will output "SUCCESS, FAILURE, SUCCESS" because of the inverters
             Test_Sequence.Add(new Inverter(new Inverter(new ToWaypoint(go, gameObject))));
         }
-        tree.Memory.Push(new Sequence(Test_Sequence));
+        tree.AddBehavior(new Sequence(Test_Sequence));
     }
 
     void Update()

@@ -13,7 +13,7 @@ public class TaskStackMachine
 {
     public GameObject DriverObject;
     public Stack<Behavior> Memory;
-    private Status Message = Status.RUNNING;
+    private Status Message = Status.SUCCESS;
 
     public TaskStackMachine(GameObject go) {
         DriverObject = go;
@@ -40,4 +40,6 @@ public class TaskStackMachine
         Memory.Push(behavior);
         Message = Status.RUNNING;
     }
+
+    public Status GetMessage() => Message;
 }

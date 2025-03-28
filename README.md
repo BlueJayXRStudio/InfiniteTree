@@ -9,7 +9,8 @@ planned documentation along with video tutorials
 
 ## Glossary
 
-- **["Behavior Tree"](./module/BehaviorTree.cs)**: Main Behavior Tree Runner/Driver.
+- **[Task Stack Machine Implementation](./module/BehaviorTree.cs)**: Main Behavior Tree Runner/Driver.
+- **[Comprehensive Demo](./module/Demos/ComprehensiveDemo/)**: Main Behavior Tree Runner/Driver.
 
 formalization (in progress):
 
@@ -55,7 +56,7 @@ Here, we will demonstrate the power of Stack memory in achieving wide variety of
 >>> - Inverter Decorator: 30 lines,
 >>> - Repeater Decorator: 0 line (Task can be made self-referential!) [BlueJay TODO: This is the part that connects BT back to FSM. Repeater + Selector + Blackboard -> Can simulate FSM]
 > Cons
-> - Hard to debug. Very recursive in nature.
+> - Can be difficult to debug. Very recursive in nature.
 > - Lots of small scripts, but that may be a good thing in terms of OO principles.
 
 ## Formal Definition of the Task Stack Machine
@@ -78,7 +79,7 @@ Terminal states only exist at the Task level (`SUCCESS` or `FAIL`), but the syst
 
 [BlueJay TODO: Behavior Tree Pseudo Code Here]
 
-Since we are working with unbounded memory and stack with arbitrary access with programmable state transitions, our Task Stack Machine is a Turing complete machine. However, the usefulness of this framework does not come from Turing completeness, but rather from the structural differences between Task Stack Machine and other traditional AI backends such as FSM and Behavior Trees. 
+Since we are working with unbounded memory in the forms of task stack and blackboard, our Task Stack Machine is a Turing complete machine. However, the usefulness of this framework does not come from Turing completeness, but rather from the structural differences between Task Stack Machine and other conventional AI backends such as FSM and Behavior Trees. 
 
 [BlueJay TODO: Characteristics of BT]
 

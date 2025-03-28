@@ -28,7 +28,7 @@ namespace InfiniteTree
 
         public object GetState(Type type, GameObject go) {
             if (!StateCache.ContainsKey(type)) {
-                object instance = Activator.CreateInstance(type, new object[] { go });
+                object instance = Activator.CreateInstance(type, new object[] { });
                 StateCache.Add(type, instance);
             }
 

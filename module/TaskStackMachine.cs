@@ -28,7 +28,7 @@ public class TaskStackMachine
         if (Message == Status.RUNNING)
             Message = CurrentAction.Step(Memory, DriverObject, Message);
         
-        else if (Memory.Count > 0) 
+        else if (Memory.Count > 0)
             Message = Memory.Pop().Step(Memory, DriverObject, Message);
         
         return Message;
@@ -40,4 +40,5 @@ public class TaskStackMachine
     }
 
     public Status GetMessage() => Message;
+    public int GetStackCount() => Memory.Count;
 }

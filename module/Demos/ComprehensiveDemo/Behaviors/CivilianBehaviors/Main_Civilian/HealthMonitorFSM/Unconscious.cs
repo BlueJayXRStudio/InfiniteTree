@@ -6,7 +6,7 @@ namespace InfiniteTree
 {
     public class Unconscious : Behavior
     {
-        // bool isPickedUp = false;
+        // bool isPickedUp = false;        
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             if (true) {

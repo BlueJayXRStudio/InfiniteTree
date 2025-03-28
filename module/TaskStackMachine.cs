@@ -13,7 +13,7 @@ public class TaskStackMachine
 {
     public GameObject DriverObject;
     public Stack<Behavior> Memory;
-    private Status LastMessage = Status.SUCCESS;
+    private Status Message = Status.RUNNING;
 
     public TaskStackMachine(GameObject go) {
         DriverObject = go;
@@ -21,23 +21,23 @@ public class TaskStackMachine
     }
 
     public Status Drive() {
-        if (Memory.Count == 0) return LastMessage;
+        if (Memory.Count == 0) return Status.RUNNING;
 
         Behavior CurrentAction = Memory.Pop();
 
-        if (LastMessage == Status.RUNNING)
-            LastMessage = CurrentAction.Step(Memory, Status.RUNNING);
+        if (Message == Status.RUNNING)
+            Message = CurrentAction.Step(Memory, Message);
         
         else if (Memory.Count > 0) 
-            LastMessage = Memory.Pop().Step(Memory, LastMessage);
+            Message = Memory.Pop().Step(Memory, Message);
         
-        return LastMessage;
+        return Message;
     }
 
     public void AddBehavior(Behavior behavior) {
         Memory.Push(behavior);
-        LastMessage = Status.RUNNING;
+        Message = Status.RUNNING;
     }
 
-    public Status GetLastMessage() => LastMessage;
+    public Status GetMessage() => Message;
 }

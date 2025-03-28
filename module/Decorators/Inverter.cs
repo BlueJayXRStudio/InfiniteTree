@@ -9,7 +9,7 @@ public class Inverter : Behavior
         ToInvert = toInvert;
     }
 
-    public Status Step(Stack<Behavior> memory, Status message)
+    public Status Step(Stack<Behavior> memory, GameObject go, Status message)
     {
         memory.Push(this);
 

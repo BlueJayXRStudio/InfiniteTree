@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class RotateBehavior : Behavior
 {
-    GameObject DriverObject;
-
-    public RotateBehavior(GameObject go) => DriverObject = go;
-
-    public Status Step(Stack<Behavior> memory, Status message)
+    public Status Step(Stack<Behavior> memory, GameObject go, Status message)
     {
-        DriverObject.transform.rotation = Quaternion.Euler(0, 180 * Time.deltaTime, 0) * DriverObject.transform.rotation;
+        go.transform.rotation = Quaternion.Euler(0, 180 * Time.deltaTime, 0) * go.transform.rotation;
         memory.Push(this);
         return Status.RUNNING;
     }

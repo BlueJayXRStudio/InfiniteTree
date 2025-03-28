@@ -6,25 +6,18 @@ namespace InfiniteTree
 {
     public class EatBehavior : Behavior
     {
-
-        private GameObject DriverObject;
-
-        public EatBehavior(GameObject go) {
-            DriverObject = go;
-        }
-
-        public Status Step(Stack<Behavior> memory, Status message)
+        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             memory.Push(this);
 
-            if (DriverObject.GetComponent<Attributes>().FoodItem == 0) {
+            if (go.GetComponent<Attributes>().FoodItem == 0) {
                 Debug.Log("Checking for food");
-                memory.Push(new GetFood(DriverObject));
+                memory.Push(new GetFood());
                 return Status.RUNNING;
             }
             else {
-                DriverObject.GetComponent<Attributes>().FoodItem -= 1;
-                DriverObject.GetComponent<Attributes>().Health += 20;
+                go.GetComponent<Attributes>().FoodItem -= 1;
+                go.GetComponent<Attributes>().Health += 20;
                 return Status.SUCCESS;
             }
             // return Status.FAIL;

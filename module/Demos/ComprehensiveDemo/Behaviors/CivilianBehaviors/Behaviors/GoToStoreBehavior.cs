@@ -3,27 +3,25 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    internal class GoToStoreBehavior : ActionBehavior
+    internal class GoToStoreBehavior : Behavior
     {
-        public GoToStoreBehavior(GameObject go) : base(go) { }
-
-        public override Status Step(Stack<Behavior> memory, Status message)
+        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             memory.Push(this);
 
-            if (DriverObject.GetComponent<Attributes>().GetPos != ExperimentBlackboard.Instance.GroceryStorePos) {
+            if (go.GetComponent<Attributes>().GetPos != ExperimentBlackboard.Instance.GroceryStorePos) {
                 Debug.Log("Going to the grocery store!");
 
                 memory.Push(
-                    DriverObject.GetComponent<CivilianBehaviorFactory>().GetMoveBehavior(DriverObject, 
+                    go.GetComponent<CivilianBehaviorFactory>().GetMoveBehavior(go, 
                         ExperimentBlackboard.Instance.GroceryStorePos)
                 );
 
                 return Status.RUNNING;
             }
             else {
-                DriverObject.GetComponent<Attributes>().FoodItem += 1;
-                DriverObject.GetComponent<Attributes>().Cash -= 15;
+                go.GetComponent<Attributes>().FoodItem += 1;
+                go.GetComponent<Attributes>().Cash -= 15;
                 return Status.SUCCESS;
             }
         }

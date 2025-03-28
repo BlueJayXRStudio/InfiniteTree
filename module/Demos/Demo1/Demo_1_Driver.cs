@@ -13,7 +13,7 @@ public class Demo_1_Driver : MonoBehaviour
         List<Behavior> Test_Sequence = new();
         foreach (GameObject go in Waypoints) {
             // Console will output "SUCCESS, FAILURE, SUCCESS" because of the inverters
-            Test_Sequence.Add(new Inverter(new Inverter(new ToWaypoint(go, gameObject))));
+            Test_Sequence.Add(new Inverter(new Inverter(new ToWaypoint(go))));
         }
         tree.AddBehavior(new Sequence(Test_Sequence));
     }

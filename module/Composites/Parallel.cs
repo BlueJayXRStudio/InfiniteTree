@@ -6,7 +6,6 @@ using UnityEngine;
 public class Parallel : Behavior
 {
     List<TaskStackMachine> trees;
-    GameObject DriverObject;
 
     public Parallel(List<Behavior> ParallelActions, GameObject DriverObject) {
         trees = new();
@@ -15,14 +14,13 @@ public class Parallel : Behavior
             tree.AddBehavior(action);
             trees.Add(tree);
         }
-        this.DriverObject = DriverObject;
     }
     
-    public Status Step(Stack<Behavior> memory, Status message)
+    public Status Step(Stack<Behavior> memory, GameObject go, Status message)
     {
         int fail_count = 0;
         foreach (TaskStackMachine tree in trees) {
-            tree.DriverObject = DriverObject;
+            tree.DriverObject = go;
             var result = tree.Drive();
             if (result == Status.SUCCESS) {
                 memory.Push(this);

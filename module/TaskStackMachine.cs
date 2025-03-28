@@ -26,10 +26,10 @@ public class TaskStackMachine
         Behavior CurrentAction = Memory.Pop();
 
         if (Message == Status.RUNNING)
-            Message = CurrentAction.Step(Memory, Message);
+            Message = CurrentAction.Step(Memory, DriverObject, Message);
         
         else if (Memory.Count > 0) 
-            Message = Memory.Pop().Step(Memory, Message);
+            Message = Memory.Pop().Step(Memory, DriverObject, Message);
         
         return Message;
     }

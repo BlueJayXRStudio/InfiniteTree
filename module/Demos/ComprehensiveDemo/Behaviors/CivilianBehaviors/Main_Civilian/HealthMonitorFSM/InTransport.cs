@@ -4,17 +4,13 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class InTransport : ActionBehavior
+    public class InTransport : Behavior
     {
-        public InTransport(GameObject go) : base(go)
-        {
-        }
-
-        public override Status Step(Stack<Behavior> memory, Status message)
+        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             if (true) {
                 Debug.Log("Starting Recovery");
-                var nextState = DriverObject.GetComponent<CivilianBehaviorFactory>().GetState(typeof(Recover), DriverObject);
+                var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(Recover), go);
                 memory.Push((Recover) nextState);
                 return Status.RUNNING;
             }

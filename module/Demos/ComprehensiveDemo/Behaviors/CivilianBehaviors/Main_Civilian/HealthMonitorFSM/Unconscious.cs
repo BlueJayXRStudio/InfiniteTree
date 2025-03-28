@@ -4,16 +4,14 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class Unconscious : ActionBehavior
+    public class Unconscious : Behavior
     {
         // bool isPickedUp = false;
-        public Unconscious(GameObject go) : base(go) { }
-
-        public override Status Step(Stack<Behavior> memory, Status message)
+        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             if (true) {
                 Debug.Log("Getting Transported");
-                var nextState = DriverObject.GetComponent<CivilianBehaviorFactory>().GetState(typeof(InTransport), DriverObject);
+                var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(InTransport), go);
                 memory.Push((InTransport) nextState);
                 return Status.RUNNING;
             }

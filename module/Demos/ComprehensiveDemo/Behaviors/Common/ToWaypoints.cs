@@ -17,7 +17,7 @@ namespace InfiniteTree
             velocity = go.GetComponent<Attributes>().MoveSpeed;
         }
 
-        public Status Step(Stack<Behavior> memory, Status message)
+        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {        
             if (index == waypoints.Count) {
                 memory.Push(this);

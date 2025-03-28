@@ -27,7 +27,7 @@ public class CivilianDriver : MonoBehaviour
         //         new ToWaypoints(ExperimentBlackboard.Instance.ShortestPath(ExperimentBlackboard.Instance.map, (3,4), (7,1)), gameObject)
         //     })
         // );
-        tree.AddBehavior(new CivilianControlFlow(gameObject));
+        tree.AddBehavior(new CivilianControlFlow());
         HealthStates.AddBehavior((CivilianIdle) GetComponent<CivilianBehaviorFactory>().GetState(typeof(CivilianIdle), gameObject));
     }
 
@@ -40,7 +40,7 @@ public class CivilianDriver : MonoBehaviour
     public void ResetTree()
     {
         tree.Memory = new Stack<Behavior>();
-        tree.AddBehavior(new CivilianControlFlow(gameObject));
+        tree.AddBehavior(new CivilianControlFlow());
     }
 
     public void SwitchTree() => treePaused = !treePaused;

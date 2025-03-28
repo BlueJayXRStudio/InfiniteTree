@@ -22,7 +22,7 @@ public class Demo_2_Driver : MonoBehaviour
 
         tree.AddBehavior(new Sequence(Test_Sequence));
         Debug.Log("pushing new behavior");
-        Debug.Log(tree.GetMessage());
+        Debug.Log(tree.GetLastMessage());
     }
 
     void Update()

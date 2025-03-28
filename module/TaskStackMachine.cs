@@ -48,14 +48,18 @@ public class TaskStackMachine
         if (Memory.Count == 0) return Status.RUNNING;
 
         var SubTask = Memory.Pop();
-        
-        if (Message == Status.RUNNING) 
+
+        if (Message == Status.RUNNING) {
             Message = SubTask.Step(Memory, DriverObject, Message);
-        
-        else if (Memory.Count > 0)
+            return Message;
+        }
+
+        else if (Memory.Count > 0) {
             Message = Memory.Pop().Step(Memory, DriverObject, Message);
-        
-        return Message;
+            return Message;
+        }
+
+        return Status.RUNNING;
     }
 
     public void AddBehavior(Behavior behavior) {
@@ -63,6 +67,7 @@ public class TaskStackMachine
         Message = Status.RUNNING;
     }
 
-    public Status GetMessage() => Message;
-    public int GetStackCount() => Memory.Count;
+    public Status GetMessage => Message;
+    public int GetStackCount => Memory.Count;
+    public bool ProgramFinish => Message != Status.RUNNING && Memory.Count == 1;
 }

@@ -22,7 +22,7 @@ public class Demo_1_Driver : MonoBehaviour
     {
         var result = tree.Drive();
 
-        if (result != Status.RUNNING && tree.GetStackCount() == 0)
+        if (result != Status.RUNNING && tree.GetStackCount == 0)
             Debug.Log(result);
 
         // We can opt to continue pushing FollowParent action if completed. The ouroboros.

@@ -21,16 +21,18 @@ public class Demo_2_Driver : MonoBehaviour
         }
 
         tree.AddBehavior(new Sequence(Test_Sequence));
-        Debug.Log("pushing new behavior");
-        Debug.Log(tree.GetMessage());
+        
+        // tree.AddBehavior(new ToWaypoint(Waypoints[2]));
+        // Debug.Log("pushing new behavior");
+        // Debug.Log(tree.GetMessage());
     }
 
     void Update()
     {
         Status result = tree.Drive();
 
-        if (result != Status.RUNNING)
-            Debug.Log(result);
+        if (tree.ProgramFinish)
+            Debug.Log($"result: {tree.GetMessage}");
 
         // We can opt to continue pushing FollowParent action if completed. The ouroboros.
         // if (tree.Memory.Count == 0) tree.Memory.Push((initialAction, Status.RUNNING));

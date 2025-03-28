@@ -44,7 +44,7 @@ Here, we will demonstrate the power of Stack memory in achieving wide variety of
 >>> - Priority queue for easy task prioritization in sequence nodes,
 >>> - Machine/Deep Learning policies such as those used for PPO (training is "expensive", but reusability of behavior makes reinforcement learning highly viable),
 >>> - Behavior nodes can be used to build a decision tree/graph with which we can run Dijkstra's algorithm for arbitrary cost optimization (GOAP),
->> - Behaviors are fully interpretable,
+>> - Behaviors are fully interpretable and traceable through OOP,
 >> - Behaviors can act as a Turing complete behavior tree node or a state in a finite state machine,
 > - Main tree can drive a full suite of standard behavior tree composites and decorators in an extremely compact and reproducible form,
 >> - Approximate lines of code in .Net/C#:
@@ -53,9 +53,10 @@ Here, we will demonstrate the power of Stack memory in achieving wide variety of
 >>> - Sequence/Selector Composite: 35 lines,
 >>> - Parallel Composite: 45 lines,
 >>> - Inverter Decorator: 30 lines,
->>> - Repeater Decorator: 0 line (Task can be made self-referential!)
+>>> - Repeater Decorator: 0 line (Task can be made self-referential!) [BlueJay TODO: This is the part that connects BT back to FSM. Repeater + Selector + Blackboard -> Can simulate FSM]
 > Cons
 > - Hard to debug. Very recursive in nature.
+> - Lots of small scripts, but that may be a good thing in terms of OO principles.
 
 ## Formal Definition of the Task Stack Machine
 
@@ -93,7 +94,8 @@ Terminal states only exist at the Task level (`SUCCESS` or `FAIL`), but the syst
 4. John E. Hopcroft, Rajeev Motwani, and Jeffrey D. Ullman. 2001. Introduction to automata theory, languages, and computation, 2nd edition. SIGACT News 32, 1 (March 2001), 60–65. https://doi.org/10.1145/568438.568455
 5. Clarke, E. M., Grumberg, O., & Peled, D. A. (1999). Model checking. MIT Press.
 6. Turing, A.M. (1937), On Computable Numbers, with an Application to the Entscheidungsproblem. Proceedings of the London Mathematical Society, s2-42: 230-265. https://doi.org/10.1112/plms/s2-42.1.230
-7. Epic Games, *Behavior Trees in Unreal Engine*, Unreal Engine Documentation, [Online]. Available: https://dev.epicgames.com/documentation/en-us/unreal-engine/behavior-trees-in-unreal-engine. [Accessed: Mar. 27, 2025].
-8. Splintered Reality, *py_trees*, GitHub repository, [Online]. Available: https://github.com/splintered-reality/py_trees
-9. EugenyN, *BehaviorTrees*, GitHub repository, [Online]. Available: https://github.com/EugenyN/BehaviorTrees
-10. Eraclys, *BehaviourTree*, GitHub repository, [Online]. Available: https://github.com/Eraclys/BehaviourTree
+7. Iovino, M., Förster, J., Falco, P., Chung, J. J., Siegwart, R., & Smith, C. (2024). Comparison between Behavior Trees and Finite State Machines. arXiv preprint arXiv:2405.16137.
+8. Epic Games, *Behavior Trees in Unreal Engine*, Unreal Engine Documentation, [Online]. Available: https://dev.epicgames.com/documentation/en-us/unreal-engine/behavior-trees-in-unreal-engine. [Accessed: Mar. 27, 2025].
+9. Splintered Reality, *py_trees*, GitHub repository, [Online]. Available: https://github.com/splintered-reality/py_trees
+10. EugenyN, *BehaviorTrees*, GitHub repository, [Online]. Available: https://github.com/EugenyN/BehaviorTrees
+11. Eraclys, *BehaviourTree*, GitHub repository, [Online]. Available: https://github.com/Eraclys/BehaviourTree

@@ -9,8 +9,8 @@ planned documentation along with video tutorials
 
 ## Glossary
 
-- **[Task Stack Machine Implementation](./module/BehaviorTree.cs)**: Main Behavior Tree Runner/Driver.
-- **[Comprehensive Demo](./module/Demos/ComprehensiveDemo/)**: Main Behavior Tree Runner/Driver.
+- **[Task Stack Machine Implementation](./module/BehaviorTree.cs)**: Task Stack Machine Runner/Driver implementation.
+- **[Comprehensive Demo](./module/Demos/ComprehensiveDemo/)**: A Unity Demo using Task Stack Machine.
 
 formalization (in progress):
 

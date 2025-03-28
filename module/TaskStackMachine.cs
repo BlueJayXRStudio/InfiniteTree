@@ -20,13 +20,37 @@ public class TaskStackMachine
         Memory = new();
     }
 
+    // // Basic Logical Structure of the Task Stack Machine
+    // public Status Drive() {
+
+    //     if (Memory.Count == 0) return Status.RUNNING;
+
+    //     if (Message == Status.RUNNING) {
+    //         Message = Memory.Pop().Step(Memory, DriverObject, Message);
+    //         return Message;
+    //     }
+    //     else {
+    //         // A caller is expecting a message
+    //         if (Memory.Count > 1) {
+    //             Memory.Pop();
+    //             Message = Memory.Pop().Step(Memory, DriverObject, Message);
+    //             return Message;
+    //         }
+    //         // No caller, program can exit (await new tasks)
+    //         else {
+    //             Memory.Pop();
+    //             return Message;
+    //         }
+    //     }
+    // }
+
     public Status Drive() {
         if (Memory.Count == 0) return Status.RUNNING;
 
-        Behavior CurrentAction = Memory.Pop();
-
-        if (Message == Status.RUNNING)
-            Message = CurrentAction.Step(Memory, DriverObject, Message);
+        var SubTask = Memory.Pop();
+        
+        if (Message == Status.RUNNING) 
+            Message = SubTask.Step(Memory, DriverObject, Message);
         
         else if (Memory.Count > 0)
             Message = Memory.Pop().Step(Memory, DriverObject, Message);

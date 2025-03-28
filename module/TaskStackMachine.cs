@@ -14,7 +14,6 @@ public class TaskStackMachine
     public GameObject DriverObject;
     public Stack<Behavior> Memory;
     private Status Message = Status.RUNNING;
-    private Status Result = Status.SUCCESS;
 
     public TaskStackMachine(GameObject go) {
         DriverObject = go;
@@ -22,28 +21,19 @@ public class TaskStackMachine
     }
 
     public Status Drive() {
-        if (Memory.Count == 0) return Result;
+        if (Memory.Count == 0) return Message;
 
         Behavior CurrentAction = Memory.Pop();
 
-        if (Message == Status.RUNNING) {
+        if (Message == Status.RUNNING)
             Message = CurrentAction.Step(Memory, Status.RUNNING);
-        }
-        else if (Message == Status.SUCCESS) {
-            if (Memory.Count == 0) {
-                Result = Status.SUCCESS;
-                return Status.SUCCESS;
-            }
-            Message = Memory.Pop().Step(Memory, Status.SUCCESS);
-        } 
+        
         else {
-            if (Memory.Count == 0) {
-                Result = Status.FAILURE;
-                return Status.FAILURE;
-            }
-            Message = Memory.Pop().Step(Memory, Status.FAILURE);
+            if (Memory.Count == 0) return Message;
+            Message = Memory.Pop().Step(Memory, Message);
         }
-        return Status.RUNNING;
+
+        return Message;
     }
 
     public void AddBehavior(Behavior behavior) {

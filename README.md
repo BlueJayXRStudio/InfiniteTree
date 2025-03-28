@@ -67,17 +67,17 @@ Here, we will demonstrate the power of Stack memory in achieving wide variety of
 |------------|------------------------------------------------------------------------------|
 | `T`        | Set of all Tasks `t` (analogous to states `Q`)                               |
 | `S`        | Set of all possible stacks over `T` (`Stack<T>`)                             |
-| `μ`        | Shared memory space (e.g., map, tape, or arbitrary structured memory)        |
+| `Γ`        | Shared memory space (e.g. tape or arbitrary structured memory)               |
 | `Σ`        | Set of status messages (`RUNNING`, `SUCCESS`, `FAILURE`)                     |
 | `δ_tree`   | Scheduler/Dispatcher function: `Σ × S → T × S`                               |
-| `δ_task`   | Task step function: `T × S × μ × Σ → S × μ × Σ`                              |
+| `δ_task`   | Task step function: `T × S × Γ × Σ → S × Γ × Σ`                              |
 | `t₀ ∈ T`   | Initial task                                                                 |
 
 ![δ_system evolution](docs/system_evolution.svg)
 
 Terminal states only exist at the Task level (`SUCCESS` or `FAILURE`), but the system itself (`δ_system`) is designed to run continuously, like a scheduler or dispatcher, awaiting new tasks.
 
-[BlueJay TODO: Behavior Tree Pseudo Code Here]
+<img src="docs/TaskStackMachinePseudoCode.png" alt="Task Stack Machine Algorithm" width="600"/>
 
 Since we are working with unbounded memory in the forms of task stack and blackboard, our Task Stack Machine is a Turing complete machine. However, the usefulness of this framework does not come from Turing completeness, but rather from the structural differences between Task Stack Machine and other conventional AI backends such as FSM and Behavior Trees. 
 

@@ -4,21 +4,13 @@ using UnityEngine;
 
 public class EarlyTerminator
 {
-    GameObject DriverObject;
-    Stack<Behavior> Memory;
-
-    public EarlyTerminator(Stack<Behavior> memory, GameObject go) {
-        Memory = memory;
-        DriverObject = go;
-    }
-
-    public Status ShouldTerminate() {
+    public static Status ShouldTerminate(Stack<Behavior> memory) {
         Status result = Status.RUNNING;
 
         Stack<Behavior> tempStack = new();
 
-        while (Memory.Count > 0) {
-            var CurrentAction = Memory.Pop();
+        while (memory.Count > 0) {
+            var CurrentAction = memory.Pop();
             tempStack.Push(CurrentAction);
 
             if (CurrentAction is ICheckTermination terminable) {
@@ -28,7 +20,7 @@ public class EarlyTerminator
         }
 
         while (tempStack.Count > 0)
-            Memory.Push(tempStack.Pop());
+            memory.Push(tempStack.Pop());
 
         return result;
     }

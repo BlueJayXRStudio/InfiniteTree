@@ -10,7 +10,6 @@ namespace InfiniteTree
         private int index = 0;
         private List<(int, int)> waypoints;
         private GameObject DriverObject;
-        private EarlyTerminator terminator;
 
         public ToWaypoints(List<(int, int)> waypoints, GameObject go) {
             this.waypoints = waypoints;
@@ -20,10 +19,9 @@ namespace InfiniteTree
 
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {    
-            terminator ??= new(memory, go);
-            if (terminator.ShouldTerminate() != Status.RUNNING) {
+            if (EarlyTerminator.ShouldTerminate(memory) != Status.RUNNING) {
                 memory.Push(this);
-                return terminator.ShouldTerminate();
+                return EarlyTerminator.ShouldTerminate(memory);
             }
             
             if (index == waypoints.Count) {

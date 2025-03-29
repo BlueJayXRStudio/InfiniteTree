@@ -9,10 +9,9 @@ namespace InfiniteTree
         
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
-            terminator ??= new(memory, go);
-            if (terminator.ShouldTerminate() != Status.RUNNING) {
+            if (EarlyTerminator.ShouldTerminate(memory) != Status.RUNNING) {
                 memory.Push(this);
-                return terminator.ShouldTerminate();
+                return EarlyTerminator.ShouldTerminate(memory);
             }
 
             memory.Push(this);

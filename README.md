@@ -83,21 +83,22 @@ Since we are working with unbounded memory in the forms of task stack and blackb
 
 [BlueJay TODO: Characteristics of BT]
 
-
-
-
 The implicit purpose of a BT is to drive an autonomous agent to a program completion, be it SUCCESS or FAILURE. Sequence node, for instance, sequentially (through pre-order DFS) invokes its children, and decides to continue iterating as long as its children output SUCCESS. In turn, Sequence node returns its own message to its parent (i.e. invoker, caller, etc.), and its parent will decide next course of action based on that message. So on and so forth recursively. While there is indeed an element of state transition in BT, the actual focus and intent is on defining a set of tasks that depend on the SUCCESS and FAILURE among one another. Thus, based on the semantics, a BT's function signature would look like this:  
 
 `Task × Γ → Task x Γ x Σ`  
 ExecuteFully(Subtask, Current Blackboard) = (Caller, Modified Blackboard, Status Message)
 
-
+There is a subtask to caller transition and vice-versa, but no explicit transitions among nodes at the same hierarchy.
 
 [BlueJay TODO: Characteristics of FSM]
 
-`Task × Ι → Task`
+FSM in a true definition is a simple machine; its state transitions depend only on external input alphabet (basic) and do not produce distinct outputs (Moore). 
 
-FSM in a conventional definition is a simple machine; its state transitions depend only on external input alphabet (basic) and do not produce distinct outputs (Moore). 
+`Task × Ι → Task`
+ExecuteFully(Task, finite input alphabet) = (Task)
+
+Conventionally, however, FSM uses unbounded memory, making any computation possible. This unfortunately means less reusability and modularity [7], which is what BT tries to resolve.
+
 
 [BlueJay TODO: Compare with our version of Behavior Tree. AKA Task Stack Machine]
 

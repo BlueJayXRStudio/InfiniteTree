@@ -5,8 +5,16 @@ namespace InfiniteTree
 {
     internal class GoToStoreBehavior : Behavior
     {
+        EarlyTerminator terminator;
+        
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
+            terminator ??= new(memory, go);
+            if (terminator.ShouldTerminate() != Status.RUNNING) {
+                memory.Push(this);
+                return terminator.ShouldTerminate();
+            }
+
             memory.Push(this);
 
             if (go.GetComponent<Attributes>().GetPos != ExperimentBlackboard.Instance.GroceryStorePos) {

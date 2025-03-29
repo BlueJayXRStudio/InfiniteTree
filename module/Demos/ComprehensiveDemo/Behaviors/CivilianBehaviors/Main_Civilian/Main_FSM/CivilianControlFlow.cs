@@ -19,7 +19,7 @@ namespace InfiniteTree
                 // machine, but by treating each behavior as a stackable task
                 // we can achieve a general engine capable of switching between
                 // an FSM and a Behavior Tree.
-                memory.Push(new EatBehavior());
+                memory.Push(new EatBehavior(go));
                 Debug.Log("Getting Food");
                 return Status.RUNNING;
             }

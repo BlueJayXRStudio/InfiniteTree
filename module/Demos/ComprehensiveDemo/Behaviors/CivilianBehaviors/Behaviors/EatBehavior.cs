@@ -4,8 +4,12 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class EatBehavior : Behavior
+    public class EatBehavior : Behavior, ICheckTermination
     {
+        public GameObject DriverObject;
+
+        public EatBehavior(GameObject go) => DriverObject = go;
+
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             memory.Push(this);
@@ -22,5 +26,13 @@ namespace InfiniteTree
             }
             // return Status.FAIL;
         }
+
+        public Status CheckTermination() {
+            if (DriverObject.GetComponent<Attributes>().FoodItem > 0)
+                return Status.SUCCESS;
+            else
+                return Status.RUNNING;
+        }
+
     }
 }

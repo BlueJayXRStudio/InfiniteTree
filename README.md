@@ -67,7 +67,7 @@ Here, we will demonstrate the power of Stack memory in achieving wide variety of
 |------------|------------------------------------------------------------------------------|
 | `T`        | Set of all Tasks `t` (analogous to states `Q`)                               |
 | `S`        | Set of all possible stacks over `T` (`Stack<T>`)                             |
-| `Γ`        | Shared memory space (e.g. tape or arbitrary structured memory)               |
+| `Γ`        | Shared unbounded memory space (e.g. tape or arbitrary structured memory)     |
 | `Σ`        | Set of status messages (`RUNNING`, `SUCCESS`, `FAILURE`)                     |
 | `δ_tree`   | Scheduler/Dispatcher function: `Σ × S → T × S`                               |
 | `δ_task`   | Task step function: `T × S × Γ × Σ → S × Γ × Σ`                              |
@@ -83,19 +83,19 @@ Since we are working with unbounded memory in the forms of task stack and blackb
 
 [BlueJay TODO: Characteristics of BT]
 
-Stems from semantics issue. 
 
-`Task × Γ → Σ`
 
-The implicit purpose of a BT is to drive an autonomous agent to a program completion, be it SUCCESS or FAILURE. Sequence node, for instance, sequentially (through pre-order DFS) invokes its children, and decides to continue iterating as long as its children output SUCCESS. In turn, Sequence node returns its own message to its parent (i.e. invoker, caller, etc.), and its parent will decide next course of action based on that message. So on and so forth recursively. While there is indeed an element of state transition in BT, the actual focus and intent is on defining a set of tasks that depend on the SUCCESS and FAILURE among each other. 
 
-`Task × Γ → Task`
+The implicit purpose of a BT is to drive an autonomous agent to a program completion, be it SUCCESS or FAILURE. Sequence node, for instance, sequentially (through pre-order DFS) invokes its children, and decides to continue iterating as long as its children output SUCCESS. In turn, Sequence node returns its own message to its parent (i.e. invoker, caller, etc.), and its parent will decide next course of action based on that message. So on and so forth recursively. While there is indeed an element of state transition in BT, the actual focus and intent is on defining a set of tasks that depend on the SUCCESS and FAILURE among one another. Thus, based on the semantics, a BT's function signature would look like this:  
 
-`Task × Γ → Task x Σ`
+`Task × Γ → Task x Γ x Σ`  
+ExecuteFully(Subtask, Current Blackboard) = (Caller, Modified Blackboard, Status Message)
+
+
 
 [BlueJay TODO: Characteristics of FSM]
 
-`Task × Γ → Task`
+`Task × Ι → Task`
 
 FSM in a conventional definition is a simple machine; its state transitions depend only on external input alphabet (basic) and do not produce distinct outputs (Moore). 
 

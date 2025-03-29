@@ -4,9 +4,7 @@ using UnityEngine;
 namespace InfiniteTree
 {
     internal class GoToStoreBehavior : Behavior
-    {
-        EarlyTerminator terminator;
-        
+    {        
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             if (EarlyTerminator.ShouldTerminate(memory) != Status.RUNNING) {

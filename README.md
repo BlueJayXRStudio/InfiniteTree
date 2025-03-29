@@ -100,7 +100,17 @@ Our Task Stack Machine attempts to resolve the intents of BT and FSM as a unifie
 
 [BlueJay TODO: Diagram of TSM mechanisms]
 
+![δ_system evolution](docs/SequenceComposite.png)  
+![δ_system evolution](docs/SequenceCompositeNonRoot.png)  
 
+[BlueJay TODO: Sequence Algorithm]  
+
+Sequence in Natural Language: "If *I* have previously failed, then *I* will stop the sequence. Otherwise, if *I* have run out of tasks, then *I* have succeeded. Otherwise *I* will continue with the next task."
+
+<img src="docs/SequencePseudoCode.png" alt="Task Stack Machine Algorithm" width="600"/>
+
+![δ_system evolution](docs/FSM.png)  
+![δ_system evolution](docs/FlexFSM.png)  
 
 ## References
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Demo_2_Driver : MonoBehaviour
+public class Demo_3_Driver : MonoBehaviour
 {
     public List<GameObject> Waypoints;
     TaskStackMachine tree;
@@ -11,15 +11,26 @@ public class Demo_2_Driver : MonoBehaviour
     {
         tree = new(gameObject);
         List<Behavior> Test_Sequence = new();
-        int partition = 2;
+        List<Behavior> Test_Sequence1 = new();
 
-        for (int i = 0; i < partition; i++) {
+        for (int i = 0; i < Waypoints.Count; i++) {
+            Test_Sequence1.Add(new ToWaypoint(Waypoints[i]));
+        }
+
+        // demonstrate parallel composite
+        for (int i = 0; i < 3; i++) {
             Test_Sequence.Add(new Parallel(new List<Behavior>() { new ToWaypoint(Waypoints[i]), new RotateBehavior() }, gameObject));
         }
-        for (int i = partition; i < Waypoints.Count; i++) {
+        // demonstrate nested sequence
+        Test_Sequence.Add(new Sequence(Test_Sequence1));
+        // finish off parent sequence
+        for (int i = 2; i < Waypoints.Count; i++) {
             Test_Sequence.Add(new ToWaypoint(Waypoints[i]));
         }
+        
 
+
+    
         tree.AddBehavior(new Sequence(Test_Sequence));
         
         // tree.AddBehavior(new ToWaypoint(Waypoints[2]));

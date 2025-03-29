@@ -39,13 +39,15 @@ public class TaskStackMachine
     //         // No caller, program can exit (await new tasks)
     //         else {
     //             Memory.Pop();
-    //             return Message;
+    //             return Status.RUNNING;
     //         }
     //     }
     // }
 
     public Status Drive() {
-        if (Memory.Count == 0) return Status.RUNNING;
+
+        if (Memory.Count == 0) 
+            return Status.RUNNING;
 
         var SubTask = Memory.Pop();
 
@@ -54,11 +56,12 @@ public class TaskStackMachine
             return Message;
         }
 
-        else if (Memory.Count > 0) {
+        if (Memory.Count > 0) {
             Message = Memory.Pop().Step(Memory, DriverObject, Message);
             return Message;
         }
 
+        Message = Status.RUNNING;
         return Status.RUNNING;
     }
 

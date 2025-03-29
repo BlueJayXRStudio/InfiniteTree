@@ -20,12 +20,10 @@ public class Sequence : Behavior
         if (message == Status.FAILURE) 
             return Status.FAILURE;
 
-        else if (Actions.Count == 0)
+        if (Actions.Count == 0)
             return Status.SUCCESS;
 
-        else {
-            memory.Push(Actions.Dequeue());
-            return Status.RUNNING;
-        }
+        memory.Push(Actions.Dequeue());
+        return Status.RUNNING;
     }
 }

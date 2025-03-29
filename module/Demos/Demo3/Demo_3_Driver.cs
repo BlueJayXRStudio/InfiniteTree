@@ -18,7 +18,7 @@ public class Demo_3_Driver : MonoBehaviour
         }
 
         // demonstrate parallel composite
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             Test_Sequence.Add(new Parallel(new List<Behavior>() { new ToWaypoint(Waypoints[i]), new RotateBehavior() }, gameObject));
         }
         // demonstrate nested sequence

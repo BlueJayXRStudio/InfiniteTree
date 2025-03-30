@@ -96,9 +96,22 @@ FSM in a true definition is a simple machine; its state transitions depend only 
 
 ### Task Stack Machine (AKA Infinite Tree, TSM, ...)
 
-Our Task Stack Machine attempts to resolve the intents of BT and FSM as a unified framework. By using a stack as a collection of tasks, we can simulate recursive function calls at the level of autonomous tasks, which inherently incorporates temporal dimension. Each task can call an arbitrary subtask by first pushing itself onto the stack then finally pushing the subtask with the message of RUNNING. At the end of that subtask's routine, status message of SUCCESS or FAILURE will be returned to the original task. This exactly mirrors BT mechanisms, and this module presents working examples of standard BT composites and decorators using TSM. On the other hand, FSM state transitions can be simulated by pushing the next state onto the task as RUNNING without first pushing the current task back onto the stack. In both BT and FSM under TSM generalization, a RUNNING task simply pushes itself back onto the task with the message of RUNNING without pushing any other task.
+Our Task Stack Machine attempts to resolve the intents of BT and FSM as a unified framework. By using a stack as a collection of tasks, we can simulate recursive function calls at the level of autonomous tasks, which inherently incorporates temporal dimension. Each task can call an arbitrary subtask by first pushing itself onto the stack then finally pushing the subtask with the message of RUNNING. At the end of that subtask's routine, status message of SUCCESS or FAILURE will be returned to the original task. This mirrors BT mechanisms exactly, and this module presents working examples of standard BT composites and decorators using TSM. On the other hand, FSM state transitions can be simulated by pushing the next state onto the task as RUNNING without first pushing the current task back onto the stack. In both BT and FSM under TSM generalization, a RUNNING task simply pushes itself back onto the task with the message of RUNNING without pushing any other task.
 
-[BlueJay TODO: Diagram of TSM mechanisms]
+### Operating System and CPU Architecture
+
+> *Another register is the stack pointer, which points to the top of the current stack in memory. The stack contains one frame for each procedure that has been entered but not yet exited. A procedure’s stack frame holds those input parameters, local variables, and temporary variables that are not kept in registers. - Tanenbaum, Modern Operating Systems [5]*
+
+At the core of the Operating Systems model, we have a kernel that manages processes that can create multiple threads. Each thread has its own call stacks onto which it can push frames of procedures, AKA functions. In a typical CPU architecture, a procedure can call a new procedure, but it must be encapsulated in a new frame along with a return address to its original caller. Thus, a function f() cannot call itself without create a new frame on the stack, and therefore increasing the stack count. The design yields a powerful programming paradigm that allows us to carry out complex recursive computations, but it is surprisingly limited in autonomous systems or robotic policy representations.
+
+
+
+[BlueJay TODO: Function call stack example]
+
+[BlueJay TODO: TSM call stack example]
+
+
+### TSM Sequence Composite Design
 
 ![δ_system evolution](docs/SequenceComposite.png)  
 ![δ_system evolution](docs/SequenceCompositeNonRoot.png)  

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    internal class GoToStoreBehavior : Behavior
+    public class GoToStoreBehavior : Behavior
     {        
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {

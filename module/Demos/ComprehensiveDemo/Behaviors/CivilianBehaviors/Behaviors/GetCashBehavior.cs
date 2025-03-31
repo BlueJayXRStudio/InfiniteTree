@@ -12,13 +12,12 @@ namespace InfiniteTree
 
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
+            memory.Push(this);
+
             if (EarlyTerminator.ShouldTerminate(memory) != Status.RUNNING) {
-                memory.Push(this);
                 return EarlyTerminator.ShouldTerminate(memory);
             }
             
-            memory.Push(this);
-
             // Normally this would require a selector, but we can flexibly exit out
             // of a behavior with basic conditional checks.
             if (go.GetComponent<Attributes>().Cash >= 25) {

@@ -16,7 +16,7 @@ namespace InfiniteTree
 
             if (go.GetComponent<Attributes>().FoodItem == 0) {
                 Debug.Log("Checking for food");
-                memory.Push(new GetFood());
+                memory.Push(new GetFood(DriverObject));
                 return Status.RUNNING;
             }
             else {
@@ -28,7 +28,7 @@ namespace InfiniteTree
         }
 
         public Status CheckTermination() {
-            if (DriverObject.GetComponent<Attributes>().FoodItem > 0 || DriverObject.GetComponent<Attributes>().Health > 80)
+            if (DriverObject.GetComponent<Attributes>().Health > 80)
                 return Status.SUCCESS;
             else
                 return Status.RUNNING;

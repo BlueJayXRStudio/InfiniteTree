@@ -3,16 +3,21 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class GoToStoreBehavior : Behavior
-    {        
+    public class GoToStoreBehavior : Behavior, ICheckTermination
+    {
+        private GameObject DriverObject;
+        public GoToStoreBehavior(GameObject go) => DriverObject = go;
+
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
+            memory.Push(this);
+
+            if (message == Status.FAILURE)
+                return Status.FAILURE;
+
             if (EarlyTerminator.ShouldTerminate(memory) != Status.RUNNING) {
-                memory.Push(this);
                 return EarlyTerminator.ShouldTerminate(memory);
             }
-
-            memory.Push(this);
 
             if (go.GetComponent<Attributes>().GetPos != ExperimentBlackboard.Instance.GroceryStorePos) {
                 Debug.Log("Going to the grocery store!");
@@ -30,5 +35,14 @@ namespace InfiniteTree
                 return Status.SUCCESS;
             }
         }
+
+        public Status CheckTermination()
+        {
+            if (DriverObject.GetComponent<Attributes>().Cash < 25)
+                return Status.SUCCESS;
+            else
+                return Status.RUNNING;
+        }
+
     }
 }

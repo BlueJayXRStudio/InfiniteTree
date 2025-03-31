@@ -35,7 +35,6 @@ public class Sequence : Behavior
 
     public override Status CheckSuccess()
     {
-        if (Actions.Count == 0)
-            return Status.SUCCESS;
+        
     }
 }

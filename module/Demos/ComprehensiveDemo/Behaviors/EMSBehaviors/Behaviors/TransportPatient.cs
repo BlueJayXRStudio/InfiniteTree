@@ -21,9 +21,9 @@ namespace InfiniteTree
 
             var MoveToHospital = DriverObject.GetComponent<EMSBehaviorFactory>().GetNewMoveBehavior(DriverObject, ExperimentBlackboard.Instance.HospitalPos);
 
-            ToDo.Add(MoveToPatient);
+            ToDo.Add(new MoveTo(DriverObject, Patient.GetComponent<Attributes>().GetPos));
             ToDo.Add(new PickUp(Patient));
-            ToDo.Add(MoveToHospital);
+            ToDo.Add(new MoveTo(DriverObject, ExperimentBlackboard.Instance.HospitalPos));
             ToDo.Add(new DropOff(Patient));
         }
 

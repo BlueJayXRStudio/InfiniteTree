@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Selector : Behavior
 {
-    Queue<Behavior> Actions;
+    protected Queue<Behavior> Actions = new();
+    protected List<Behavior> PrevActions = new();
 
-    public Selector(List<Behavior> ToPopulate) {
-        Actions = new();
+    public Selector(List<Behavior> ToPopulate, GameObject go) : base(go) {        
+        if (ToPopulate == null) return;
+
         foreach (Behavior action in ToPopulate) {
             Actions.Enqueue(action);
         }
     }
 
-    public Status Step(Stack<Behavior> memory, GameObject go, Status message)
+    public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
     {
         memory.Push(this);
         
@@ -28,4 +30,22 @@ public class Selector : Behavior
             return Status.RUNNING;
         }
     }
+
+    public override Status CheckFailure()
+    {
+        return Status.RUNNING;
+    }
+
+    public override Status CheckSuccess()
+    {
+        for (int i = 0; i < PrevActions.Count - 1; i++) {
+            var prevSuccess = PrevActions[i].CheckSuccess();
+
+            if (prevSuccess == Status.SUCCESS)
+                return Status.SUCCESS;
+        }
+        
+        return Status.RUNNING;
+    }
+
 }

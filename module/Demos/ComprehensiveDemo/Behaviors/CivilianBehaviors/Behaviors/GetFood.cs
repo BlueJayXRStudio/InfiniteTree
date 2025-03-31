@@ -3,26 +3,12 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class GetFood : Behavior
+    public class GetFood : Sequence
     {
-        private GameObject DriverObject;
-
-        public GetFood(GameObject go) {
+        public GetFood(GameObject go) : base(null, go) {
             DriverObject = go;
-        }
-
-        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
-        {
-            memory.Push(this);
-
-            if (message == Status.SUCCESS)
-                return Status.SUCCESS;
-                   
-            memory.Push(new Sequence(new List<Behavior>() {
-                new GetCashBehavior(go),
-                new GoToStoreBehavior(go)
-            }));
-            return Status.RUNNING;
+            Actions.Enqueue(new CheckFood(go));
+            Actions.Enqueue(new EatFood(go));
         }
     }
 }

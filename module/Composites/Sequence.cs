@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Sequence : Behavior
 {
-    Queue<Behavior> Actions = new();
-    List<Behavior> PrevActions = new();
+    protected Queue<Behavior> Actions = new();
+    protected  List<Behavior> PrevActions = new();
 
     public Sequence(List<Behavior> ToPopulate, GameObject go) : base (go) {
+        if (ToPopulate == null) return;
         foreach (Behavior action in ToPopulate) {
             Actions.Enqueue(action);
         }

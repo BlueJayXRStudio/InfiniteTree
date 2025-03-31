@@ -29,8 +29,14 @@ namespace InfiniteTree
             return Status.RUNNING;
         }
 
-        // This is an state. It is always running.
-        public override Status CheckRequirement()
+        // This is a state. It is always running.
+        public override Status CheckSuccess()
+        {
+            return Status.RUNNING;    
+        }
+
+        // This is a state. It is always running.
+        public override Status CheckFailure()
         {
             return Status.RUNNING;    
         }

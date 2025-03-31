@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class GetFood : Behavior, ICheckTermination
+    public class GetFood : Behavior
     {
         private GameObject DriverObject;
 
@@ -23,13 +23,6 @@ namespace InfiniteTree
                 new GoToStoreBehavior(go)
             }));
             return Status.RUNNING;
-        }
-
-        public Status CheckTermination() {
-            if (DriverObject.GetComponent<Attributes>().FoodItem > 0)
-                return Status.SUCCESS;
-            else
-                return Status.RUNNING;
         }
     }
 }

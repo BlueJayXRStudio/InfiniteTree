@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Behavior
+public abstract class Behavior : IRequirement
 {
-    public Status Step(Stack<Behavior> memory, GameObject go, Status message);
+    public GameObject DriverObject;
+    public Behavior(GameObject go) => DriverObject = go;
+
+    public abstract Status Step(Stack<Behavior> memory, GameObject go, Status message);
+    public abstract Status CheckSuccess();
+    public abstract Status CheckFailure();
 }
 
-public interface ICheckTermination
+// "Why" are we doing what we're doing?
+public interface IRequirement
 {
-    public Status CheckTermination();
+    public Status CheckSuccess();
+    public Status CheckFailure();
 }

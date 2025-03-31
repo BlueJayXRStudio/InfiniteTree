@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class GetCashBehavior : Behavior, ICheckTermination
+    public class GetCashBehavior : Behavior
     {
         private float BaseCost = 1.0f;
         private GameObject DriverObject;
@@ -40,14 +40,6 @@ namespace InfiniteTree
                 go.GetComponent<Attributes>().Cash += 50;
                 return Status.SUCCESS;
             }
-        }
-
-        public Status CheckTermination()
-        {
-            if (DriverObject.GetComponent<Attributes>().Cash > 25)
-                return Status.SUCCESS;
-            else
-                return Status.RUNNING;
         }
     }
 }

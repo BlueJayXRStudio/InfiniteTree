@@ -7,7 +7,9 @@ namespace InfiniteTree
     // Currently this is a single state "FSM"
     public class CivilianControlFlow : Behavior
     {
-        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
+        public CivilianControlFlow(GameObject go) : base(go) {}
+
+        public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             // push this state immediately back in, because we know
             // we will always come back to this state.
@@ -25,6 +27,12 @@ namespace InfiniteTree
             }
             
             return Status.RUNNING;
+        }
+
+        // This is an state. It is always running.
+        public override Status CheckRequirement()
+        {
+            return Status.RUNNING;    
         }
     }
 }

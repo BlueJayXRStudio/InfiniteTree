@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class GoToStoreBehavior : Behavior, ICheckTermination
+    public class GoToStoreBehavior : Behavior
     {
         private GameObject DriverObject;
         public GoToStoreBehavior(GameObject go) => DriverObject = go;
@@ -11,9 +11,6 @@ namespace InfiniteTree
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             memory.Push(this);
-
-            if (message == Status.FAILURE)
-                return Status.FAILURE;
 
             if (EarlyTerminator.ShouldTerminate(memory) != Status.RUNNING) {
                 return EarlyTerminator.ShouldTerminate(memory);
@@ -30,19 +27,13 @@ namespace InfiniteTree
                 return Status.RUNNING;
             }
             else {
+                if (go.GetComponent<Attributes>().Cash < 15)
+                    return Status.FAILURE;
+                    
                 go.GetComponent<Attributes>().FoodItem += 1;
                 go.GetComponent<Attributes>().Cash -= 15;
                 return Status.SUCCESS;
             }
         }
-
-        public Status CheckTermination()
-        {
-            if (DriverObject.GetComponent<Attributes>().Cash < 25)
-                return Status.SUCCESS;
-            else
-                return Status.RUNNING;
-        }
-
     }
 }

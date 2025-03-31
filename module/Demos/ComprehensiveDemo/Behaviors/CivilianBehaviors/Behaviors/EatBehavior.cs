@@ -4,15 +4,18 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class EatBehavior : Behavior, ICheckTermination
+    public class EatBehavior : Behavior
     {
-        public GameObject DriverObject;
 
-        public EatBehavior(GameObject go) => DriverObject = go;
+        public EatBehavior(GameObject go) : base(go) => DriverObject = go;
 
-        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
+        public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             memory.Push(this);
+
+            if (CheckTermination() == Status.SUCCESS) {
+                return Status.SUCCESS;
+            }
 
             if (go.GetComponent<Attributes>().FoodItem == 0) {
                 Debug.Log("Checking for food");
@@ -27,12 +30,22 @@ namespace InfiniteTree
             // return Status.FAIL;
         }
 
-        public Status CheckTermination() {
-            if (DriverObject.GetComponent<Attributes>().Health > 80)
+
+        // We are doing this because health is less than certain amount (i.e. HP < 80)
+        public override Status CheckSuccess()
+        {
+            if (DriverObject.GetComponent<Attributes>().Health >= 80)
                 return Status.SUCCESS;
-            else
-                return Status.RUNNING;
+
+            return Status.RUNNING;
         }
+
+        // We will keep trying until success. So trivially always running otherwise.
+        public override Status CheckFailure()
+        {
+            return Status.RUNNING;
+        }
+
 
     }
 }

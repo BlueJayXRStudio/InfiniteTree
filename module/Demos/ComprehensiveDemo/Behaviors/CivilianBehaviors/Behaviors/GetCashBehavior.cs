@@ -3,9 +3,12 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class GetCashBehavior : Behavior
+    public class GetCashBehavior : Behavior, ICheckTermination
     {
         private float BaseCost = 1.0f;
+        private GameObject DriverObject;
+
+        public GetCashBehavior(GameObject go) => DriverObject = go;
 
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
@@ -40,5 +43,12 @@ namespace InfiniteTree
             }
         }
 
+        public Status CheckTermination()
+        {
+            if (DriverObject.GetComponent<Attributes>().Cash > 25)
+                return Status.SUCCESS;
+            else
+                return Status.RUNNING;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace InfiniteTree
         public bool ForceWake = false;
         public void Update() {
             if (gameObject.GetComponent<Attributes>().Health >= 20)
-                gameObject.GetComponent<Attributes>().Health -= 5 * Time.deltaTime;
+                gameObject.GetComponent<Attributes>().Health -= 4.0f * Time.deltaTime;
         }
     }
 }

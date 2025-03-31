@@ -8,7 +8,7 @@ namespace InfiniteTree
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             memory.Push(new Sequence(new List<Behavior>() {
-                new GetCashBehavior(),
+                new GetCashBehavior(go),
                 new GoToStoreBehavior()
             }));
             return Status.RUNNING;

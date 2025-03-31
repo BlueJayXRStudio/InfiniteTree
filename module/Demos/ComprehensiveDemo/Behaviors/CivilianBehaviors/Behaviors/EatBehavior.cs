@@ -28,7 +28,7 @@ namespace InfiniteTree
         }
 
         public Status CheckTermination() {
-            if (DriverObject.GetComponent<Attributes>().FoodItem > 0)
+            if (DriverObject.GetComponent<Attributes>().FoodItem > 0 || DriverObject.GetComponent<Attributes>().Health > 80)
                 return Status.SUCCESS;
             else
                 return Status.RUNNING;

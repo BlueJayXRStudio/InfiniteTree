@@ -13,7 +13,7 @@ namespace InfiniteTree
             // we will always come back to this state.
             memory.Push(this); 
 
-            if (go.GetComponent<Attributes>().Health < 50) {
+            if (go.GetComponent<Attributes>().Health < 80) {
                 // EatBehavior is a Behavior Tree. Conventionally, it wouldn't
                 // be possible to run a Behavior Tree from a state in a state
                 // machine, but by treating each behavior as a stackable task
@@ -26,6 +26,5 @@ namespace InfiniteTree
             
             return Status.RUNNING;
         }
-
     }
 }

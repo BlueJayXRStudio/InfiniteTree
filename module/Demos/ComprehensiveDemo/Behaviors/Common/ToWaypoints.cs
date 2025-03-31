@@ -19,6 +19,9 @@ namespace InfiniteTree
 
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {    
+            // Here we are remembering why we are currently moving to a waypoint, and
+            // will exit if we no longer need to. We delegate the stack traversal to
+            // a static method ShouldTerminate
             if (EarlyTerminator.ShouldTerminate(memory) != Status.RUNNING) {
                 memory.Push(this);
                 return EarlyTerminator.ShouldTerminate(memory);
@@ -33,8 +36,10 @@ namespace InfiniteTree
             Vector3 CurrentPos = DriverObject.transform.position;
             Vector3 diff = ParentPos - CurrentPos;
 
-            if (diff.magnitude >= 0.02f)
+            if (diff.magnitude >= 0.02f) {
+                DriverObject.transform.rotation = Quaternion.LookRotation(diff, Vector3.up);
                 DriverObject.transform.position += diff.normalized * velocity * Time.deltaTime;
+            }
             else
                 index++;
 

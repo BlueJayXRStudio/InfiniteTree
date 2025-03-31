@@ -1,18 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using InfiniteTree;
 using UnityEngine;
 
 public class EMSDriver : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    TaskStackMachine tree;
+
+    void Awake()
     {
-        
+        tree = new(gameObject);
     }
 
-    // Update is called once per frame
+    void Start()
+    {
+        tree.AddBehavior(new EMSControlFlow());
+    }
+
     void Update()
     {
-        
+        tree.Drive();
     }
 }

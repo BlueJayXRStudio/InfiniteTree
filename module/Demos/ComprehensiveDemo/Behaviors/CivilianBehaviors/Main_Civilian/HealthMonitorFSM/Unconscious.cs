@@ -9,13 +9,13 @@ namespace InfiniteTree
         // bool isPickedUp = false;        
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
-            if (true) {
-                Debug.Log("Getting Transported");
-                var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(InTransport));
-                memory.Push((InTransport) nextState);
+            if (!go.GetComponent<CivilianAttributes>().ForceWake) {
+                memory.Push(this);
                 return Status.RUNNING;
             }
-            memory.Push(this);
+
+            var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(Recover));
+            memory.Push((Recover) nextState);
             return Status.RUNNING;
         }
     }

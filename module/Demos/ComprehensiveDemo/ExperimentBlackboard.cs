@@ -10,7 +10,9 @@ public class ExperimentBlackboard : Blackboard<ExperimentBlackboard>
     public (int, int) HospitalPos = (0, 2);
     public (int, int) GroceryStorePos = (3, 7);
     public (int, int) ATMPos = (6, 3);
-    
+
+    private Queue<GameObject> EmergencyCalls = new();
+
 
     /// <summary>
     /// Get adjacent horizontal and vertical tiles. Ignore diagonals.
@@ -91,6 +93,17 @@ public class ExperimentBlackboard : Blackboard<ExperimentBlackboard>
 
         return path;
     }
+
+    public GameObject GetCall {
+        get {
+            if (EmergencyCalls.Count > 0)
+                return EmergencyCalls.Dequeue();
+            else
+                return null;
+        }
+    }
+
+    public void SetCall(GameObject go) => EmergencyCalls.Enqueue(go);
 }
 
 class PriorityQueue<T, TPriority> where TPriority : IComparable<TPriority>

@@ -8,6 +8,9 @@ namespace InfiniteTree
     {
         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
+            if (go.GetComponent<CivilianAttributes>().ForceWake)
+                go.GetComponent<CivilianAttributes>().ForceWake = false;
+
             if (go.GetComponent<Attributes>().Health > 75) {
                 Debug.Log("Recovered and resuming activity");
                 var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(CivilianIdle));

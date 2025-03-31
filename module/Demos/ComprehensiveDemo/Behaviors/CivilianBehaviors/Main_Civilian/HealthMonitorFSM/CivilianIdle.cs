@@ -14,8 +14,10 @@ namespace InfiniteTree
                 
                 // by only pushing the next state, we ensure that the next state will be on top of the stack memory.
                 memory.Push((Unconscious) nextState);
-                
-                // Implement: EMS.Call() maybe through blackboard
+
+                // Call EMS
+                ExperimentBlackboard.Instance.SetCall(go);
+
                 // Pause main control flow tree. An unconscious person most likely would not be thinking :O
                 go.GetComponent<CivilianDriver>().SwitchTree();
                 

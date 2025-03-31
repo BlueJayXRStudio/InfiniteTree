@@ -303,7 +303,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3f1d9702a94988b4c8b58f2574c7b0f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -732,6 +732,7 @@ MonoBehaviour:
   Cash: 5
   FoodItem: 0
   MoveSpeed: 2.3
+  ForceWake: 0
 --- !u!114 &252272874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2555,6 +2556,7 @@ MonoBehaviour:
   Cash: 5
   FoodItem: 0
   MoveSpeed: 2.3
+  ForceWake: 0
 --- !u!114 &441751532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2718,6 +2720,7 @@ MonoBehaviour:
   Cash: 5
   FoodItem: 0
   MoveSpeed: 2.3
+  ForceWake: 0
 --- !u!114 &456209094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2894,7 +2897,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3f1d9702a94988b4c8b58f2574c7b0f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3677,7 +3680,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3f1d9702a94988b4c8b58f2574c7b0f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3782,7 +3785,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3f1d9702a94988b4c8b58f2574c7b0f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3887,7 +3890,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3f1d9702a94988b4c8b58f2574c7b0f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4060,6 +4063,7 @@ MonoBehaviour:
   Cash: 5
   FoodItem: 0
   MoveSpeed: 2.3
+  ForceWake: 0
 --- !u!114 &682552900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4804,6 +4808,7 @@ MonoBehaviour:
   Cash: 5
   FoodItem: 0
   MoveSpeed: 2.3
+  ForceWake: 0
 --- !u!114 &783161278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6086,7 +6091,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3f1d9702a94988b4c8b58f2574c7b0f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7451,7 +7456,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3f1d9702a94988b4c8b58f2574c7b0f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8547,6 +8552,7 @@ MonoBehaviour:
   Cash: 5
   FoodItem: 0
   MoveSpeed: 2.3
+  ForceWake: 0
 --- !u!114 &1453858920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8978,7 +8984,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3f1d9702a94988b4c8b58f2574c7b0f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9083,7 +9089,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3f1d9702a94988b4c8b58f2574c7b0f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10412,7 +10418,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3f1d9702a94988b4c8b58f2574c7b0f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10480,6 +10486,7 @@ MonoBehaviour:
   Cash: 5
   FoodItem: 0
   MoveSpeed: 2.3
+  ForceWake: 0
 --- !u!114 &1752711216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11051,6 +11058,7 @@ MonoBehaviour:
   Cash: 5
   FoodItem: 0
   MoveSpeed: 2.3
+  ForceWake: 0
 --- !u!114 &1803139171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11584,7 +11592,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3, y: 0.617, z: 2}
-  m_LocalScale: {x: 0.114258125, y: 0.114258125, z: 0.114258125}
+  m_LocalScale: {x: 0.1142581, y: 0.114258125, z: 0.114258125}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1521104546}
@@ -11618,6 +11626,7 @@ MonoBehaviour:
   Cash: 5
   FoodItem: 0
   MoveSpeed: 2.3
+  ForceWake: 0
 --- !u!114 &1853982915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12481,6 +12490,7 @@ GameObject:
   - component: {fileID: 1988453855}
   - component: {fileID: 1988453856}
   - component: {fileID: 1988453857}
+  - component: {fileID: 1988453858}
   m_Layer: 0
   m_Name: Ambulance
   m_TagString: Untagged
@@ -12542,6 +12552,18 @@ MonoBehaviour:
   Cash: 5
   FoodItem: 0
   MoveSpeed: 2.3
+--- !u!114 &1988453858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988453854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f21f9acfadb296349a74649c49fcc6e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2026832075
 GameObject:
   m_ObjectHideFlags: 0
@@ -13276,6 +13298,7 @@ MonoBehaviour:
   Cash: 5
   FoodItem: 0
   MoveSpeed: 2.3
+  ForceWake: 0
 --- !u!114 &2084640168
 MonoBehaviour:
   m_ObjectHideFlags: 0

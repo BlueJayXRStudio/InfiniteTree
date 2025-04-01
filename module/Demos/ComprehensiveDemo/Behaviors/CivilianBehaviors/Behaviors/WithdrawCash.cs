@@ -10,5 +10,12 @@ namespace InfiniteTree
             Actions.Enqueue(new BeAt(go, ExperimentBlackboard.Instance.ATMPos));
             Actions.Enqueue(new a_Withdraw(go));
         }
+
+        public override Status CheckRequirement()
+        {
+            if (!Finished)
+                return base.CheckRequirement();
+            return Status.FAILURE;
+        }
     }
 }

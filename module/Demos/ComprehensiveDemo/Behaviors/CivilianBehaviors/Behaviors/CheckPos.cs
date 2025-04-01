@@ -9,6 +9,7 @@ namespace InfiniteTree
 
         public CheckPos(GameObject go, (int, int) pos) : base(go)
         {
+            Debug.Log($"Checking if we're at {pos}");
             this.pos = pos;
         }
 

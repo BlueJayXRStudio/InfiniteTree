@@ -7,8 +7,13 @@ namespace InfiniteTree
     {
         public WithdrawCash(GameObject go) : base(null, go)
         {
-            Actions.Enqueue(new CheckPos(go, ExperimentBlackboard.Instance.ATMPos));
+            Actions.Enqueue(new BeAt(go, ExperimentBlackboard.Instance.ATMPos));
             Actions.Enqueue(new a_Withdraw(go));
+        }
+
+        public override Status CheckRequirement()
+        {
+            return Status.FAILURE;
         }
     }
 }

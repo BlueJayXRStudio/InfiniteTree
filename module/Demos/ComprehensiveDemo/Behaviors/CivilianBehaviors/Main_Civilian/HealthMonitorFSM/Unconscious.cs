@@ -23,7 +23,7 @@ namespace InfiniteTree
                 return Status.RUNNING;
             }
 
-            var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(Recover));
+            var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(Recover), go);
             memory.Push((Recover) nextState);
             return Status.RUNNING;
         }

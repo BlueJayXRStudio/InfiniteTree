@@ -5,9 +5,7 @@ namespace InfiniteTree
 {
     public class CheckWallet : Behavior
     {
-        public CheckWallet(GameObject go) : base(go)
-        {
-        }
+        public CheckWallet(GameObject go) : base(go) => Debug.Log("Checking Wallet");
 
         public override Status CheckRequirement()
         {

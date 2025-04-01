@@ -12,9 +12,9 @@ namespace InfiniteTree
         Dictionary<string, Behavior> BehaviorCache = new();
         Dictionary<Type, object> StateCache = new();
 
-        public object GetState(Type type) {
+        public object GetState(Type type, GameObject go) {
             if (!StateCache.ContainsKey(type)) {
-                object instance = Activator.CreateInstance(type, new object[] { });
+                object instance = Activator.CreateInstance(type, new object[] { go });
                 StateCache.Add(type, instance);
             }
 

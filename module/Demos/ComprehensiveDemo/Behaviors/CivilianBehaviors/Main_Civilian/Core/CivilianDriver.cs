@@ -20,7 +20,7 @@ public class CivilianDriver : MonoBehaviour
     void Start()
     {
         tree.AddBehavior(new CivilianControlFlow(gameObject));
-        HealthStates.AddBehavior((CivilianIdle) GetComponent<CivilianBehaviorFactory>().GetState(typeof(CivilianIdle)));
+        HealthStates.AddBehavior((CivilianIdle) GetComponent<CivilianBehaviorFactory>().GetState(typeof(CivilianIdle), gameObject));
     }
 
     void Update()

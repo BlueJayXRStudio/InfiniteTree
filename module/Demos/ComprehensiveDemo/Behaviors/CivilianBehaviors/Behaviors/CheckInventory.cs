@@ -5,7 +5,7 @@ namespace InfiniteTree
 {
     public class CheckInventory : Behavior
     {
-        public CheckInventory(GameObject go) : base(go) {}
+        public CheckInventory(GameObject go) : base(go) => Debug.Log("Checking Inventory");
 
         public override Status CheckRequirement()
         {

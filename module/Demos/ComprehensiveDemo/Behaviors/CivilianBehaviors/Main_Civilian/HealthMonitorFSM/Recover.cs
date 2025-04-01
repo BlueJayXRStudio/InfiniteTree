@@ -22,7 +22,7 @@ namespace InfiniteTree
 
             if (go.GetComponent<Attributes>().Health > 75) {
                 Debug.Log("Recovered and resuming activity");
-                var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(CivilianIdle));
+                var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(CivilianIdle), go);
                 memory.Push((CivilianIdle) nextState);
                 go.GetComponent<CivilianDriver>().SwitchTree();
                 go.GetComponent<CivilianDriver>().ResetTree();

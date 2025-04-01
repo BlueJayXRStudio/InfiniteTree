@@ -25,7 +25,7 @@ namespace InfiniteTree
                 // an FSM and a Behavior Tree.
                 CurrentTask = new EatBehavior(go);
                 memory.Push(CurrentTask);
-                Debug.Log("Getting Food");
+                Debug.Log("Need to Eat Food. Will Try Eating Food");
                 return Status.RUNNING;
             }
             

@@ -6,6 +6,7 @@ namespace InfiniteTree
     {
         public CheckFood(GameObject go) : base(null, go)
         {
+            Debug.Log("Checking For Food");
             Actions.Enqueue(new CheckInventory(go));
             Actions.Enqueue(new GetFood(go));
         }

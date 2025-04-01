@@ -7,10 +7,11 @@ public class Sequence : Behavior
 {
     protected bool Finished = false;
     protected Queue<Behavior> Actions = new();
-    protected  List<Behavior> PrevActions = new();
+    protected List<Behavior> PrevActions = new();
 
-    public Sequence(List<Behavior> ToPopulate, GameObject go) : base (go) {
+    public Sequence(List<Behavior> ToPopulate, GameObject go) : base(go) {
         if (ToPopulate == null) return;
+
         foreach (Behavior action in ToPopulate) {
             Actions.Enqueue(action);
         }
@@ -40,7 +41,10 @@ public class Sequence : Behavior
         for (int i = 0; i < PrevActions.Count - Convert.ToInt32(!Finished); i++) {
             var result = PrevActions[i].CheckRequirement();
             if (result != Status.SUCCESS)
+            {
+                // Debug.Log($"{Finished} and Status.FAILURE from Sequence");
                 return Status.FAILURE;
+            }
         }
         if (!Finished)
             return Status.RUNNING;

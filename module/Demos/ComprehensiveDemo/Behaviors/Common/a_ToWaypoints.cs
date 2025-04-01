@@ -18,13 +18,14 @@ namespace InfiniteTree
 
         public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {    
-            memory.Push(this);
-
             var result = TreeRequirement(memory);
             if (result != Status.RUNNING) {
+                memory.Push(this);
                 return result;
             }
             
+            memory.Push(this);
+
             if (index == waypoints.Count) {
                 return Status.SUCCESS;
             }

@@ -9,6 +9,8 @@ namespace InfiniteTree
         a_ToWaypoints moveTo;
         (int, int) destination;
 
+        bool Finished = false;
+
         public MoveTo(GameObject go, (int, int) dest) : base(go) {
             DriverObject = go;
             destination = dest;
@@ -16,16 +18,19 @@ namespace InfiniteTree
 
         public override Status CheckRequirement()
         {
-            throw new System.NotImplementedException();
+            if (!Finished) return Status.RUNNING;
+            return Status.FAILURE;
         }
 
         public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             memory.Push(this);
 
-            if (message != Status.RUNNING)
+            if (message != Status.RUNNING) {
+                Finished = true;
                 return message;
-                
+            }
+
             var waypoints = ExperimentBlackboard.Instance.ShortestPath(ExperimentBlackboard.Instance.map, go.GetComponent<Attributes>().GetPos, destination);
             moveTo ??= new a_ToWaypoints(waypoints, go);
 

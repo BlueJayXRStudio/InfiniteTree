@@ -13849,7 +13849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   Cash: 5
-  FoodItem: 0
+  FoodItem: 1
   MoveSpeed: 1
   ForceWake: 0
 --- !u!114 &1853982915

@@ -16,11 +16,13 @@ namespace InfiniteTree
 
         public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
-            memory.Push(this);
-            
             var result = TreeRequirement(memory);
-            if (result != Status.RUNNING)
+            if (result != Status.RUNNING) {
+                memory.Push(this);
                 return result;
+            }
+
+            memory.Push(this);
 
             go.GetComponent<Attributes>().FoodItem += 1;
             go.GetComponent<Attributes>().Cash -= 15;

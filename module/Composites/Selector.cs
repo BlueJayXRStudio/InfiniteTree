@@ -25,14 +25,16 @@ public class Selector : Behavior
             Finished = true;
             return Status.SUCCESS;
         }
-        else if (Actions.Count == 0) {
+        if (Actions.Count == 0) {
             Finished = true;
             return Status.FAILURE;
         }
-        else {
-            memory.Push(Actions.Dequeue());
-            return Status.RUNNING;
-        }
+
+        var nextAction = Actions.Dequeue();
+        PrevActions.Add(nextAction);
+        memory.Push(nextAction);
+        return Status.RUNNING;
+
     }
 
     public override Status CheckRequirement()
@@ -40,6 +42,7 @@ public class Selector : Behavior
         for (int i = 0; i < PrevActions.Count - Convert.ToInt32(!Finished); i++) {
             var result = PrevActions[i].CheckRequirement();
             if (result != Status.FAILURE)
+                // Debug.Log($"{Finished} and Status.SUCCESS from Selector");
                 return Status.SUCCESS;
         }
         if (!Finished)

@@ -6,15 +6,20 @@ namespace InfiniteTree
 {
     public class MoveTo : Behavior
     {
-        GameObject DriverObject;
         ToWaypoints moveTo;
         (int, int) destination;
-        public MoveTo(GameObject go, (int, int) dest) {
+
+        public MoveTo(GameObject go, (int, int) dest) : base(go) {
             DriverObject = go;
             destination = dest;
         }
 
-        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
+        public override Status CheckRequirement()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             memory.Push(this);
 
@@ -27,5 +32,6 @@ namespace InfiniteTree
             memory.Push(moveTo);
             return Status.RUNNING;
         }
+
     }
 }

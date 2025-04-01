@@ -6,7 +6,16 @@ namespace InfiniteTree
 {
     public class Recover : Behavior
     {
-        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
+        public Recover(GameObject go) : base(go)
+        {
+        }
+
+        public override Status CheckRequirement()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             if (go.GetComponent<CivilianAttributes>().ForceWake)
                 go.GetComponent<CivilianAttributes>().ForceWake = false;

@@ -6,7 +6,16 @@ namespace InfiniteTree
 {
     public class CivilianIdle : Behavior
     {
-        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
+        public CivilianIdle(GameObject go) : base(go)
+        {
+        }
+
+        public override Status CheckRequirement()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             if (go.GetComponent<Attributes>().Health < 20) {
                 Debug.Log("Civilian passed out");

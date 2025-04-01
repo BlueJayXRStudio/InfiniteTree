@@ -3,15 +3,20 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class CheckInventory : Behavior
+    internal class CheckPos : Behavior
     {
-        public CheckInventory(GameObject go) : base(go) {}
+        private (int, int) pos;
+
+        public CheckPos(GameObject go, (int, int) pos) : base(go)
+        {
+            this.pos = pos;
+        }
 
         public override Status CheckRequirement()
         {
-            if (DriverObject.GetComponent<Attributes>().FoodItem == 0)
-                return Status.FAILURE;
-            return Status.SUCCESS;
+            if (DriverObject.GetComponent<Attributes>().GetPos == pos)
+                return Status.SUCCESS;
+            return Status.FAILURE;
         }
 
         public override Status Step(Stack<Behavior> memory, GameObject go, Status message)

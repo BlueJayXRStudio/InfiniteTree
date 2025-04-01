@@ -11,7 +11,7 @@ namespace InfiniteTree
         public EatBehavior(GameObject go) : base(null, go) {
             DriverObject = go;
             Actions.Enqueue(new CheckFood(go));
-            Actions.Enqueue(new EatFood(go));
+            Actions.Enqueue(new a_EatFood(go));
         }
     }
 }

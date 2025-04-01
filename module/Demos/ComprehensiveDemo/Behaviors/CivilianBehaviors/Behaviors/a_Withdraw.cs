@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class a_EatFood : Behavior
+    internal class a_Withdraw : Behavior
     {
-
-        public a_EatFood(GameObject go) : base(go) { }
+        public a_Withdraw(GameObject go) : base(go)
+        {
+        }
 
         public override Status CheckRequirement()
         {
@@ -21,10 +22,9 @@ namespace InfiniteTree
             if (result != Status.RUNNING) {
                 return result;
             }
-
-            go.GetComponent<Attributes>().FoodItem -= 1;
-            go.GetComponent<Attributes>().Health += 15;
-
+            
+            Debug.Log("Retrieved cash");
+            DriverObject.GetComponent<Attributes>().Cash += 50;
             return Status.SUCCESS;
         }
     }

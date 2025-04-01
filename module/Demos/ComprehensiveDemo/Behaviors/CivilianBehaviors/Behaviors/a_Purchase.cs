@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class a_EatFood : Behavior
+    internal class a_Purchase : Behavior
     {
-
-        public a_EatFood(GameObject go) : base(go) { }
+        public a_Purchase(GameObject go) : base(go)
+        {
+        }
 
         public override Status CheckRequirement()
         {
@@ -16,15 +17,13 @@ namespace InfiniteTree
         public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             memory.Push(this);
-
+            
             var result = TreeRequirement(memory);
-            if (result != Status.RUNNING) {
+            if (result != Status.RUNNING)
                 return result;
-            }
 
-            go.GetComponent<Attributes>().FoodItem -= 1;
-            go.GetComponent<Attributes>().Health += 15;
-
+            go.GetComponent<Attributes>().FoodItem += 1;
+            go.GetComponent<Attributes>().Cash -= 15;
             return Status.SUCCESS;
         }
     }

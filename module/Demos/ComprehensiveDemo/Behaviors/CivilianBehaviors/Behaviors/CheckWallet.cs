@@ -3,15 +3,17 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class CheckInventory : Behavior
+    public class CheckWallet : Behavior
     {
-        public CheckInventory(GameObject go) : base(go) {}
+        public CheckWallet(GameObject go) : base(go)
+        {
+        }
 
         public override Status CheckRequirement()
         {
-            if (DriverObject.GetComponent<Attributes>().FoodItem == 0)
-                return Status.FAILURE;
-            return Status.SUCCESS;
+            if (DriverObject.GetComponent<Attributes>().Cash >= 25)
+                return Status.SUCCESS;
+            return Status.FAILURE;
         }
 
         public override Status Step(Stack<Behavior> memory, GameObject go, Status message)

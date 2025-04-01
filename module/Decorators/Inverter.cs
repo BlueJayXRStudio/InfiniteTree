@@ -5,11 +5,17 @@ using UnityEngine;
 public class Inverter : Behavior
 {
     Behavior ToInvert;
-    public Inverter(Behavior toInvert) {
+    
+    public Inverter(Behavior toInvert, GameObject go) : base(go) {
         ToInvert = toInvert;
     }
 
-    public Status Step(Stack<Behavior> memory, GameObject go, Status message)
+    public override Status CheckRequirement()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
     {
         memory.Push(this);
 
@@ -21,4 +27,5 @@ public class Inverter : Behavior
         else 
             return Status.SUCCESS;
     }
+
 }

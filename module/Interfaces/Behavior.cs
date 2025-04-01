@@ -12,13 +12,15 @@ public abstract class Behavior
 
     public Status TreeRequirement(Stack<Behavior> memory) {
         Stack<Behavior> tempStack = new();
-
-        while (memory.Count > 1)
-            tempStack.Push(memory.Pop());
-
-        var root = memory.Pop();
-        tempStack.Push(root);
-        var result = root.CheckRequirement();
+        Status result = Status.RUNNING;
+        
+        while (memory.Count > 0)
+        {
+            var task = memory.Pop();
+            tempStack.Push(task);
+            result = task.CheckRequirement();
+            if (result != Status.RUNNING) break;
+        }
 
         while (tempStack.Count > 0)
             memory.Push(tempStack.Pop());

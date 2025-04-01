@@ -27,6 +27,7 @@ namespace InfiniteTree
             memory.Push(this);
 
             if (index == waypoints.Count) {
+                Debug.Log("reached the destination");
                 return Status.SUCCESS;
             }
 

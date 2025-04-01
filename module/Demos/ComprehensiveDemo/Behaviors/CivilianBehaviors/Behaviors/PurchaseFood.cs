@@ -6,7 +6,7 @@ namespace InfiniteTree
     {
         public PurchaseFood(GameObject go) : base(null, go)
         {
-            Actions.Enqueue(new CheckPos(go, ExperimentBlackboard.Instance.GroceryStorePos));
+            Actions.Enqueue(new BeAt(go, ExperimentBlackboard.Instance.GroceryStorePos));
             Actions.Enqueue(new a_Purchase(go));
         }
     }

@@ -15,7 +15,9 @@ namespace InfiniteTree
 
         public override Status CheckRequirement()
         {
-            if (DriverObject.GetComponent<Attributes>().GetPos == pos)
+            var currPos = DriverObject.GetComponent<Attributes>().transform.position;
+            var diff = new Vector2(currPos.x, currPos.z) - new Vector2(pos.Item1, pos.Item2);
+            if (DriverObject.GetComponent<Attributes>().GetPos == pos && diff.magnitude < 0.1f)
                 return Status.SUCCESS;
             return Status.FAILURE;
         }

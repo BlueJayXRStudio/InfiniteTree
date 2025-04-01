@@ -10,5 +10,12 @@ namespace InfiniteTree
             Actions.Enqueue(new CheckCash(go));
             Actions.Enqueue(new PurchaseFood(go));
         }
+
+        public override Status CheckRequirement()
+        {
+            if (!Finished)
+                return base.CheckRequirement();
+            return Status.FAILURE;
+        }
     }
 }

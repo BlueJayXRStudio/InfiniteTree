@@ -5,23 +5,34 @@ namespace InfiniteTree
 {
     public class EatFood : Behavior
     {
-        public EatFood(GameObject go) : base(go)
-        {
-        }
+        bool Finished = false;
+        bool AteFood = false;
 
-        public override Status CheckFailure()
-        {
-            throw new System.NotImplementedException();
-        }
+        public EatFood(GameObject go) : base(go) { }
 
-        public override Status CheckSuccess()
+        public override Status CheckRequirement()
         {
-            throw new System.NotImplementedException();
+            if (Finished && AteFood)
+                return Status.SUCCESS;
+            if (Finished && !AteFood)
+                return Status.FAILURE;
+            return Status.RUNNING;
         }
 
         public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
-            throw new System.NotImplementedException();
+            var result = TreeRequirement(memory);
+            if (result != Status.RUNNING) {
+                Finished = true;
+                return result;
+            }
+
+            go.GetComponent<Attributes>().FoodItem -= 1;
+            go.GetComponent<Attributes>().Health += 15;
+
+            Finished = true;
+            AteFood = true;
+            return Status.SUCCESS;
         }
     }
 }

@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Sequence : Behavior
 {
+    protected bool Finished = false;
     protected Queue<Behavior> Actions = new();
     protected  List<Behavior> PrevActions = new();
 
@@ -18,11 +20,14 @@ public class Sequence : Behavior
     {
         memory.Push(this);
 
-        if (message == Status.FAILURE) 
+        if (message == Status.FAILURE) {
+            Finished = true;
             return Status.FAILURE;
-
-        if (Actions.Count == 0)
+        }
+        if (Actions.Count == 0) {
+            Finished = true;
             return Status.SUCCESS;
+        }
 
         var nextAction = Actions.Dequeue();
         PrevActions.Add(nextAction);
@@ -30,25 +35,25 @@ public class Sequence : Behavior
         return Status.RUNNING;
     }
 
-    // If any of the previous nodes' conditions would currently fail, then
-    // the sequence should ideally fail now. As in, past conditions should
-    // persist over the sequence.
-    public override Status CheckFailure()
+    public override Status CheckRequirement()
     {
-        for (int i = 0; i < PrevActions.Count - 1; i++) {
-            var prevSuccess = PrevActions[i].CheckSuccess();
-
-            if (prevSuccess == Status.RUNNING)
-                return Status.FAILURE;
+        if (!Finished) {
+            for (int i = 0; i < PrevActions.Count - 1; i++) {
+                var result = PrevActions[i].CheckRequirement();
+                if (result != Status.SUCCESS)
+                    return Status.FAILURE;
+            }
+            return Status.RUNNING;
         }
-        
-        return Status.RUNNING;
+        else {
+            for (int i = 0; i < PrevActions.Count; i++) {
+                var result = PrevActions[i].CheckRequirement();
+                if (result != Status.SUCCESS)
+                    return Status.FAILURE;
+            }
+            return Status.SUCCESS;
+        }
     }
 
-    // Sequence is trivially always running. As long the running node is a 
-    // child of the sequence, then the sequence is running. 
-    public override Status CheckSuccess()
-    {
-        return Status.RUNNING;
-    }
+
 }

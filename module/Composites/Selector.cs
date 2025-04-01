@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Selector : Behavior
 {
+    protected bool Finished = false;
     protected Queue<Behavior> Actions = new();
     protected List<Behavior> PrevActions = new();
 
@@ -20,9 +22,11 @@ public class Selector : Behavior
         memory.Push(this);
         
         if (message == Status.SUCCESS) {
+            Finished = true;
             return Status.SUCCESS;
         }
         else if (Actions.Count == 0) {
+            Finished = true;
             return Status.FAILURE;
         }
         else {
@@ -31,21 +35,24 @@ public class Selector : Behavior
         }
     }
 
-    public override Status CheckFailure()
+    public override Status CheckRequirement()
     {
-        return Status.RUNNING;
-    }
-
-    public override Status CheckSuccess()
-    {
-        for (int i = 0; i < PrevActions.Count - 1; i++) {
-            var prevSuccess = PrevActions[i].CheckSuccess();
-
-            if (prevSuccess == Status.SUCCESS)
-                return Status.SUCCESS;
+        if (!Finished) {
+            for (int i = 0; i < PrevActions.Count - 1; i++) {
+                var result = PrevActions[i].CheckRequirement();
+                if (result == Status.SUCCESS)
+                    return Status.SUCCESS;
+            }
+            return Status.RUNNING;
         }
-        
-        return Status.RUNNING;
+        else {
+            for (int i = 0; i < PrevActions.Count; i++) {
+                var result = PrevActions[i].CheckRequirement();
+                if (result == Status.SUCCESS)
+                    return Status.SUCCESS;
+            }
+            return Status.SUCCESS;
+        }
     }
 
 }

@@ -7,8 +7,8 @@ namespace InfiniteTree
     {
         public GetFood(GameObject go) : base(null, go) {
             DriverObject = go;
-            Actions.Enqueue(new CheckFood(go));
-            Actions.Enqueue(new EatFood(go));
+            Actions.Enqueue(new CheckCash(go));
+            Actions.Enqueue(new GoToStore(go));
         }
     }
 }

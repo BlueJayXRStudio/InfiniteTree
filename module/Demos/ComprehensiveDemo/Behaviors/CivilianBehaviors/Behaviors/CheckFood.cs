@@ -6,8 +6,8 @@ namespace InfiniteTree
     {
         public CheckFood(GameObject go) : base(null, go)
         {
-            Actions.Enqueue(new CheckInventory());
-            Actions.Enqueue(new GetFood());
+            Actions.Enqueue(new CheckInventory(go));
+            Actions.Enqueue(new GetFood(go));
         }
     }
 }

@@ -796,9 +796,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 138317229}
-  - component: {fileID: 138317228}
-  - component: {fileID: 138317227}
-  - component: {fileID: 138317226}
+  - component: {fileID: 138317232}
+  - component: {fileID: 138317231}
+  - component: {fileID: 138317230}
   m_Layer: 0
   m_Name: Ambulance (1)
   m_TagString: Untagged
@@ -806,46 +806,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &138317226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138317225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f21f9acfadb296349a74649c49fcc6e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &138317227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138317225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bec7a8252036164a92b0ad391ecfeb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: 100
-  Cash: 5
-  FoodItem: 0
-  MoveSpeed: 2.3
---- !u!114 &138317228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138317225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3c2517008dcc464b853a980c54e78d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &138317229
 Transform:
   m_ObjectHideFlags: 0
@@ -872,6 +832,46 @@ Transform:
   - {fileID: 1689217745}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &138317230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138317225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3c2517008dcc464b853a980c54e78d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &138317231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138317225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f21f9acfadb296349a74649c49fcc6e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &138317232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138317225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bec7a8252036164a92b0ad391ecfeb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
+  Cash: 5
+  FoodItem: 0
+  MoveSpeed: 2.3
 --- !u!1 &186717404
 GameObject:
   m_ObjectHideFlags: 0
@@ -8562,9 +8562,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1181592383}
-  - component: {fileID: 1181592382}
-  - component: {fileID: 1181592381}
-  - component: {fileID: 1181592380}
+  - component: {fileID: 1181592386}
+  - component: {fileID: 1181592385}
+  - component: {fileID: 1181592384}
   m_Layer: 0
   m_Name: Ambulance (2)
   m_TagString: Untagged
@@ -8572,46 +8572,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1181592380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1181592379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f21f9acfadb296349a74649c49fcc6e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1181592381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1181592379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bec7a8252036164a92b0ad391ecfeb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: 100
-  Cash: 5
-  FoodItem: 0
-  MoveSpeed: 2.3
---- !u!114 &1181592382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1181592379}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3c2517008dcc464b853a980c54e78d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1181592383
 Transform:
   m_ObjectHideFlags: 0
@@ -8638,6 +8598,46 @@ Transform:
   - {fileID: 1652868285}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &1181592384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181592379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3c2517008dcc464b853a980c54e78d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1181592385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181592379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f21f9acfadb296349a74649c49fcc6e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1181592386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181592379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bec7a8252036164a92b0ad391ecfeb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
+  Cash: 5
+  FoodItem: 0
+  MoveSpeed: 2.3
 --- !u!1 &1182253907
 GameObject:
   m_ObjectHideFlags: 0
@@ -15009,9 +15009,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1988453855}
-  - component: {fileID: 1988453856}
-  - component: {fileID: 1988453857}
   - component: {fileID: 1988453858}
+  - component: {fileID: 1988453857}
+  - component: {fileID: 1988453856}
   m_Layer: 0
   m_Name: Ambulance
   m_TagString: Untagged
@@ -15066,13 +15066,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1988453854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bec7a8252036164a92b0ad391ecfeb5, type: 3}
+  m_Script: {fileID: 11500000, guid: f21f9acfadb296349a74649c49fcc6e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100
-  Cash: 5
-  FoodItem: 0
-  MoveSpeed: 2.3
 --- !u!114 &1988453858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15082,9 +15078,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1988453854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f21f9acfadb296349a74649c49fcc6e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 9bec7a8252036164a92b0ad391ecfeb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Health: 100
+  Cash: 5
+  FoodItem: 0
+  MoveSpeed: 2.3
 --- !u!1 &2026832075
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,33 +3,19 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class GetFood : Behavior, ICheckTermination
+    public class GetFood : Sequence
     {
-        private GameObject DriverObject;
-
-        public GetFood(GameObject go) {
+        public GetFood(GameObject go) : base(null, go) {
             DriverObject = go;
+            Actions.Enqueue(new CheckCash(go));
+            Actions.Enqueue(new PurchaseFood(go));
         }
 
-        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
+        public override Status CheckRequirement()
         {
-            memory.Push(this);
-
-            if (message == Status.SUCCESS)
-                return Status.SUCCESS;
-                   
-            memory.Push(new Sequence(new List<Behavior>() {
-                new GetCashBehavior(go),
-                new GoToStoreBehavior(go)
-            }));
-            return Status.RUNNING;
-        }
-
-        public Status CheckTermination() {
-            if (DriverObject.GetComponent<Attributes>().FoodItem > 0)
-                return Status.SUCCESS;
-            else
-                return Status.RUNNING;
+            if (!Finished)
+                return base.CheckRequirement();
+            return Status.FAILURE;
         }
     }
 }

@@ -6,7 +6,14 @@ public class FollowParent : Behavior
 {
     private float velocity = 1.0f;
 
-    public Status Step(Stack<Behavior> memory, GameObject go, Status message)
+    public FollowParent(GameObject go) : base(go) { }
+
+    public override Status CheckRequirement()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
     {
         GameObject parent = go.GetComponent<ParentComponent>().GetParent;
 

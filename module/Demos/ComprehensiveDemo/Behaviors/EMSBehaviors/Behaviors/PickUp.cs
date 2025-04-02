@@ -7,17 +7,22 @@ namespace InfiniteTree
     {
         public GameObject Patient;
 
-        public PickUp(GameObject patient) {
+        public PickUp(GameObject patient) : base(null) {
             Patient = patient;
         }
 
-        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
+        public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             Patient.transform.position = new Vector3(go.transform.position.x ,Patient.transform.position.y, go.transform.position.z);
             Patient.transform.SetParent(go.transform);
             
             memory.Push(this);
             return Status.SUCCESS;
+        }
+
+        public override Status CheckRequirement()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

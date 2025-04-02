@@ -4,35 +4,14 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class EatBehavior : Behavior, ICheckTermination
+    public class EatBehavior : Sequence
     {
-        public GameObject DriverObject;
-
-        public EatBehavior(GameObject go) => DriverObject = go;
-
-        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
-        {
-            memory.Push(this);
-
-            if (go.GetComponent<Attributes>().FoodItem == 0) {
-                Debug.Log("Checking for food");
-                memory.Push(new GetFood(DriverObject));
-                return Status.RUNNING;
-            }
-            else {
-                go.GetComponent<Attributes>().FoodItem -= 1;
-                go.GetComponent<Attributes>().Health += 20;
-                return Status.SUCCESS;
-            }
-            // return Status.FAIL;
+        private List<Behavior> ToPopulate = new();
+        
+        public EatBehavior(GameObject go) : base(null, go) {
+            DriverObject = go;
+            Actions.Enqueue(new CheckFood(go));
+            Actions.Enqueue(new a_EatFood(go));
         }
-
-        public Status CheckTermination() {
-            if (DriverObject.GetComponent<Attributes>().Health > 80)
-                return Status.SUCCESS;
-            else
-                return Status.RUNNING;
-        }
-
     }
 }

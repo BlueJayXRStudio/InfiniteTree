@@ -6,7 +6,9 @@ namespace InfiniteTree
 {
     public class EMSControlFlow : Behavior
     {
-        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
+        public EMSControlFlow(GameObject go) : base(go) { }
+
+        public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             memory.Push(this);
             GameObject Call = ExperimentBlackboard.Instance.GetCall;
@@ -15,6 +17,11 @@ namespace InfiniteTree
                 memory.Push(new TransportPatient(go, Call));
 
             return Status.RUNNING;
+        }
+
+        public override Status CheckRequirement()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

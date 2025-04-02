@@ -14,13 +14,13 @@ public class Demo_2_Driver : MonoBehaviour
         int partition = 2;
 
         for (int i = 0; i < partition; i++) {
-            Test_Sequence.Add(new Parallel(new List<Behavior>() { new ToWaypoint(Waypoints[i]), new RotateBehavior() }, gameObject));
+            Test_Sequence.Add(new Parallel(new List<Behavior>() { new ToWaypoint(Waypoints[i]), new RotateBehavior(null) }, gameObject));
         }
         for (int i = partition; i < Waypoints.Count; i++) {
             Test_Sequence.Add(new ToWaypoint(Waypoints[i]));
         }
 
-        tree.AddBehavior(new Sequence(Test_Sequence));
+        tree.AddBehavior(new Sequence(Test_Sequence, null));
         
         // tree.AddBehavior(new ToWaypoint(Waypoints[2]));
         // Debug.Log("pushing new behavior");

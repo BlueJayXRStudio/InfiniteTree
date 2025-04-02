@@ -7,11 +7,11 @@ public class ToWaypoint : Behavior
     private float velocity = 2.3f;
     private GameObject waypoint;
 
-    public ToWaypoint(GameObject waypoint) {
+    public ToWaypoint(GameObject waypoint) : base(null) {
         this.waypoint = waypoint;
     }
 
-    public Status Step(Stack<Behavior> memory, GameObject go, Status message)
+    public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
     {        
         // Debug.Log("Traveling to Way Point");
         Vector3 ParentPos = waypoint.transform.position;
@@ -34,5 +34,10 @@ public class ToWaypoint : Behavior
             memory.Push(this);
             return Status.SUCCESS;
         }
+    }
+
+    public override Status CheckRequirement()
+    {
+        throw new System.NotImplementedException();
     }
 }

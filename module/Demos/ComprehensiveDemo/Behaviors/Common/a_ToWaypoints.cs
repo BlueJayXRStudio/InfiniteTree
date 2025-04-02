@@ -4,31 +4,40 @@ using UnityEngine;
 
 namespace InfiniteTree
 {
-    public class ToWaypoints : Behavior
+    public class a_ToWaypoints : Behavior
     {
         private float velocity = 1.0f;
         private int index = 0;
         private List<(int, int)> waypoints;
-        private GameObject DriverObject;
+        private bool with_req = true;
 
-        public ToWaypoints(List<(int, int)> waypoints, GameObject go) {
+        public a_ToWaypoints(List<(int, int)> waypoints, GameObject go) : base(go) {
             this.waypoints = waypoints;
             DriverObject = go;
             velocity = go.GetComponent<Attributes>().MoveSpeed;
         }
 
-        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
-        {    
-            // Here we are remembering why we are currently moving to a waypoint, and
-            // will exit if we no longer need to. We delegate the stack traversal to
-            // a static method ShouldTerminate
-            if (EarlyTerminator.ShouldTerminate(memory) != Status.RUNNING) {
-                memory.Push(this);
-                return EarlyTerminator.ShouldTerminate(memory);
+        public a_ToWaypoints(List<(int, int)> waypoints, GameObject go, bool with_req) : base(go) {
+            this.waypoints = waypoints;
+            DriverObject = go;
+            velocity = go.GetComponent<Attributes>().MoveSpeed;
+            this.with_req = with_req;
+        }
+
+        public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
+        {
+            if (with_req) {
+                var result = TreeRequirement(memory);
+                if (result != Status.RUNNING) {
+                    memory.Push(this);
+                    return result;
+                }
             }
-            
+
+            memory.Push(this);
+
             if (index == waypoints.Count) {
-                memory.Push(this);
+                Debug.Log("reached the destination");
                 return Status.SUCCESS;
             }
 
@@ -43,7 +52,7 @@ namespace InfiniteTree
             else
                 index++;
 
-            memory.Push(this);
+            
             return Status.RUNNING;
         }
 
@@ -53,5 +62,10 @@ namespace InfiniteTree
         }
 
         private Vector3 contruct_position ((int, int) wp) => new Vector3(wp.Item1, DriverObject.transform.position.y, wp.Item2);
+
+        public override Status CheckRequirement()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

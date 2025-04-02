@@ -13,7 +13,7 @@ public class BT_Driver : MonoBehaviour
         gameObject.GetComponent<ParentComponent>().SetParents(Waypoints);
 
         tree = new(gameObject);
-        initialAction = new FollowParent();
+        initialAction = new FollowParent(gameObject);
         tree.Memory.Push(initialAction);
     }
 

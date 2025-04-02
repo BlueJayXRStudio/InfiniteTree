@@ -7,7 +7,11 @@ namespace InfiniteTree
     // Currently this is a single state "FSM"
     public class CivilianControlFlow : Behavior
     {
-        public Status Step(Stack<Behavior> memory, GameObject go, Status message)
+        Behavior CurrentTask;
+
+        public CivilianControlFlow(GameObject go) : base(go) {}
+
+        public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             // push this state immediately back in, because we know
             // we will always come back to this state.
@@ -19,12 +23,29 @@ namespace InfiniteTree
                 // machine, but by treating each behavior as a stackable task
                 // we can achieve a general engine capable of switching between
                 // an FSM and a Behavior Tree.
-                memory.Push(new EatBehavior(go));
-                Debug.Log("Getting Food");
+                CurrentTask = new EatBehavior(go);
+                memory.Push(CurrentTask);
+                Debug.Log("Need to Eat Food. Will Try Eating Food");
                 return Status.RUNNING;
             }
             
             return Status.RUNNING;
         }
+
+        /// <summary>
+        /// We are doing this because we want to keep our health points
+        /// above a certain point (i.e. HP >= 80).
+        /// </summary>
+        public override Status CheckRequirement()
+        {
+            if (CurrentTask is EatBehavior) {
+                if (DriverObject.GetComponent<Attributes>().Health >= 80)
+                    return Status.SUCCESS;
+                return Status.RUNNING;
+            }
+            return Status.RUNNING;
+        }
+
+        
     }
 }

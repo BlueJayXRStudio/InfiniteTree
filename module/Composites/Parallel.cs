@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// SUCCESS ON ANY
+// SUCCESS OR FAIL ON ANY
 public class Parallel : Behavior
 {
     List<TaskStackMachine> trees;
@@ -23,26 +23,25 @@ public class Parallel : Behavior
 
     public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
     {
-        int fail_count = 0;
+        // int fail_count = 0;
         foreach (TaskStackMachine tree in trees) {
             tree.DriverObject = go;
             var result = tree.Drive();
-            if (result == Status.SUCCESS) {
+            if (result != Status.RUNNING) {
                 memory.Push(this);
-                return Status.SUCCESS;
+                return result;
             }
-            else if (result == Status.FAILURE) {
-                fail_count++;
-            }
+            // else if (result == Status.FAILURE) {
+            //     fail_count++;
+            // }
         }
 
-        if (fail_count == trees.Count) {
-            memory.Push(this);
-            return Status.FAILURE;
-        }
+        // if (fail_count == trees.Count) {
+        //     memory.Push(this);
+        //     return Status.FAILURE;
+        // }
         
         memory.Push(this);
         return Status.RUNNING;
     }
-
 }

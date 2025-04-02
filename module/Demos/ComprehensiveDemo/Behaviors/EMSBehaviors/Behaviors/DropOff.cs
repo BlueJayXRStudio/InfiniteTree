@@ -1,23 +1,28 @@
-// using System.Collections.Generic;
-// using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
 
-// namespace InfiniteTree
-// {
-//     public class DropOff : Behavior
-//     {
-//         private GameObject Patient;
+namespace InfiniteTree
+{
+    public class DropOff : Behavior
+    {
+        private GameObject Patient;
 
-//         public DropOff(GameObject patient) {
-//             Patient = patient;
-//         }
+        public DropOff(GameObject patient) : base(null) {
+            Patient = patient;
+        }
 
-//         public Status Step(Stack<Behavior> memory, GameObject go, Status message)
-//         {
-//             Patient.transform.SetParent(null);
-//             Patient.GetComponent<CivilianAttributes>().ForceWake = true;
+        public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
+        {
+            Patient.transform.SetParent(null);
+            Patient.GetComponent<CivilianAttributes>().ForceWake = true;
 
-//             memory.Push(this);            
-//             return Status.SUCCESS;
-//         }
-//     }
-// }
+            memory.Push(this);            
+            return Status.SUCCESS;
+        }
+
+        public override Status CheckRequirement()
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+}

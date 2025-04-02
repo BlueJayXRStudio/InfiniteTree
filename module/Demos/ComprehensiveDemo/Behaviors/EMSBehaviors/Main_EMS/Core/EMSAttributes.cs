@@ -6,6 +6,9 @@ namespace InfiniteTree
 {
     public class EMSAttributes : Attributes
     {
-        
+        public LightsController lightsController;
+        void Awake() {
+            lightsController = GetComponentInChildren<LightsController>(true);
+        }
     }
 }

@@ -35,7 +35,9 @@ namespace InfiniteTree
         {
             memory.Push(this);
 
+            go.GetComponent<EMSAttributes>().lightsController.transform.gameObject.SetActive(true);
             if (message == Status.SUCCESS) {
+                go.GetComponent<EMSAttributes>().lightsController.transform.gameObject.SetActive(false);
                 return Status.SUCCESS;
             }
 

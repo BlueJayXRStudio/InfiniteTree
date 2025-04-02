@@ -111,8 +111,6 @@ At the core of the Operating Systems model, we have a kernel that manages proces
 
 Because procedures in OS models cannot refer back to its original frame in the next execution cycle, it cannot in theory model an FSM which requires that a state be able to return back to itself across a temporal dimension. Even BT and HTN, which have recursive call structure, require that leaf nodes be able to continue running until they are ready to give control back to the parent composite. Thus, without an additional level of abstraction over procedural programming, it is impossible to achieve the kind of mechanisms desired by all currently existing autonomous policy representations such as FSM and BT (it must be noted that existing implementations of FSM and BT are in fact more than just a procedural programming paradigm). Therefore, there is a strong indication that there exists an alternative minimal system structure to emulate an autonomous agent - possibly even mimicking self-awareness to slightly exaggerate.
 
-[BlueJay TODO: TSM call stack example]
-
 By encapsulating a function in an object structure, allowing free-form manipulation of the stack by the functions, and finally converting the responsibility of the call stack to that of keeping traces of object frames rather than procedure frames, we can achieve a fundamentally different type of computational paradigm that allows for the unification of various robotic policy representations. Additionally, flexible manipulation of the stack and clever use of OOP techniques allow each behavior or task to be able to gather hierarchical contextual information that could be used to create context aware adaptiveness and interruptibility in run time complexity that scales logarithmically with the number of tasks within a BT or HTN. That is practically in constant time.
 
 For example, if we imagine a task such as "EatBehavior", we can quickly decompose this into a hierarchical structure. EatBehavior (sequence) requires that we check for food (selector) and then finally eat it (a primitive, non-decomposable task). Checking if we already have food requires that we look into our inventory and on failure to find food in the inventory, we must perform the action of getting food (sequence). An action of getting food requires that we first check if we have cash and then finally purchase food. Checking if we have cash involves checking our wallet, then on low cash we can perform the action of withdrawing cash. Purchasing food and withdrawing cash are, of course, decomposable actions themselves. Although we will skip the details of those actions for brevity, we need only know that those two will eventually reach the primitive tasks of actually moving towards an ATM or a grocery store, which are costly actions in terms of energy and time. Thus, it is in the agent's best interest to know when to interrupt their current task, yet this is one of the most notorious issues in autonomous systems.
@@ -133,19 +131,17 @@ Instead of programming the MoveTo behavior to interrupt itself when the agent su
 
 ### TSM Sequence Composite Design
 
-![δ_system evolution](docs/SequenceComposite.png)  
-![δ_system evolution](docs/SequenceCompositeNonRoot.png)  
-
-[BlueJay TODO: Sequence Algorithm]  
+<img src="docs/SequencePseudoCode.png" alt="Sequence Composite Algorithm" width="600"/>
 
 Sequence in Natural Language: "If *I* have previously failed, then *I* will stop the sequence. Otherwise, if *I* have run out of tasks, then *I* have succeeded. Otherwise *I* will continue with the next task."
 
-<img src="docs/SequencePseudoCode.png" alt="Task Stack Machine Algorithm" width="600"/>
+![δ_system evolution](docs/SequenceComposite.png)  
+![δ_system evolution](docs/SequenceCompositeNonRoot.png)  
+
+<img src="docs/FSMPseudoCode.png" alt="FSM Example Algorithm" width="600"/>
 
 ![δ_system evolution](docs/FSM.png)  
 ![δ_system evolution](docs/FlexFSM.png)  
-
-[BlueJay TODO: FSM example pseudocode]
 
 ## References
 

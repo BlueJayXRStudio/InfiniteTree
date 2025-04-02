@@ -10,8 +10,6 @@ namespace InfiniteTree
 
         private List<Behavior> ToDo = new();
 
-        private bool Finished = false;
-
         public TransportPatient(GameObject driverObject, GameObject patient) : base(driverObject) {
             // Debug.Log("transporting patient!");
             DriverObject = driverObject;
@@ -22,9 +20,9 @@ namespace InfiniteTree
             // var MoveToPatient = DriverObject.GetComponent<EMSBehaviorFactory>().GetNewMoveBehavior(DriverObject, Patient.GetComponent<Attributes>().GetPos);
             // var MoveToHospital = DriverObject.GetComponent<EMSBehaviorFactory>().GetNewMoveBehavior(DriverObject, ExperimentBlackboard.Instance.HospitalPos);
 
-            ToDo.Add(new MoveTo(DriverObject, Patient.GetComponent<Attributes>().GetPos));
+            ToDo.Add(new MoveTo(DriverObject, Patient.GetComponent<Attributes>().GetPos, false));
             ToDo.Add(new PickUp(Patient));
-            ToDo.Add(new MoveTo(DriverObject, ExperimentBlackboard.Instance.HospitalPos));
+            ToDo.Add(new MoveTo(DriverObject, ExperimentBlackboard.Instance.HospitalPos, false));
             ToDo.Add(new DropOff(Patient));
         }
 
@@ -37,8 +35,9 @@ namespace InfiniteTree
         {
             memory.Push(this);
 
-            if (message == Status.SUCCESS)
+            if (message == Status.SUCCESS) {
                 return Status.SUCCESS;
+            }
 
             memory.Push(new Sequence(ToDo, null));
             return Status.RUNNING;

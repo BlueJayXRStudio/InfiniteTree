@@ -7,7 +7,7 @@ namespace InfiniteTree
     public class EMSControlFlow : Behavior
     {
         public EMSControlFlow(GameObject go) : base(go) { }
-        
+
         public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
             memory.Push(this);

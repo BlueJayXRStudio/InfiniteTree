@@ -9,6 +9,7 @@ namespace InfiniteTree
         private float velocity = 1.0f;
         private int index = 0;
         private List<(int, int)> waypoints;
+        private bool with_req = true;
 
         public a_ToWaypoints(List<(int, int)> waypoints, GameObject go) : base(go) {
             this.waypoints = waypoints;
@@ -16,14 +17,23 @@ namespace InfiniteTree
             velocity = go.GetComponent<Attributes>().MoveSpeed;
         }
 
+        public a_ToWaypoints(List<(int, int)> waypoints, GameObject go, bool with_req) : base(go) {
+            this.waypoints = waypoints;
+            DriverObject = go;
+            velocity = go.GetComponent<Attributes>().MoveSpeed;
+            this.with_req = with_req;
+        }
+
         public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
-        {    
-            var result = TreeRequirement(memory);
-            if (result != Status.RUNNING) {
-                memory.Push(this);
-                return result;
+        {
+            if (with_req) {
+                var result = TreeRequirement(memory);
+                if (result != Status.RUNNING) {
+                    memory.Push(this);
+                    return result;
+                }
             }
-            
+
             memory.Push(this);
 
             if (index == waypoints.Count) {

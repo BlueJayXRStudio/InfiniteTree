@@ -9,7 +9,7 @@ namespace InfiniteTree
 
         public override Status CheckRequirement()
         {
-            if (DriverObject.GetComponent<Attributes>().FoodItem == 0)
+            if (DriverObject.GetComponent<Attributes>().FoodItem <= 0)
                 return Status.FAILURE;
             return Status.SUCCESS;
         }

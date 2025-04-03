@@ -113,9 +113,40 @@ Because procedures in OS models cannot refer back to its original frame in the n
 
 By encapsulating a function in an object structure, allowing free-form manipulation of the stack by the functions, and finally converting the responsibility of the call stack to that of keeping traces of object frames rather than procedure frames, we can achieve a fundamentally different type of computational paradigm that allows for the unification of various robotic policy representations. Additionally, flexible manipulation of the stack and clever use of OOP techniques allow each behavior or task to be able to gather hierarchical contextual information that could be used to create context aware adaptiveness and interruptibility in run time complexity that scales logarithmically with the number of tasks within a BT or HTN. That is practically in constant time.
 
-For example, if we imagine a task such as "EatBehavior", we can quickly decompose this into a hierarchical structure. EatBehavior (sequence) requires that we have enough food (selector) and then finally eat it - a primitive, non-decomposable task that we will also refer to as *atomic operation*. Consequently having enough food requires that we look into our inventory, and atomic logical operation, and on failure to find food in the inventory, we must perform the action of getting food (sequence). An action of getting food requires that we have enough cash (another selector) and then finally purchase food. Having enough cash involves checking our wallet, then on low cash we can perform the action of withdrawing cash. Purchasing food and withdrawing cash are, of course, decomposable actions themselves. Although we will skip the details of those actions for brevity, we need only know that those two will eventually reach the primitive tasks of actually moving towards an ATM or a grocery store, which are costly actions in terms of energy and time. Thus, it is in the agent's best interest to know when to interrupt their current task, yet this is one of the most notorious issues in autonomous systems.
+For example, if we imagine a task such as "EatBehavior", we can quickly decompose this into a hierarchical structure. EatBehavior (sequence) requires that we have enough food (selector) and then finally eat it - a primitive, non-decomposable task that we will also refer to as *atomic operation*. Consequently having enough food requires that we look into our inventory, and atomic logical operation, and on failure to find food in the inventory, we must perform the action of getting food (sequence). An action of getting food requires that we have enough cash (another selector) and then finally purchase food. Having enough cash involves checking our wallet, then on low cash we can perform the action of withdrawing cash. Purchasing food and withdrawing cash are, of course, decomposable actions themselves.
 
 <img src="docs/EatBehaviorTree.png" alt="Eat Behavior Tree" width="600"/>
+
+The reason for pausing further description of the tree is not solely for brevity, but also to point out a recurring pattern: 
+
+1. Sequence composing a selector followed by atomic action or another composite:
+    -  Enforce success of the former, before performing the latter.
+
+2. Selector composing an atomic boolean operation followed by an atomic action or another sequence:
+    - Enforce failure of a condition before taking an action to realize a goal.
+    - Do return SUCCESS if the goal has been or was already realized. This ties it back together with a parent sequence composite which wishes to know if a requirement has been met in order to proceed with its own tasks.
+
+Another layer of complexity:
+
+1. When we are enforcing a requirement to continue with a task in a sequence, we have to decide whether the requirement SUCCESS persists over time. If a requirement must hold over time, then the current action must query the parent node to verify said persistence. If the result is FAILURE, then we can/must terminate the action prematurely.  
+    - In other words, if *I* am performing something because *I* have met a certain requirement, but that requirement doesn't hold anymore, then *I* should stop doing what *I'm* doing. 
+
+2. When we are enforcing a requirement to fail in order to continue with a task in a selector, we have to decide whether the requirement FAILURE persists over time. If a requirement must persistently fail, then the current action must query the parent node to verify the said persistence. If the result is SUCCESS, then we can/must terminate the action prematurely.  
+    - In other words, if *I* am doing something so that *I* may realize a goal, but that goal has already been achieved, then *I* no longer have to do what *I'm* currently doing.
+
+
+
+By using this pattern, it is now possible to recursively travel up the parent composites (which implies that they themselves are RUNNING) to check for all existing early termination conditions, which are created by default on behavior tree construction. Since we are only checking the persistence of previously completed tasks, the checking process will not traverse back down to the child nodes, keeping the entire recursive operation at O(N) where N is the number of nodes in the behavior tree. In practice, that is a constant operation. 
+
+Of course, there are still edge cases involving how to handle belief persistence of a non-logical atomic operations. For instance, are we satisfied that we have performed the action in the past, or is its success only valid at the moment of its completion? In our context, the success of an action should not persist once it has been completed, because when we are traversing the stack memory, we are mainly utilizing the requirement as specified in the atomic logical operations under a selector. However, since a selector will return SUCCESS if any of its children returns SUCCESS, the SUCCESS persistence of an atomic operation (non-logical) will nullify falsity of the logical atomic operation, which will result in the failure of proper early termination of the atomic action that is making the query in the moment. However, for now we will assume this is implementation specific and defer it to future studies of this framework in the perspectives of linear temporal logic (LTL) and perhaps three-valued logic.
+
+
+
+
+
+
+
+Although we will skip the details of those actions for brevity, we need only know that those two will eventually reach the primitive tasks of actually moving towards an ATM or a grocery store, which are costly actions in terms of energy and time. Thus, it is in the agent's best interest to know when to interrupt their current task, yet this is one of the most notorious issues in autonomous systems.
 
 [BlueJay TODO: analysis below is completely invalid now. Re-doing this shortly]
 

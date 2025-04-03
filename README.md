@@ -142,27 +142,13 @@ By using this pattern, it is now possible to recursively travel up the parent co
 
 Of course, there are still edge cases involving how to handle belief persistence of a non-logical atomic operations. For instance, are we satisfied that we have performed the action in the past, or is its success only valid at the moment of its completion? In our context, the success of an action should not persist once it has been completed, because when we are traversing the stack memory, we are mainly utilizing requirements as contained in the atomic logical operations encapsulated by a selector. Since a selector will return SUCCESS if any of its children returns SUCCESS, the SUCCESS persistence of an atomic operation (non-logical) will nullify falsity of the logical atomic operation, which will result in the failure of proper early termination of the atomic action that is making the query in the moment. However, for now we will assume this is implementation specific and defer it to future studies of this framework in various perspectives including linear temporal logic (LTL) and perhaps multi-valued logic.
 
+In our "EatBehavior" tree we have three distinct decision paths:
+
+1. not enough health -> enough food -> Eat Food
+2. not enough health -> not enough food -> enough cash -> To Grocery Store
+3. not enough health -> not enough food -> not enough cash -> To ATM
 
 
-
-
-
-
-Although we will skip the details of those actions for brevity, we need only know that those two will eventually reach the primitive tasks of actually moving towards an ATM or a grocery store, which are costly actions in terms of energy and time. Thus, it is in the agent's best interest to know when to interrupt their current task, yet this is one of the most notorious issues in autonomous systems.
-
-[BlueJay TODO: analysis below is completely invalid now. Re-doing this shortly]
-
-Although the entire problem domain of interruptibility has not been studied as a part of this report, we already have a working demonstration of the ease with which TSM can solve some subset of interruptibility problems. Going back to our EatBehavior tree, we can note that physically moving to a location is an atomic operation. That means that once we enter that primitive task, we cannot exit until it is completed. And, because it is a highly reused behavior, it is difficult to adapt this action without rewriting the code for a specific decomposable action or without writing a complicated set of conditional flows that use information from sensory devices and memory. With TSM, however, we can simply create an interface called ICheckTermination with the method CheckTermination(), which can be implemented by non-primitive tasks (such as our main EatBehavior) to return whether the task has already been fulfilled or failed. Then, for every costly atomic, primitive action, we can simply traverse the current stack memory and for each task within that stack, check whether it implements ICheckTermination, and if so, invoke CheckTermination to see if we should exit the atomic action.
-
-There are three pathways in our EatBehavior tree where the agent needs to perform MoveTo action and would want to know when to terminate the task. 
-
-1. Agent does not have enough food -> has enough cash -> Grocery Store
-2. Agent does not have enough food -> does not have enough cash -> ATM
-
-In condition 1, since the agent is moving towards the grocery store *because* it does not have enough food, it only needs to check the satisfaction requirement of having enough food.
-Whereas in condition 2, since the agent is moving towards the ATM *because* it does not have enough cash *because* it does not have enough food, it must check satisfaction requirement of having enough food and enough cash. If we only check whether we have enough food, that means when we suddenly receive cash on the way to the ATM, we will fail to exit out of that atomic operation. This is profound in a philosophical sense, because even we, as a human, easily forget why we were doing certain chain of actions, and often end up wasting considerable amount of time that could have been saved if we were aware of the context of our actions.  
-
-Instead of programming the MoveTo behavior to interrupt itself when the agent suddenly receives food or cash, we can simply implement ICheckTermination on EatBehavior and GetCashBehavior which would return SUCCESSFUL if the agent already has enough food or cash, respectively. In each frame while it is RUNNING, MoveTo simply has to traverse the current memory to check if any of the requirements has already been met by invoking CheckTermination(), and can exit succesfully if that were the case. There is no need to script a separate MoveTo behavior to handle for each and every case nor the need to use arbitrary shared memory to keep track of requirements which goes against OO principles. All requirements are well encapsulated in each behavior, so anytime we need to reuse GetCashBehavior for different occasions such as going to the movie theater or a shopping mall, MoveTo simply needs to *remember* why it was doing that operation which is defined strictly in the behaviors that are currently in the stack memory. And to optimize this even further, we could separate out the logic of checking the memory into a behavioral strategy pattern, thus adhering to best practices in terms of OOAD.
 
 ### TSM Sequence Composite Design
 

@@ -181,7 +181,12 @@ Sequence in Natural Language: "If *I* have previously failed, then I will stop t
 In the very beginning of the algorithm, we push the sequence task back into stack memory, because we want the status message of its subtasks (from the queue) to be propagated back to the sequence task. On SUCCESS or FAILURE of the sequence task, we still want to push it back into memory, because we want TSM to associate that status message with the sequence itself and no other task in the stack.
 
 ![δ_system evolution](docs/SequenceComposite.png)  
+
+Here, we have a state diagram of the Sequence Composite in action. Coordination between TSM and the Sequence composite yields this exact mechanism. One thing to note is that the sequence is the bottom most task in the stack, meaning there is no other caller than the main procedural program. Thus, we do not need to propagate any status message to a caller, which does not exist, and therefore TSM will continue its iterations with a RUNNING status. 
+
 ![δ_system evolution](docs/SequenceCompositeNonRoot.png)  
+
+On the otherhand, 
 
 ### TSM-FSM Design
 

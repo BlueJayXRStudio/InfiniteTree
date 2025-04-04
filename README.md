@@ -186,13 +186,13 @@ Here, we have a state diagram of the Sequence Composite in action. Coordination 
 
 ![δ_system evolution](docs/SequenceCompositeNonRoot.png)  
 
-On the otherhand, 
+On the otherhand, if the sequence had been called by another task and the sequence completed, then the SUCCESS or FAILURE message will be propagated back to the caller when the TSM invokes step function of the caller.
 
 ### TSM-FSM Design
 
 <img src="docs/FSMPseudoCode.png" alt="FSM Example Algorithm" width="600"/>
 
-FSM, on the other hand, 
+Step functions of an FSM task, algorithmically speaking, is really simple. It takes in the same parameters as any other behavioral tasks previously mentioned in order to perform some arbitrary computation. Then it takes those same parameter to determine the next state. In contrast to a behavior tree, however, FSM does not need to push more than a single state to the stack. It
 
 ![δ_system evolution](docs/FSM.png)  
 ![δ_system evolution](docs/FlexFSM.png)  

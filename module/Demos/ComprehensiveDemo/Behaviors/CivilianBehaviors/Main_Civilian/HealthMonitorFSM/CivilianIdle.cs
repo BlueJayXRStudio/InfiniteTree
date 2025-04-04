@@ -17,22 +17,19 @@ namespace InfiniteTree
 
         public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
-            if (go.GetComponent<Attributes>().Health < 20) {
-                Debug.Log("Civilian passed out");
-                var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(Unconscious), go);
-                
-                // by only pushing the next state, we ensure that the next state will be on top of the stack memory.
-                memory.Push((Unconscious) nextState);
+            Behavior nextState = this;
 
+            if (go.GetComponent<Attributes>().Health < 20) {
+                Debug.Log("Civilian passed out");    
                 // Call EMS
                 ExperimentBlackboard.Instance.SetCall(go);
-
                 // Pause main control flow tree. An unconscious person most likely would not be thinking :O
                 go.GetComponent<CivilianDriver>().SwitchTree();
-                
-                return Status.RUNNING;
+                // Set next state as "Unconscious"
+                nextState = (Unconscious) go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(Unconscious), go);
             }
-            memory.Push(this);
+            // By only pushing the next state, we ensure that the next state will be on top of the stack memory.
+            memory.Push(nextState);
             return Status.RUNNING;
         }
     }

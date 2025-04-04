@@ -2,13 +2,14 @@
 **Affiliation:** BlueJayXRStudio (formerly BlueJayVRStudio)  
 **Contact:** BlueJayVRStudio@gmail.com  
 
+WORK IN PROGRESS
+
 # Task Stack Machine, an "Infinite" Tree
 
 <p align="center"> <img src="docs/ENOUGH_CASH_TO_ATM.gif"/> </p>
+Using Unity 2022.3.9f1 (Long Term Support)  
 
 Novel Behavior Tree and State Machine Generalization.
-
-planned documentation along with video tutorials
 
 ## Glossary
 
@@ -18,7 +19,6 @@ planned documentation along with video tutorials
 - **[Parallel Composite](./module/Composites/Parallel.cs)**: Parallel Composite implementation.
 - **[Comprehensive Demo](./module/Demos/ComprehensiveDemo/)**: A Unity Demo using Task Stack Machine.
 
-formalization (in progress):
 
 > Central focus of this framework is smart use of stack memory and Task status messages to generalize action planning.  
 
@@ -132,10 +132,10 @@ The reason for pausing further description of the tree is not solely for brevity
 Another layer of complexity:
 
 1. When we are enforcing a requirement in order to continue with a task in a sequence, we have to decide whether the requirement SUCCESS persists over time. If a requirement must hold over time, then the current action must query the parent node to verify said persistence. If the result is FAILURE, then we can/must terminate the action prematurely.  
-    - In other words, if *I* am performing something because *I* have met a certain requirement, but that requirement doesn't hold anymore, then *I* should stop doing what *I'm* doing. 
+    - In other words, if *I* am performing something because I have met a certain requirement, but that requirement doesn't hold anymore, then I should stop doing what I'm doing. 
 
 2. When we are enforcing a requirement to fail in order to continue with a task in a selector, we have to decide whether the requirement FAILURE persists over time. If a requirement must persistently fail, then the current action must query the parent node to verify the said persistence. If the result is SUCCESS, then we can/must terminate the action prematurely.  
-    - In other words, if *I* am doing something so that *I* may realize a goal, but that goal has already been achieved, then *I* no longer have to do what *I'm* currently doing.
+    - In other words, if *I* am doing something so that I may realize a goal, but that goal has already been achieved, then I no longer have to do what I'm currently doing.
 
 Interestingly, through independent system design and practical reasoning, this project reached the same conclusion as the cognitive-computational model illustrated in a work by Georgeff et al [tbd], *The Belief-Desire-Intention Model of Agency* (BDI). The work envisions an intelligent system whose actions are driven by *Desire* and controlled by Beliefs and Intention. At the top level of our "EatBehavior" tree, the implicit desire (but explicitly programmed within the main controller FSM) is to be satiated as a form of a selector. The belief, on the other hand, would be whether we are indeed satiated or not, and the intention is to engage in "EatBehavior" if we happen to be hungry. However, a selector is not the only form of desire that breaks down into a belief and intention. A decomposable task or a sequence is, in and of itself, a desire to perform a task, and hence requires a decomposition into a belief and intention. For instance, the desire to get food requires that we have enough cash before we can purchase food, meaning that we must believe that we have enough cash before even having the intent to purchase food. 
 
@@ -151,7 +151,7 @@ In our "EatBehavior" tree we have three distinct decision paths:
 2. not enough health -> not enough food -> enough cash -> To Grocery Store
 3. not enough health -> not enough food -> not enough cash -> To ATM
 
-In all three cases, suddenly having enough health should override the current action of either eating food, going to the grocery store or going to the ATM. In cases two and three, having enough food should override the action of going to the grocery store or the ATM. Finally, having enough cash should override the action of going to the ATM. Although this kind of logic can be implemented using a blackboard and an FSM or BT, without a clear structure or strategy to accomodate requirements and interruptibility, we will inevitably face combinatorial explosion in development time and riddles in safety verifications and reachability analysis. For example, something that might have caught many developers off is the fact that suddenly not having enough food should also override the action of eating food. Similarly, suddenly not having enough cash on the way to the grocery store should prompt the agent to terminate its action of going to the grocery store. For anyone, that is simply way too many edge cases to handle without a structured approach. However, by taking advantage of cognitive models in task management such as that suggested by BDI and combining it with the computational model of Task Stack Machine and recursive Task to Task invokations, we can easily implement a system to automatically handle all of these termination cases. Practical demonstration is provided in this GitHub repository [16].
+In all three cases, suddenly having enough health should override the current action of either eating food, going to the grocery store or going to the ATM. In cases two and three, having enough food should override the action of going to the grocery store or the ATM. Finally, having enough cash should override the action of going to the ATM. Although this kind of logic can be implemented using a blackboard and an FSM or BT, without a clear structure or strategy to accomodate requirements and interruptibility, we will inevitably face combinatorial explosion in development time and riddles in safety verifications and reachability analysis. For example, something that might have caught many developers off is the fact that suddenly not having enough food should also override the action of eating food. Similarly, suddenly not having enough cash on the way to the grocery store should prompt the agent to terminate its action of going to the grocery store. For anyone, that is simply way too many edge cases to handle without a structured approach. However, by taking advantage of cognitive models in task management such as that suggested by BDI and combining it with the computational model of Task Stack Machine and recursive Task to Task invocations, we can easily implement a system to automatically handle all of these termination cases. Practical demonstration is provided in this GitHub repository [16].
 
 #### Enough Health interrupts Going To Store
 <p align="left"> <img src="docs/ENOUGH_HP_TO_STORE.gif"/> </p>
@@ -176,12 +176,18 @@ In all three cases, suddenly having enough health should override the current ac
 
 <img src="docs/SequencePseudoCode.png" alt="Sequence Composite Algorithm" width="600"/>
 
-Sequence in Natural Language: "If *I* have previously failed, then *I* will stop the sequence. Otherwise, if *I* have run out of tasks, then *I* have succeeded. Otherwise *I* will continue with the next task."
+Sequence in Natural Language: "If *I* have previously failed, then I will stop the sequence. Otherwise, if I have run out of tasks, then I have succeeded and should exit. Otherwise I will continue with the next task in queue/list."
+
+In the very beginning of the algorithm, we push the sequence task back into stack memory, because we want the status message of its subtasks (from the queue) to be propagated back to the sequence task. On SUCCESS or FAILURE of the sequence task, we still want to push it back into memory, because we want TSM to associate that status message with the sequence itself and no other task in the stack.
 
 ![δ_system evolution](docs/SequenceComposite.png)  
 ![δ_system evolution](docs/SequenceCompositeNonRoot.png)  
 
+### TSM-FSM Design
+
 <img src="docs/FSMPseudoCode.png" alt="FSM Example Algorithm" width="600"/>
+
+FSM, on the other hand, 
 
 ![δ_system evolution](docs/FSM.png)  
 ![δ_system evolution](docs/FlexFSM.png)  

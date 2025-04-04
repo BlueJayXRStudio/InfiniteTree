@@ -17,19 +17,21 @@ namespace InfiniteTree
 
         public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
+            Behavior nextState = this;
+
             if (go.GetComponent<CivilianAttributes>().ForceWake)
                 go.GetComponent<CivilianAttributes>().ForceWake = false;
 
             if (go.GetComponent<Attributes>().Health > 75) {
                 Debug.Log("Recovered and resuming activity");
-                var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(CivilianIdle), go);
-                memory.Push((CivilianIdle) nextState);
                 go.GetComponent<CivilianDriver>().SwitchTree();
                 go.GetComponent<CivilianDriver>().ResetTree();
-                return Status.RUNNING;
+                nextState = (CivilianIdle) go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(CivilianIdle), go);
             }
+            
             go.GetComponent<Attributes>().Health += 10f * Time.deltaTime;
-            memory.Push(this);
+
+            memory.Push(nextState);
             return Status.RUNNING;
         }
     }

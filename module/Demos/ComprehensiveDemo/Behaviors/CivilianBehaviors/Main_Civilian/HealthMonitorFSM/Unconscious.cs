@@ -18,13 +18,14 @@ namespace InfiniteTree
         // bool isPickedUp = false;        
         public override Status Step(Stack<Behavior> memory, GameObject go, Status message)
         {
-            if (!go.GetComponent<CivilianAttributes>().ForceWake) {
-                memory.Push(this);
-                return Status.RUNNING;
+            Behavior nextState = this;
+
+            if (go.GetComponent<CivilianAttributes>().ForceWake) {
+                Debug.Log("Waking up. Starting Recovery :D");
+                nextState = (Recover)go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(Recover), go);
             }
 
-            var nextState = go.GetComponent<CivilianBehaviorFactory>().GetState(typeof(Recover), go);
-            memory.Push((Recover) nextState);
+            memory.Push(nextState);
             return Status.RUNNING;
         }
     }

@@ -182,7 +182,7 @@ In the very beginning of the algorithm, we push the sequence task back into stac
 
 ![δ_system evolution](docs/SequenceComposite.png)  
 
-Here, we have a state diagram of the Sequence Composite in action. Coordination between TSM and the Sequence composite yields this exact mechanism. One thing to note is that the sequence is the bottom most task in the stack, meaning there is no other caller than the main procedural program. Thus, we do not need to propagate any status message to a caller, which does not exist, and therefore TSM will continue its iterations with a RUNNING status. 
+Here, we have a state diagram of the Sequence Composite in action. Coordination between TSM and the Sequence composite yields this exact mechanism. Important note here is that the sequence is the bottom most task in the stack, meaning there is no other caller than the main procedural program. Thus, we do not need to propagate any status message to a caller, which does not exist in this specific instance, and therefore TSM will continue its iterations with a RUNNING status. 
 
 ![δ_system evolution](docs/SequenceCompositeNonRoot.png)  
 
@@ -192,7 +192,7 @@ On the otherhand, if the sequence had been called by another task and the sequen
 
 <img src="docs/FSMPseudoCode.png" alt="FSM Example Algorithm" width="600"/>
 
-Step functions of an FSM task, algorithmically speaking, is really simple. It takes in the same parameters as any other behavioral task in order to perform some arbitrary computation. Then it takes those same parameter to determine the next state. In contrast to a behavior tree, however, FSM does not need to push more than a single state to the stack. It simply needs to push the next state and return RUNNING. The total possible state transitions are all ordered pairs of the states in the state set Q. Same principles apply in TSM implementation of FSM as any finite state machine.
+Step function of an FSM task, algorithmically speaking, is really simple. It takes in the same parameters as any other behavioral task in order to perform some arbitrary computation. Then it takes those same parameter to determine the next state. In contrast to a behavior tree, however, FSM does not need to push more than a single state to the stack. It simply needs to push the next state and return RUNNING. The total possible state transitions are all ordered pairs of the states in the state set Q with repetitions allowed. Same principles apply here as any other finite state machine implementations.
 
 ![δ_system evolution](docs/FSM.png)  
 ![δ_system evolution](docs/FlexFSM.png)  

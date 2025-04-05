@@ -4,12 +4,10 @@
 
 WORK IN PROGRESS
 
-# Task Stack Machine, an "Infinite" Tree
+# Task Stack Machine: An "Infinite" Tree for Unified Task Planning
 
 <p align="center"> <img src="docs/ENOUGH_CASH_TO_ATM.gif"/> </p>
 Using Unity 2022.3.9f1 (Long Term Support)  
-
-Novel Behavior Tree and State Machine Generalization.
 
 ## Glossary
 
@@ -19,51 +17,40 @@ Novel Behavior Tree and State Machine Generalization.
 - **[Parallel Composite](./module/Composites/Parallel.cs)**: Parallel Composite implementation.
 - **[Comprehensive Demo](./module/Demos/ComprehensiveDemo/)**: A Unity Demo using Task Stack Machine.
 
+## Abstract
 
-> Central focus of this framework is smart use of stack memory and Task status messages to generalize action planning.  
+This paper introduces the Task Stack Machine (TSM), a minimal and general-purpose framework for agent behavior execution that unifies procedural and reactive planning models, such as Behavior Trees (BT), Finite State Machines (FSM), and Goal-Oriented Action Planning (GOAP). At the core of TSM is a globally accessible stack and a set of task status messages (RUNNING, SUCCESS, FAILURE) that enable recursive task invocation, early termination, and belief-aware control flow. We show that common composites like Sequence and Selector, as well as FSM transitions, emerge naturally from this structure using less than 20 lines of code.
 
-> Type of action planning:
-> 1. Procedural: Behavior Tree, Hierarchical Task Network Planning (`HTN`), Goal Oriented Action Planning (`GOAP`), etc.
->> - Pros: Highly expressive.
->> - Cons: Hard to construct (Unreal Engine resolves this by using node editor) and requires deep domain knowledge for the specific system we're implementing.
-> 2. Reactive: Finite State Machine (`FSM`), etc.
->> - Pros: Can create smart emergent behaviors. 
->> - Cons: Difficult to decouple sequential behaviors. Some emergent behaviors may not be desired, which forces extensive robustness testing.
+TSM provides a structural alternative to the call stack model in classical procedural systems, allowing tasks to re-enter themselves or parent composites without adding new frames, thus capturing intention persistence and interruptibility over time. Interestingly, the framework independently converges on cognitive patterns aligned with the Belief-Desire-Intention (BDI) model of agency, with belief conditions embedded in the structure and flow of the tree itself.
 
-> The aim of Task Stack Machine is to generalize the two types of task planning frameworks by making use of stack memory
-and a global access to the stack for each Task  
-> Requirements for Task Stack Machine:  
-> 
-> **Note**: we will use "behaviors" and "tasks" interchangeably.
-> 1. A Task is either Running or Done.
->> - If Running, return RUNNING status.
->> - If Done, return SUCCESS or FAILURE status.
-> 2. A Task must receive status message and, more importantly, yield status message.
-> 3. A Task can access shared memory.
-> 4. A Tree must have a collection of Tasks. This can take many different forms including Stacks, Lists, Queues, or Priority Queue. 
-Here, we will demonstrate the power of Stack memory in achieving wide variety of standard behaviors including procedural and reactive behaviors.
+We present formal definitions, illustrative diagrams, and a Unity-based demonstration. Our implementation shows that TSM enables scalable, interruptible behaviors without combinatorial explosion, offering a reusable foundation for complex agent behavior in games, robotics, and simulation systems.
 
-> Benefits
-> - Loose coupling of behaviors,
->> - Behaviors are highly reusable,
->> - Leads to easy recursive state serialization,
->> - Each behavior can have a policy for decision making:
->>> - Priority queue for easy task prioritization in sequence nodes,
->>> - Machine/Deep Learning policies such as those used for PPO (training is "expensive", but reusability of behavior makes reinforcement learning highly viable),
->>> - Behavior nodes can be used to build a decision tree/graph with which we can run Dijkstra's algorithm for arbitrary cost optimization (GOAP),
->> - Behaviors are fully interpretable and traceable through OOP,
->> - Behaviors can act as a BT node or an FSM state,
-> - Main tree can drive a full suite of standard behavior tree composites and decorators in an extremely compact and reproducible form,
->> - Approximate lines of code in .Net/C#:
->>> - Behavior tree: 50 lines, 
->>> - Behavior/Task Interface: 10 lines, 
->>> - Sequence/Selector Composite: 35 lines,
->>> - Parallel Composite: 45 lines,
->>> - Inverter Decorator: 30 lines,
->>> - Repeat Decorator: 0 line (Task can be made self-referential!) [BlueJay TODO: This is the part that connects BT back to FSM. A BT with Repeater + Selector + Blackboard -> Can simulate FSM]
-> Cons
-> - Can be difficult to debug. Very recursive in nature.
-> - Lots of small scripts, but that may be a good thing in terms of OO principles.
+## Introduction
+
+Intelligent agents, whether in games, robotics, or simulations, rely on structured behavior models to make decisions and execute actions. Classical approaches such as Finite State Machines (FSMs) and Behavior Trees (BTs) have become industry standards due to their interpretability and modularity. However, both suffer from limitations in scalability, expressiveness, and task reuse, particularly when dealing with complex conditional logic, recursive behaviors, or belief-driven intention interruption.
+
+Higher-level planning frameworks, such as Hierarchical Task Networks (HTNs) and Goal-Oriented Action Planning (GOAP), offer more expressiveness but come at the cost of complexity, brittleness, and poor runtime transparency. Meanwhile, cognitive agent architectures like BDI provide theoretical guidance but are rarely integrated into practical task execution systems.
+
+This paper introduces the Task Stack Machine (TSM), a minimal yet expressive execution framework that unifies reactive and procedural planning through the use of stack-based task scheduling and status message propagation. In TSM, tasks can dynamically invoke or replace subtasks, query belief states, and self-terminate based on runtime context, all within a compact execution engine of fewer than 20 lines of core logic.
+
+The primary contributions of this work are:
+
+- A formal definition of the TSM model as a unifying abstraction for FSM, BT, and GOAP paradigms
+- An implementation of standard behavior composites (e.g., Sequence, Selector) using stack-based recursion
+- A demonstration of belief-based early termination logic inspired by the Belief-Desire-Intention (BDI) model
+- A working Unity demo with traceable behavior flow and interruptibility logic 
+
+By offering an alternative control model that is both structurally elegant and practically implementable, TSM bridges the gap between symbolic planning and runtime autonomy, and opens new avenues for building more robust, scalable, and introspectable intelligent agents.
+
+## Related Work
+
+Traditional task planning systems are typically categorized as procedural or reactive. Procedural models include Behavior Trees (BT) [12-15], Hierarchical Task Networks (HTN) [1], and Goal-Oriented Action Planning (GOAP) [2,3], which offer high expressivity but are often hard to scale or debug. Reactive models such as Finite State Machines (FSM) offer simplicity and emergent behavior [5,9], but struggle with behavior sequencing, state persistence, and task reuse.
+
+Recent efforts have sought to enhance planning expressiveness using blackboard systems, active inference [10], or hybridized BT-HFSM models [17], though most retain the structural limitations of their base architectures. Formal frameworks like recursive state machines [4], model checking [7], and automata theory [5] provide theoretical tools for analyzing such systems, but are rarely used to guide real-world execution models.
+
+The Belief-Desire-Intention (BDI) model [11] remains foundational in cognitive agent theory, but implementations often rely on rule-based engines with limited runtime introspection or task-level interruptibility. Similarly, procedural languages and operating system models (e.g., stack-based execution [6]) do not easily support intention persistence or runtime task adaptation, highlighting a gap between computational tractability and cognitive expressiveness.
+
+This paper addresses that gap by presenting the Task Stack Machine, which unifies planning and reactivity in a structurally recursive, intention-aware, and practically implementable architecture.
 
 ## Formal Definition of the Task Stack Machine
 
@@ -85,7 +72,9 @@ Terminal states only exist at the Task level (`SUCCESS` or `FAILURE`), but the s
 
 <img src="docs/TaskStackMachinePseudoCode.png" alt="Task Stack Machine Algorithm" width="600"/>
 
-Since we are working with unbounded memory in the forms of task stack and blackboard, our Task Stack Machine is a Turing complete machine. However, the usefulness of this framework does not come from Turing completeness, but rather from the structural differences between Task Stack Machine and other conventional AI backends such as FSM and Behavior Trees. 
+Since we are working with unbounded memory in the forms of task stack and blackboard, our Task Stack Machine is a Turing complete machine [8]. However, the usefulness of this framework does not come from Turing completeness, but rather from the structural differences between Task Stack Machine and other conventional AI backends such as FSM and Behavior Trees. 
+
+## Comparisons
 
 ### Behavior Tree (BT)
 
@@ -100,7 +89,7 @@ There is a subtask to caller transition and vice-versa, but no explicit transiti
 
 FSM in a true definition is a simple machine; its state transitions depend only on external input alphabet (basic) and do not produce distinct outputs (Moore). Conventionally, however, FSM uses unbounded memory, making any computation possible. So, while it allows an arbitrary task to task transitions, it unfortunately means less reusability and modularity [7], which is what BT tries to resolve.
 
-### Task Stack Machine (AKA Infinite Tree, TSM, ...)
+### Task Stack Machine (TSM, "Infinite Tree")
 
 Our Task Stack Machine attempts to resolve the intents of BT and FSM as a unified framework. By using a stack as a collection of tasks, we can simulate recursive function calls at the level of autonomous tasks, which inherently incorporates temporal dimension. Each task can call an arbitrary subtask by first pushing itself onto the stack then finally pushing the subtask with the message of RUNNING. At the end of that subtask's routine, status message of SUCCESS or FAILURE will be returned to the original task. This mirrors BT mechanisms exactly, and this module presents working examples of standard BT composites and decorators using TSM. On the other hand, FSM state transitions can be simulated by pushing the next state onto the task as RUNNING without first pushing the current task back onto the stack. In both BT and FSM under TSM generalization, a RUNNING task simply pushes itself back onto the task with the message of RUNNING without pushing any other task.
 
@@ -108,28 +97,28 @@ Our Task Stack Machine attempts to resolve the intents of BT and FSM as a unifie
 
 > *Another register is the stack pointer, which points to the top of the current stack in memory. The stack contains one frame for each procedure that has been entered but not yet exited. A procedure’s stack frame holds those input parameters, local variables, and temporary variables that are not kept in registers. - Tanenbaum, Modern Operating Systems [5]*
 
-At the core of the Operating Systems model, we have a kernel that manages processes that can create multiple threads. Each thread has its own call stacks onto which it can push frames of procedures, AKA functions. In a typical CPU architecture, a procedure can call a new procedure, but it must be encapsulated in a new frame along with a return address to its original caller. The design yields a powerful programming paradigm that allows us to carry out complex recursive computations. However, it is surprisingly limited in autonomous systems or robotic policy representations, because a function f() cannot call itself without creating a new frame on the stack.
+To further clarify the novelty of TSM, it helps to contrast it with how procedural execution models, such as those used in operating systems, manage task control. At the core of the Operating Systems model, we have a kernel that manages processes that can create multiple threads. Each thread has its own call stacks onto which it can push frames of procedures, AKA functions. In a typical CPU architecture, a procedure can call a new procedure, but it must be encapsulated in a new frame along with a return address to its original caller. The design yields a powerful programming paradigm that allows us to carry out complex recursive computations. However, it is surprisingly limited in autonomous systems or robotic policy representations, because a function cannot call itself without creating a new frame on the stack.
 
 <img src="docs/FunctionCallStackDiagram.png" alt="Function Call Stack Example" width="600"/>
 
 Because procedures in OS models cannot refer back to its original frame in the next execution cycle, it cannot in theory model an FSM which requires that a state be able to return back to itself across a temporal dimension. Even BT and HTN, which have recursive call structure, require that leaf nodes be able to continue running until they are ready to give control back to the parent composite. Thus, without an additional level of abstraction over procedural programming, it is impossible to achieve the kind of mechanisms desired by all currently existing autonomous policy representations such as FSM and BT (it must be noted that existing implementations of FSM and BT are in fact more than just a procedural programming paradigm). Therefore, there is a strong indication that there exists an alternative minimal system structure to emulate an autonomous agent - possibly even mimicking self-awareness to slightly exaggerate.
 
-By encapsulating a function in an object structure, allowing free-form manipulation of the stack by the functions, and finally converting the responsibility of the call stack to that of keeping traces of object frames rather than procedure frames, we can achieve a fundamentally different type of computational paradigm that allows for the unification of various robotic policy representations. Additionally, flexible manipulation of the stack and clever use of OOP techniques allow each behavior or task to be able to gather hierarchical contextual information that could be used to create context aware adaptiveness and interruptibility in run time complexity that scales logarithmically with the number of tasks within a BT or HTN. That is practically in constant time.
+By encapsulating a function in an object structure, allowing free-form manipulation of the stack by the functions, and finally converting the responsibility of the call stack to that of keeping traces of object frames rather than procedure frames, we can achieve a fundamentally different type of computational paradigm that allows for the unification of various robotic policy representations. Additionally, flexible manipulation of the stack and clever use of OOP techniques allow each behavior or task to be able to gather hierarchical contextual information that could be used to create context aware adaptiveness and interruptibility in run time complexity that scales linearly in worst case with the number of tasks within a BT or HTN. In practice that is a constant operation.
 
 For example, if we imagine a task such as "EatBehavior", we can quickly decompose this into a hierarchical structure. EatBehavior (sequence) requires that we have enough food (selector) and then finally eat it - a primitive, non-decomposable task that we will also refer to as *atomic operation*. Consequently having enough food requires that we look into our inventory, and atomic logical operation, and on failure to find food in the inventory, we must perform the action of getting food (sequence). An action of getting food requires that we have enough cash (another selector) and then finally purchase food. Having enough cash involves checking our wallet, then on low cash we can perform the action of withdrawing cash. Purchasing food and withdrawing cash are, of course, decomposable actions themselves.
 
 <img src="docs/EatBehaviorTree.png" alt="Eat Behavior Tree" width="600"/>
 
-The reason for pausing further description of the tree is not solely for brevity, but also to point out a recurring pattern: 
+At this point, we can notice a recurring pattern: 
 
-1. Sequence composing a selector followed by atomic action or another composite:
-    -  Enforce success of the former, before performing the latter.
+1. A Sequence node composed of a Selector followed by atomic action or another composite:
+    -  Enforces success of the former, before performing the latter.
 
-2. Selector composing an atomic logical operation followed by an atomic action or another sequence:
-    - Enforce failure of a condition before taking an action to realize a goal.
-    - Do return SUCCESS if the goal has been or was already realized. This ties it back together with a parent sequence composite which wishes to know if a requirement has been met in order to proceed with its own tasks. We are simply delegating that responsibility of checking the requirements to a selector composite.
+2. A Selector composed of an atomic logical operation followed by an atomic action or another sequence:
+    - Enforces failure of a condition before taking an action to realize a goal or requirements.
+    - Returns SUCCESS if the goal has already been achieved. It signals to a parent sequence composite a requirement has been met and can continue with the next tasks in the sequence. We are simply delegating the checking responsibility to a selector composite.
 
-Another layer of complexity:
+Another layer of complexity arises when we consider temporal persistence of conditions:
 
 1. When we are enforcing a requirement in order to continue with a task in a sequence, we have to decide whether the requirement SUCCESS persists over time. If a requirement must hold over time, then the current action must query the parent node to verify said persistence. If the result is FAILURE, then we can/must terminate the action prematurely.  
     - In other words, if *I* am performing something because I have met a certain requirement, but that requirement doesn't hold anymore, then I should stop doing what I'm doing. 
@@ -137,7 +126,7 @@ Another layer of complexity:
 2. When we are enforcing a requirement to fail in order to continue with a task in a selector, we have to decide whether the requirement FAILURE persists over time. If a requirement must persistently fail, then the current action must query the parent node to verify the said persistence. If the result is SUCCESS, then we can/must terminate the action prematurely.  
     - In other words, if *I* am doing something so that I may realize a goal, but that goal has already been achieved, then I no longer have to do what I'm currently doing.
 
-Interestingly, through independent system design and practical reasoning, this project reached the same conclusion as the cognitive-computational model illustrated in a work by Georgeff et al [tbd], *The Belief-Desire-Intention Model of Agency* (BDI). The work envisions an intelligent system whose actions are driven by *Desire* and controlled by Beliefs and Intention. At the top level of our "EatBehavior" tree, the implicit desire (but explicitly programmed within the main controller FSM) is to be satiated as a form of a selector. The belief, on the other hand, would be whether we are indeed satiated or not, and the intention is to engage in "EatBehavior" if we happen to be hungry. However, a selector is not the only form of desire that breaks down into a belief and intention. A decomposable task or a sequence is, in and of itself, a desire to perform a task, and hence requires a decomposition into a belief and intention. For instance, the desire to get food requires that we have enough cash before we can purchase food, meaning that we must believe that we have enough cash before even having the intent to purchase food. 
+Interestingly, through independent system design and practical reasoning, this project reached the same conclusion as the cognitive-computational model illustrated in a work by Georgeff et al. [11], *The Belief-Desire-Intention Model of Agency* (BDI). The work envisions an intelligent system whose actions are driven by *Desire* and controlled by Beliefs and Intention. At the top level of our "EatBehavior" tree, the implicit desire (but explicitly programmed within the main controller FSM) is to be satiated as a form of a selector. The belief, on the other hand, would be whether we are indeed satiated or not, and the intention is to engage in "EatBehavior" if we happen to be hungry. However, a selector is not the only form of desire that breaks down into a belief and intention. A decomposable task or a sequence is, in and of itself, a desire to perform a task, and hence requires a decomposition into a belief and intention. For instance, the desire to get food requires that we have enough cash before we can purchase food, meaning that we must believe that we have enough cash before even having the intent to purchase food.
 
 This symmetry rises from the operational equivalence of a sequence and a selector. In both composites, the continuation of subsequent leaf nodes depends on the previous leaves' results and the persistence of those results. Meaning, placing a leaf node before another necessitates the former to act as an element of belief. The term *Desire* simply encapsulates this patterned operation, whereas *Intention* serves as a semantically distinguishable form of decomposable or atomic actions such as verbs in grammar.
 
@@ -197,6 +186,12 @@ Step function of an FSM task, algorithmically speaking, is really simple. It tak
 ![δ_system evolution](docs/FSM.png)  
 ![δ_system evolution](docs/FlexFSM.png)  
 
+Finally, the state diagram above shows the true power of TSM. Instead of having to rely on two separate systems for BT and FSM, we can now directly invoke a BT from an FSM. The state four in the diagram has the option to run a sequence node on specified inputs. To achieve that, it simply needs to push itself back onto the stack, then push the sequence task, and then finally return RUNNING. When the sequence completes with SUCCESS or FAILURE, the caller, state four, will receive the status message. 
+
+In the Unity comprehensive demo, civilian control flow, civilian health monitor and EMS control flow are all examples of finite state machine, and they demonstrate the flexible use of TSM for practical applications. Both civilian control flow and EMS control flow are single-state machines responsible for invoking their respective behavior trees. Civilians require "EatBehavior" on low health, whereas EMS vehicles require "TransportPatient" behavior on emergency call notification. 
+
+Civilian health monitor is a cyclic loop of three distinct states responsible for enforcing health states of civilians. As long as the civilians' health are above a certain level, this machine will stay in an idle state. Once it is below that threshold, it first acts as a kill-switch to the parallel civilian control flow and then transition to an unconscious state. Once it is in the unconscious state, the EMS, an external agent, is responsible for notifying the health monitor that their respective civilian is free to wake up. Once that message has been received, unconscious state will transition to a recovery state where civilians will passively gain health points until health is above a set threshold. Finally, the health monitor will resume the civilian's activity by reinstantiating the civilian control flow and transitioning back into the health monitor idle state.   
+
 ## References
 
 1. Erol, K., Hendler, J. A., & Nau, D. S. (1994, June). UMCP: A sound and complete procedure for hierarchical task-network planning. In Aips (Vol. 94, pp. 249-254).
@@ -215,3 +210,4 @@ Step function of an FSM task, algorithmically speaking, is really simple. It tak
 14. EugenyN, *BehaviorTrees*, GitHub repository, [Online]. Available: https://github.com/EugenyN/BehaviorTrees
 15. Eraclys, *BehaviourTree*, GitHub repository, [Online]. Available: https://github.com/Eraclys/BehaviourTree
 16. BlueJayXRStudio, *InfiniteTree*, GitHub repository, [Online]. Available: https://github.com/BlueJayXRStudio/InfiniteTree
+17. Zutell, J. M., Conner, D. C., & Schillinger, P. (2022). Flexible behavior trees: In search of the mythical HFSMBTH for collaborative autonomy in robotics. arXiv preprint arXiv:2203.05389.

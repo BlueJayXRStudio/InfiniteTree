@@ -192,6 +192,23 @@ In the Unity comprehensive demo, civilian control flow, civilian health monitor 
 
 Civilian health monitor is a cyclic loop of three distinct states responsible for enforcing health states of civilians. As long as the civilians' health are above a certain level, this machine will stay in an idle state. Once it is below that threshold, it first acts as a kill-switch to the parallel civilian control flow and then transition to an unconscious state. Once it is in the unconscious state, the EMS, an external agent, is responsible for notifying the health monitor that their respective civilian is free to wake up. Once that message has been received, unconscious state will transition to a recovery state where civilians will passively gain health points until health is above a set threshold. Finally, the health monitor will resume the civilian's activity by reinstantiating the civilian control flow and transitioning back into the health monitor idle state.   
 
+## Discussion and Conclusion
+
+This work demonstrates that the Task Stack Machine (TSM) provides a minimal yet powerful framework for unifying diverse planning strategies, including Behavior Trees (BTs), Finite State Machines (FSMs), and Goal-Oriented Action Planning (GOAP), under a single recursive task-execution model. By treating tasks as reentrant objects operating on a shared stack, TSM enables belief-sensitive intention execution, real-time interruptibility, and modular control flow, all through a highly compact architecture. Core constructs like Sequence and Selector composites, as well as FSM-like transitions, arise naturally from the design using an engine of fewer than 20 lines of code.
+
+One of the most significant outcomes is that cognitive semantics emerge structurally from the system. Belief-checking precedes intention execution, and early termination occurs automatically when belief conditions are no longer met, reflecting the key principles of the Belief-Desire-Intention (BDI) model [11]. This convergence was not imposed a priori but surfaced organically through iterative system design, reinforcing the model's cognitive validity and practical relevance.
+
+To evaluate TSM beyond theory, we developed a working Unity based demo simulating agent interactions in an autonomous urban environment. The scenario includes civilians governed by behavior trees, health monitors implemented as FSMs, and EMS vehicles responding to health events. All agents operate within the TSM protocol, allowing for clean task invocation, belief-driven termination, and reusability of behaviors across contexts. Notably, belief changes mid-execution (e.g., gaining health, finding food, or running out of cash) correctly trigger early exits from ongoing behaviors, a difficult challenge for conventional BT or FSM systems to handle without considerable manual logic.
+
+These results suggest TSM is especially well-suited for domains where behavior modularity, reusability, and context-aware responsiveness are paramount, including game AI, robotics, simulation, and interactive agents. Its object-oriented structure also supports integration with learning algorithms or graph-based optimizations, where interpretable, traceable policy structures are desirable.
+
+That said, the framework is not without limitations. The recursive stack introspection required for belief re-evaluation can be harder to debug in large or deeply nested trees without proper tooling. Additionally, some ambiguity remains around belief persistence in non-logical atomic actions, which may require domain-specific conventions or extensions to the framework.
+
+Future work will explore more formalized integrations with linear temporal logic (LTL), multi-valued logic systems, and reinforcement learning pipelines where traceable, goal-conditioned behavior policies are increasingly important.
+
+The complete implementation, including source code and demo, is available as an open-source Unity project. Overall, the Task Stack Machine shows that intention-aware, belief-responsive task planning is not only theoretically elegant, but also highly practical, and achievable with minimal computational overhead.
+
+
 ## References
 
 1. Erol, K., Hendler, J. A., & Nau, D. S. (1994, June). UMCP: A sound and complete procedure for hierarchical task-network planning. In Aips (Vol. 94, pp. 249-254).

@@ -2,8 +2,6 @@
 **Affiliation:** BlueJayXRStudio (formerly BlueJayVRStudio)  
 **Contact:** BlueJayVRStudio@gmail.com  
 
-WORK IN PROGRESS
-
 # Task Stack Machine: An "Infinite" Tree for Unified Task Planning
 
 <p align="center"> <img src="docs/ENOUGH_CASH_TO_ATM.gif"/> </p>

@@ -103,6 +103,8 @@ Because procedures in OS models cannot refer back to its original frame in the n
 
 By encapsulating a function in an object structure, allowing free-form manipulation of the stack by the functions, and finally converting the responsibility of the call stack to that of keeping traces of object frames rather than procedure frames, we can achieve a fundamentally different type of computational paradigm that allows for the unification of various robotic policy representations. Additionally, flexible manipulation of the stack and clever use of OOP techniques allow each behavior or task to be able to gather hierarchical contextual information that could be used to create context aware adaptiveness and interruptibility in run time complexity that scales linearly in worst case with the number of tasks within a BT or HTN. In practice that is a constant operation.
 
+### TSM in Practice
+
 For example, if we imagine a task such as "EatBehavior", we can quickly decompose this into a hierarchical structure. EatBehavior (sequence) requires that we have enough food (selector) and then finally eat it - a primitive, non-decomposable task that we will also refer to as *atomic operation*. Consequently having enough food requires that we look into our inventory, and atomic logical operation, and on failure to find food in the inventory, we must perform the action of getting food (sequence). An action of getting food requires that we have enough cash (another selector) and then finally purchase food. Having enough cash involves checking our wallet, then on low cash we can perform the action of withdrawing cash. Purchasing food and withdrawing cash are, of course, decomposable actions themselves.
 
 <img src="docs/EatBehaviorTree.png" alt="Eat Behavior Tree" width="600"/>
@@ -138,7 +140,7 @@ In our "EatBehavior" tree we have three distinct decision paths:
 2. not enough health -> not enough food -> enough cash -> To Grocery Store
 3. not enough health -> not enough food -> not enough cash -> To ATM
 
-In all three cases, suddenly having enough health should override the current action of either eating food, going to the grocery store or going to the ATM. In cases two and three, having enough food should override the action of going to the grocery store or the ATM. Finally, having enough cash should override the action of going to the ATM. Although this kind of logic can be implemented using a blackboard and an FSM or BT, without a clear structure or strategy to accomodate requirements and interruptibility, we will inevitably face combinatorial explosion in development time and riddles in safety verifications and reachability analysis. For example, something that might have caught many developers off is the fact that suddenly not having enough food should also override the action of eating food. Similarly, suddenly not having enough cash on the way to the grocery store should prompt the agent to terminate its action of going to the grocery store. For anyone, that is simply way too many edge cases to handle without a structured approach. However, by taking advantage of cognitive models in task management such as that suggested by BDI and combining it with the computational model of Task Stack Machine and recursive Task to Task invocations, we can easily implement a system to automatically handle all of these termination cases. Practical demonstration is provided in this GitHub repository [16].
+In all three cases, suddenly having enough health should override the current action of either eating food, going to the grocery store or going to the ATM. In cases two and three, having enough food should override the action of going to the grocery store or the ATM. Finally, having enough cash should override the action of going to the ATM. Although this kind of logic can be implemented using a blackboard and an FSM or BT, without a clear structure or strategy to accommodate requirements and interruptibility, we will inevitably face combinatorial explosion in development time and riddles in safety verifications and reachability analysis. For example, something that might have caught many developers off is the fact that suddenly not having enough food should also override the action of eating food. Similarly, suddenly not having enough cash on the way to the grocery store should prompt the agent to terminate its action of going to the grocery store. For anyone, that is simply way too many edge cases to handle without a structured approach. However, by taking advantage of cognitive models in task management such as that suggested by BDI and combining it with the computational model of Task Stack Machine and recursive Task to Task invocations, we can easily implement a system to automatically handle all of these termination cases. Practical demonstration is provided in this GitHub repository [16].
 
 #### Enough Health interrupts Going To Store
 <p align="left"> <img src="docs/ENOUGH_HP_TO_STORE.gif"/> </p>
@@ -158,6 +160,8 @@ In all three cases, suddenly having enough health should override the current ac
 #### Enough Cash interrupts Going To ATM
 <p align="left"> <img src="docs/ENOUGH_CASH_TO_ATM.gif"/> </p>
 
+
+## TSM Sample Components
 
 ### TSM Sequence Composite Design
 
@@ -209,20 +213,20 @@ The complete implementation, including source code and demo, is available as an 
 
 ## References
 
-1. Erol, K., Hendler, J. A., & Nau, D. S. (1994, June). UMCP: A sound and complete procedure for hierarchical task-network planning. In Aips (Vol. 94, pp. 249-254).
-2. Orkin, J. (2006, March). Three states and a plan: the AI of FEAR. In Game developers conference (Vol. 2006, p. 4). SanJose, California: CMP Game Group.
-3. Jeff, O. R. K. I. N. (2003). Applying goal-oriented action planning to games. AI game programming wisdom, 2, 217-228.
-4. Rajeev Alur, Michael Benedikt, Kousha Etessami, Patrice Godefroid, Thomas Reps, and Mihalis Yannakakis. 2005. Analysis of recursive state machines. ACM Trans. Program. Lang. Syst. 27, 4 (July 2005), 786–818. https://doi.org/10.1145/1075382.1075387
-5. John E. Hopcroft, Rajeev Motwani, and Jeffrey D. Ullman. 2001. Introduction to automata theory, languages, and computation, 2nd edition. SIGACT News 32, 1 (March 2001), 60–65. https://doi.org/10.1145/568438.568455
-6. Andrew S. Tanenbaum and Herbert Bos. 2014. Modern Operating Systems (4th. ed.). Prentice Hall Press, USA.
-7. Clarke, E. M., Grumberg, O., & Peled, D. A. (1999). Model checking. MIT Press.
-8. Turing, A.M. (1937), On Computable Numbers, with an Application to the Entscheidungsproblem. Proceedings of the London Mathematical Society, s2-42: 230-265. https://doi.org/10.1112/plms/s2-42.1.230
-9. Iovino, M., Förster, J., Falco, P., Chung, J. J., Siegwart, R., & Smith, C. (2024). Comparison between Behavior Trees and Finite State Machines. arXiv preprint arXiv:2405.16137.
-10. Corrado Pezzato, Carlos Hernández Corbato, Stefan Bonhof, and Martijn Wisse. 2023. Active Inference and Behavior Trees for Reactive Action Planning and Execution in Robotics. Trans. Rob. 39, 2 (April 2023), 1050–1069. https://doi.org/10.1109/TRO.2022.3226144
-11. Michael P. Georgeff, Barney Pell, Martha E. Pollack, Milind Tambe, and Michael Wooldridge. 1998. The Belief-Desire-Intention Model of Agency. In Proceedings of the 5th International Workshop on Intelligent Agents V, Agent Theories, Architectures, and Languages (ATAL '98). Springer-Verlag, Berlin, Heidelberg, 1–10.
-12. Epic Games, *Behavior Trees in Unreal Engine*, Unreal Engine Documentation, [Online]. Available: https://dev.epicgames.com/documentation/en-us/unreal-engine/behavior-trees-in-unreal-engine. [Accessed: Mar. 27, 2025].
-13. Splintered Reality, *py_trees*, GitHub repository, [Online]. Available: https://github.com/splintered-reality/py_trees
-14. EugenyN, *BehaviorTrees*, GitHub repository, [Online]. Available: https://github.com/EugenyN/BehaviorTrees
-15. Eraclys, *BehaviourTree*, GitHub repository, [Online]. Available: https://github.com/Eraclys/BehaviourTree
-16. BlueJayXRStudio, *InfiniteTree*, GitHub repository, [Online]. Available: https://github.com/BlueJayXRStudio/InfiniteTree
-17. Zutell, J. M., Conner, D. C., & Schillinger, P. (2022). Flexible behavior trees: In search of the mythical HFSMBTH for collaborative autonomy in robotics. arXiv preprint arXiv:2203.05389.
+1. Epic Games. Behavior trees in unreal engine. https://dev.epicgames.com/documentation/en-us/unreal-engine/behavior-trees-in-unreal-engine, 2025. Unreal Engine Documentation.
+2. Splintered Reality. py_trees. https://github.com/splintered-reality/py_trees, 2025. GitHub repository.
+3. Eraclys. Behaviourtree. https://github.com/Eraclys/BehaviourTree, 2025. GitHub repository.
+4. EugenyN. Behaviortrees. https://github.com/EugenyN/BehaviorTrees, 2025. GitHub repository.
+5. Kutluhan Erol, James A Hendler, and Dana S Nau. Umcp: A sound and complete procedure for hierarchical task-network planning. In Aips, volume 94, pages 249–254, 1994.
+6. Jeff Orkin. Three states and a plan: the ai of fear. In Game developers conference, volume 2006, page 4. Citeseer, 2006.
+7. ORKIN Jeff. Applying goal-oriented action planning to games. AI game programming wisdom, 2:217–228, 2003.
+8. John E Hopcroft, Rajeev Motwani, and Jeffrey D Ullman. Introduction to automata theory, languages, and computation. Acm Sigact News, 32(1):60–65, 2001.
+9. Matteo Iovino, Julian Förster, Pietro Falco, Jen Jen Chung, Roland Siegwart, and Christian Smith. Comparison between behavior trees and finite state machines. arXiv preprint arXiv:2405.16137, 2024.
+10. Corrado Pezzato, Carlos Hernández Corbato, Stefan Bonhof, and Martijn Wisse. Active inference and behavior trees for reactive action planning and execution in robotics. IEEE Transactions on Robotics, 39(2):1050–1069, 2023.
+11. Joshua M Zutell, David C Conner, and Philipp Schillinger. Flexible behavior trees: In search of the mythical hfsmbth for collaborative autonomy in robotics. arXiv preprint arXiv:2203.05389, 2022.
+12. Rajeev Alur, Michael Benedikt, Kousha Etessami, Patrice Godefroid, Thomas Reps, and Mihalis Yannakakis. Analysis of recursive state machines. ACM Transactions on Programming Languages and Systems (TOPLAS), 27(4):786–818, 2005.
+13. Edmund M Clarke. Model checking. In Foundations of Software Technology and Theoretical Computer Science: 17th Conference Kharagpur, India, December 18–20, 1997 Proceedings 17, pages 54–56. Springer, 1997.
+14. Michael Georgeff, Barney Pell, Martha Pollack, Milind Tambe, and Michael Wooldridge. The belief-desireintention model of agency. In Intelligent Agents V: Agents Theories, Architectures, and Languages: 5th International Workshop, ATAL’98 Paris, France, July 4–7, 1998 Proceedings 5, pages 1–10. Springer, 1999.
+15. Andrew S Tanenbaum and Herbert Bos. Modern operating systems. Pearson Education, Inc., 2015.
+16. Alan Mathison Turing et al. On computable numbers, with an application to the entscheidungsproblem. J. of Math, 58(345-363):5, 1936.
+17. BlueJayXRStudio. Infinitetree. https://github.com/BlueJayXRStudio/InfiniteTree, 2025. GitHub repository.

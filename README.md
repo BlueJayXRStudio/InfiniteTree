@@ -17,11 +17,7 @@ Using Unity 2022.3.9f1 (Long Term Support)
 
 ## Abstract
 
-This paper introduces the Task Stack Machine (TSM), a minimal and general-purpose framework for agent behavior execution that unifies procedural and reactive planning models, such as Behavior Trees (BT), Finite State Machines (FSM), and Goal-Oriented Action Planning (GOAP). At the core of TSM is a globally accessible stack and a set of task status messages (RUNNING, SUCCESS, FAILURE) that enable recursive task invocation, early termination, and belief-aware control flow. We show that common composites like Sequence and Selector, as well as FSM transitions, emerge naturally from this structure using less than 20 lines of code.
-
-TSM provides a structural alternative to the call stack model in classical procedural systems, allowing tasks to re-enter themselves or parent composites without adding new frames, thus capturing intention persistence and interruptibility over time. Interestingly, the framework independently converges on cognitive patterns aligned with the Belief-Desire-Intention (BDI) model of agency, with belief conditions embedded in the structure and flow of the tree itself.
-
-We present formal definitions, illustrative diagrams, and a Unity-based demonstration. Our implementation shows that TSM enables scalable, interruptible behaviors without combinatorial explosion, offering a reusable foundation for complex agent behavior in games, robotics, and simulation systems.
+This paper introduces the Task Stack Machine (TSM), a minimal and general-purpose framework for agent behavior execution that unifies procedural and reactive planning models, such as Behavior Trees (BT), Finite State Machines (FSM), and Goal-Oriented Action Planning (GOAP). At the core of TSM is a globally accessible stack and a set of task status messages (RUNNING, SUCCESS, FAILURE) that enable recursive task invocation, early termination, and belief-aware control flow. We show that common composites like Sequence and Selector, as well as FSM transitions, emerge naturally from this structure using less than 20 lines of code. TSM provides a structural alternative to the call stack model in classical procedural systems, allowing tasks to re-enter themselves or parent composites without adding new frames, thus capturing intention persistence and interruptibility over time. Interestingly, the framework independently converges on cognitive patterns aligned with the Belief-Desire-Intention (BDI) model of agency, with belief conditions embedded in the structure and flow of the tree itself. We present formal definitions, illustrative diagrams, and a Unity-based demonstration. Our implementation shows that TSM enables scalable, interruptible behaviors without combinatorial explosion, offering a reusable foundation for complex agent behavior in games, robotics, and simulation systems.
 
 ## Introduction
 
@@ -210,6 +206,9 @@ Future work will explore more formalized integrations with linear temporal logic
 
 The complete implementation, including source code and demo, is available as an open-source Unity project. Overall, the Task Stack Machine shows that intention-aware, belief-responsive task planning is not only theoretically elegant, but also highly practical, and achievable with minimal computational overhead.
 
+## Acknowledgments
+
+This work was sponsored by beloved supporters of BlueJayXRStudio (formerly BlueJayVRStudio)!
 
 ## References
 

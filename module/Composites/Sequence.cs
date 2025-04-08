@@ -38,17 +38,16 @@ public class Sequence : Behavior
 
     public override Status CheckRequirement()
     {
-        for (int i = 0; i < PrevActions.Count - Convert.ToInt32(!Finished); i++) {
+        if (Finished)
+            return Status.FAILURE;
+
+        for (int i = 0; i < PrevActions.Count - 1; i++) {
             var result = PrevActions[i].CheckRequirement();
             if (result != Status.SUCCESS)
-            {
-                // Debug.Log($"{Finished} and Status.FAILURE from Sequence");
                 return Status.FAILURE;
-            }
         }
-        if (!Finished)
-            return Status.RUNNING;
-        return Status.SUCCESS;
+
+        return Status.RUNNING;
     }
 
 

@@ -42,7 +42,6 @@ public class Selector : Behavior
         for (int i = 0; i < PrevActions.Count - Convert.ToInt32(!Finished); i++) {
             var result = PrevActions[i].CheckRequirement();
             if (result != Status.FAILURE)
-                // Debug.Log($"{Finished} and Status.SUCCESS from Selector");
                 return Status.SUCCESS;
         }
         if (!Finished)
